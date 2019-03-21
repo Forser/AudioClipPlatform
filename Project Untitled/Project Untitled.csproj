@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>Project_Untitled</RootNamespace>
+    <UserSecretsId>29cad7a0-9aa3-4d7c-8997-9a181caec87d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,14 +13,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="SendGrid" Version="9.10.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\ViewModels\" />
     <Folder Include="Components\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Account\" />
     <Folder Include="wwwroot\" />
     <Folder Include="TagHelpers\" />
   </ItemGroup>
