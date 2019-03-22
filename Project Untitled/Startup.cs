@@ -27,7 +27,7 @@ namespace Project_Untitled
             });
 
             services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:ProjectUntitled:ConnectionString"]));
-            services.AddIdentity<UserHandler, IdentityRole>(options =>
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 // Password Requirements
                 options.Password.RequireDigit = true;
@@ -57,6 +57,7 @@ namespace Project_Untitled
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<ISettingsRepository, SettingsRepository>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddMemoryCache();

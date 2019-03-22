@@ -73,9 +73,6 @@ namespace Project_Untitled.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -115,8 +112,6 @@ namespace Project_Untitled.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -237,18 +232,20 @@ namespace Project_Untitled.Migrations
 
                     b.Property<bool>("TipsAndOffersEmail");
 
-                    b.Property<string>("UserHandlerId");
+                    b.Property<int?>("UserHandlerUserId");
 
                     b.HasKey("NotificationId");
 
-                    b.HasIndex("UserHandlerId");
+                    b.HasIndex("UserHandlerUserId");
 
                     b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Project_Untitled.Models.UserHandler", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("AllowMessages");
 
@@ -274,6 +271,8 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("OwnerId");
+
                     b.Property<string>("Periscope");
 
                     b.Property<string>("ProfileImage");
@@ -288,7 +287,9 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("YouTube");
 
-                    b.HasDiscriminator().HasValue("UserHandler");
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserHandler");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -340,7 +341,7 @@ namespace Project_Untitled.Migrations
                 {
                     b.HasOne("Project_Untitled.Models.UserHandler")
                         .WithMany("Notifications")
-                        .HasForeignKey("UserHandlerId");
+                        .HasForeignKey("UserHandlerUserId");
                 });
 #pragma warning restore 612, 618
         }

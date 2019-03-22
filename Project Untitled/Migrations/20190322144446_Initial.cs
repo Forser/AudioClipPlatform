@@ -40,10 +40,22 @@ namespace Project_Untitled.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserHandler",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OwnerId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    DOB = table.Column<DateTime>(nullable: true),
+                    DOB = table.Column<DateTime>(nullable: false),
                     Gender = table.Column<string>(nullable: true),
                     Location = table.Column<string>(nullable: true),
                     Biography = table.Column<string>(nullable: true),
@@ -60,11 +72,11 @@ namespace Project_Untitled.Migrations
                     FacebookLive = table.Column<string>(nullable: true),
                     Periscope = table.Column<string>(nullable: true),
                     LiveStream = table.Column<string>(nullable: true),
-                    AllowMessages = table.Column<bool>(nullable: true)
+                    AllowMessages = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.PrimaryKey("PK_UserHandler", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -202,16 +214,16 @@ namespace Project_Untitled.Migrations
                     TipsAndOffersDevice = table.Column<bool>(nullable: false),
                     NewsLetterEmail = table.Column<bool>(nullable: false),
                     NewsLetterDevice = table.Column<bool>(nullable: false),
-                    UserHandlerId = table.Column<string>(nullable: true)
+                    UserHandlerUserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Notifications", x => x.NotificationId);
                     table.ForeignKey(
-                        name: "FK_Notifications_AspNetUsers_UserHandlerId",
-                        column: x => x.UserHandlerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        name: "FK_Notifications_UserHandler_UserHandlerUserId",
+                        column: x => x.UserHandlerUserId,
+                        principalTable: "UserHandler",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -255,9 +267,9 @@ namespace Project_Untitled.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notifications_UserHandlerId",
+                name: "IX_Notifications_UserHandlerUserId",
                 table: "Notifications",
-                column: "UserHandlerId");
+                column: "UserHandlerUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -285,6 +297,9 @@ namespace Project_Untitled.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "UserHandler");
         }
     }
 }

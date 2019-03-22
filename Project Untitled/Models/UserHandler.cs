@@ -1,11 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Project_Untitled.Models
 {
-    public class UserHandler : IdentityUser
+    public class UserHandler
     {
+        [Key]
+        public int UserId { get; set; }
+
+        // Reference to IdentityUser ID.
+        public string OwnerId { get; set; }
+
         // User Data
         [PersonalData]
         public string Name { get; set; }
@@ -55,5 +62,6 @@ namespace Project_Untitled.Models
 
         // Blacklisted Users
         // public List<IdentityUser> BlacklistedUsers { get; set; }
+
     }
 }
