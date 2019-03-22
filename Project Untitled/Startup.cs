@@ -26,8 +26,8 @@ namespace Project_Untitled
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:ProjectUntitledAccounts:ConnectionString"]));
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:ProjectUntitled:ConnectionString"]));
+            services.AddIdentity<UserHandler, IdentityRole>(options =>
             {
                 // Password Requirements
                 options.Password.RequireDigit = true;

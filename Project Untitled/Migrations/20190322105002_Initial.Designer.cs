@@ -10,7 +10,7 @@ using Project_Untitled.Models;
 namespace Project_Untitled.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20190321162138_Initial")]
+    [Migration("20190322105002_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,6 +75,9 @@ namespace Project_Untitled.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -114,6 +117,8 @@ namespace Project_Untitled.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -182,6 +187,112 @@ namespace Project_Untitled.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Project_Untitled.Models.Notifications", b =>
+                {
+                    b.Property<int>("NotificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("CommentOnYourPostDevice");
+
+                    b.Property<bool>("CommentOnYourPostEmail");
+
+                    b.Property<bool>("DesktopNotification");
+
+                    b.Property<bool>("LikeOnYourPostDevice");
+
+                    b.Property<bool>("LikeOnYourPostEmail");
+
+                    b.Property<bool>("NewFeatureDevice");
+
+                    b.Property<bool>("NewFeatureEmail");
+
+                    b.Property<bool>("NewFollowerDevice");
+
+                    b.Property<bool>("NewFollowerEmail");
+
+                    b.Property<bool>("NewMessageDevice");
+
+                    b.Property<bool>("NewMessageEmail");
+
+                    b.Property<bool>("NewPostByFollowedUserDevice");
+
+                    b.Property<bool>("NewPostByFollowedUserEmail");
+
+                    b.Property<bool>("NewsLetterDevice");
+
+                    b.Property<bool>("NewsLetterEmail");
+
+                    b.Property<bool>("RepostOfPostDevice");
+
+                    b.Property<bool>("RepostOfPostEmail");
+
+                    b.Property<bool>("SuggestedContentDevice");
+
+                    b.Property<bool>("SuggestedContentEmail");
+
+                    b.Property<bool>("SurveyAndFeedbackDevice");
+
+                    b.Property<bool>("SurveyAndFeedbackEmail");
+
+                    b.Property<bool>("TipsAndOffersDevice");
+
+                    b.Property<bool>("TipsAndOffersEmail");
+
+                    b.Property<string>("UserHandlerId");
+
+                    b.HasKey("NotificationId");
+
+                    b.HasIndex("UserHandlerId");
+
+                    b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.UserHandler", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<bool>("AllowMessages");
+
+                    b.Property<string>("Biography");
+
+                    b.Property<DateTime>("DOB");
+
+                    b.Property<string>("Facebook");
+
+                    b.Property<string>("FacebookLive");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("HeaderImage");
+
+                    b.Property<string>("Instagram");
+
+                    b.Property<string>("LiveStream");
+
+                    b.Property<string>("Location");
+
+                    b.Property<string>("Mixer");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Periscope");
+
+                    b.Property<string>("ProfileImage");
+
+                    b.Property<string>("Reddit");
+
+                    b.Property<string>("Tumblr");
+
+                    b.Property<string>("Twitch");
+
+                    b.Property<string>("Twitter");
+
+                    b.Property<string>("YouTube");
+
+                    b.HasDiscriminator().HasValue("UserHandler");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -225,6 +336,13 @@ namespace Project_Untitled.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.Notifications", b =>
+                {
+                    b.HasOne("Project_Untitled.Models.UserHandler")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserHandlerId");
                 });
 #pragma warning restore 612, 618
         }

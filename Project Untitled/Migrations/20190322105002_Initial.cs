@@ -40,7 +40,27 @@ namespace Project_Untitled.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    DOB = table.Column<DateTime>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    Biography = table.Column<string>(nullable: true),
+                    ProfileImage = table.Column<string>(nullable: true),
+                    HeaderImage = table.Column<string>(nullable: true),
+                    Twitter = table.Column<string>(nullable: true),
+                    Facebook = table.Column<string>(nullable: true),
+                    Instagram = table.Column<string>(nullable: true),
+                    Tumblr = table.Column<string>(nullable: true),
+                    Reddit = table.Column<string>(nullable: true),
+                    Twitch = table.Column<string>(nullable: true),
+                    Mixer = table.Column<string>(nullable: true),
+                    YouTube = table.Column<string>(nullable: true),
+                    FacebookLive = table.Column<string>(nullable: true),
+                    Periscope = table.Column<string>(nullable: true),
+                    LiveStream = table.Column<string>(nullable: true),
+                    AllowMessages = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -153,6 +173,48 @@ namespace Project_Untitled.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    NotificationId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DesktopNotification = table.Column<bool>(nullable: false),
+                    NewFollowerEmail = table.Column<bool>(nullable: false),
+                    NewFollowerDevice = table.Column<bool>(nullable: false),
+                    RepostOfPostEmail = table.Column<bool>(nullable: false),
+                    RepostOfPostDevice = table.Column<bool>(nullable: false),
+                    NewPostByFollowedUserEmail = table.Column<bool>(nullable: false),
+                    NewPostByFollowedUserDevice = table.Column<bool>(nullable: false),
+                    LikeOnYourPostEmail = table.Column<bool>(nullable: false),
+                    LikeOnYourPostDevice = table.Column<bool>(nullable: false),
+                    CommentOnYourPostEmail = table.Column<bool>(nullable: false),
+                    CommentOnYourPostDevice = table.Column<bool>(nullable: false),
+                    SuggestedContentEmail = table.Column<bool>(nullable: false),
+                    SuggestedContentDevice = table.Column<bool>(nullable: false),
+                    NewMessageEmail = table.Column<bool>(nullable: false),
+                    NewMessageDevice = table.Column<bool>(nullable: false),
+                    NewFeatureEmail = table.Column<bool>(nullable: false),
+                    NewFeatureDevice = table.Column<bool>(nullable: false),
+                    SurveyAndFeedbackEmail = table.Column<bool>(nullable: false),
+                    SurveyAndFeedbackDevice = table.Column<bool>(nullable: false),
+                    TipsAndOffersEmail = table.Column<bool>(nullable: false),
+                    TipsAndOffersDevice = table.Column<bool>(nullable: false),
+                    NewsLetterEmail = table.Column<bool>(nullable: false),
+                    NewsLetterDevice = table.Column<bool>(nullable: false),
+                    UserHandlerId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.NotificationId);
+                    table.ForeignKey(
+                        name: "FK_Notifications_AspNetUsers_UserHandlerId",
+                        column: x => x.UserHandlerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -191,6 +253,11 @@ namespace Project_Untitled.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_UserHandlerId",
+                table: "Notifications",
+                column: "UserHandlerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -209,6 +276,9 @@ namespace Project_Untitled.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

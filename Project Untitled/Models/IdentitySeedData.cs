@@ -5,7 +5,7 @@ namespace Project_Untitled.Models
 {
     public static class IdentitySeedData
     {
-        public static async Task EnsurePopulated(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task EnsurePopulated(UserManager<UserHandler> userManager, RoleManager<IdentityRole> roleManager)
         {
             string userPassword = "Secret123$";
 
@@ -16,8 +16,10 @@ namespace Project_Untitled.Models
                 role.Name = "Admin";
                 await roleManager.CreateAsync(role);
 
-                var user = new IdentityUser();
+                var user = new UserHandler();
                 user.UserName = "Admin";
+                user.Email = "admin@admin.com";
+                user.EmailConfirmed = true;
 
                 IdentityResult chkUser = await userManager.CreateAsync(user, userPassword);
 
@@ -34,8 +36,10 @@ namespace Project_Untitled.Models
                 role.Name = "Moderator";
                 await roleManager.CreateAsync(role);
 
-                var user = new IdentityUser();
+                var user = new UserHandler();
                 user.UserName = "Moderator";
+                user.Email = "moderator@moderator.com";
+                user.EmailConfirmed = true;
 
                 IdentityResult chkUser = await userManager.CreateAsync(user, userPassword);
 
@@ -52,8 +56,10 @@ namespace Project_Untitled.Models
                 role.Name = "Member";
                 await roleManager.CreateAsync(role);
 
-                var user = new IdentityUser();
+                var user = new UserHandler();
                 user.UserName = "Forser";
+                user.Email = "marckus@gmail.com";
+                user.EmailConfirmed = true;
 
                 IdentityResult chkUser = await userManager.CreateAsync(user, userPassword);
 

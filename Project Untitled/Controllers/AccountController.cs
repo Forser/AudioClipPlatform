@@ -12,12 +12,12 @@ namespace Project_Untitled.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private UserManager<IdentityUser> userManager;
+        private UserManager<UserHandler> userManager;
         private RoleManager<IdentityRole> roleManager;
-        private SignInManager<IdentityUser> signInManager;
+        private SignInManager<UserHandler> signInManager;
         private readonly IEmailSender emailSender;
 
-        public AccountController(UserManager<IdentityUser> userMgr, RoleManager<IdentityRole> roleMgr, SignInManager<IdentityUser> signInMgr, IEmailSender emailSndr)
+        public AccountController(UserManager<UserHandler> userMgr, RoleManager<IdentityRole> roleMgr, SignInManager<UserHandler> signInMgr, IEmailSender emailSndr)
         {
             userManager = userMgr;
             roleManager = roleMgr;
@@ -40,7 +40,7 @@ namespace Project_Untitled.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await userManager.FindByNameAsync(loginViewModel.Name);
+                UserHandler user = await userManager.FindByNameAsync(loginViewModel.Name);
 
                 if (user != null)
                 {
@@ -167,7 +167,7 @@ namespace Project_Untitled.Controllers
                 var userFound = await userManager.FindByEmailAsync(registerViewModel.Email);
                 if(userFound == null)
                 {
-                    var user = new IdentityUser { UserName = registerViewModel.Name, Email = registerViewModel.Email };
+                    var user = new UserHandler { UserName = registerViewModel.Name, Email = registerViewModel.Email };
                     var result = await userManager.CreateAsync(user, registerViewModel.Password);
 
                     if (result.Succeeded)

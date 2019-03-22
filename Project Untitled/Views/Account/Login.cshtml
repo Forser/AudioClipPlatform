@@ -20,11 +20,7 @@
     </div>
     <button class="btn btn-primary" type="submit">Log In</button>
     <div class="form-group">
-        <p>
-            <a id="forgot-password" asp-controller="Account" asp-action="ForgotPassword">Forgot your password?</a>
-        </p>
-        <p>
-            <a asp-controller="Account" asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-        </p>
+        <span><a id="forgot-password" asp-controller="Account" asp-action="ForgotPassword">Forgot your password?</a> / </span>
+        <span><a asp-controller="Account" asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a></span>
     </div>
 </form>
