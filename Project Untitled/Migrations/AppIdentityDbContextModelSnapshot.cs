@@ -243,7 +243,7 @@ namespace Project_Untitled.Migrations
 
             modelBuilder.Entity("Project_Untitled.Models.UserHandler", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -254,8 +254,6 @@ namespace Project_Untitled.Migrations
                     b.Property<DateTime>("DOB");
 
                     b.Property<string>("Facebook");
-
-                    b.Property<string>("FacebookLive");
 
                     b.Property<string>("Gender");
 
@@ -279,11 +277,15 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("Reddit");
 
+                    b.Property<string>("Spotify");
+
                     b.Property<string>("Tumblr");
 
                     b.Property<string>("Twitch");
 
                     b.Property<string>("Twitter");
+
+                    b.Property<string>("Wordpress");
 
                     b.Property<string>("YouTube");
 

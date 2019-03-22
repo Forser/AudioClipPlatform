@@ -10,21 +10,37 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" asp-href-include="lib/bootstrap/css/bootstrap.min.css" />
     <style>
-            .input-validation-error { border-color: red; background-color: #fee; }
-            .bd-placeholder-img {
+        .input-validation-error {
+            border-color: red;
+            background-color: #fee;
+        }
+
+        .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-          }
+        }
 
-          @@media (min-width: 768px) {
-            .bd-placeholder-img-lg { font-size: 3.5rem; }
-          }
+        @@media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
     </style>
     <link href="~/css/sticky-footer-navbar.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <style type="text/css">
+        .datepicker {
+            font-size: 0.875em;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column h-100">
     <header>
@@ -86,8 +102,5 @@
             <span class="text-muted">Place sticky footer content here.</span>
         </div>
     </footer>
-    <script src="/lib/jquery/jquery.min.js"></script>
-    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
-    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

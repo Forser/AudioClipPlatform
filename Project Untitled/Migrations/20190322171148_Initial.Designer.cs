@@ -10,7 +10,7 @@ using Project_Untitled.Models;
 namespace Project_Untitled.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20190322144446_Initial")]
+    [Migration("20190322171148_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -245,7 +245,7 @@ namespace Project_Untitled.Migrations
 
             modelBuilder.Entity("Project_Untitled.Models.UserHandler", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -256,8 +256,6 @@ namespace Project_Untitled.Migrations
                     b.Property<DateTime>("DOB");
 
                     b.Property<string>("Facebook");
-
-                    b.Property<string>("FacebookLive");
 
                     b.Property<string>("Gender");
 
@@ -281,11 +279,15 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("Reddit");
 
+                    b.Property<string>("Spotify");
+
                     b.Property<string>("Tumblr");
 
                     b.Property<string>("Twitch");
 
                     b.Property<string>("Twitter");
+
+                    b.Property<string>("Wordpress");
 
                     b.Property<string>("YouTube");
 

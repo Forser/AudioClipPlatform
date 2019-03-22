@@ -34,7 +34,7 @@ namespace Project_Untitled.Controllers
                 return View(userViewModel);
             }
 
-            return View(new UserViewModel { });
+            return View(userViewModel);
         }
 
         [HttpPost]

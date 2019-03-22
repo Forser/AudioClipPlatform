@@ -30,6 +30,15 @@
         </select>
     </div>
     <div class="form-group">
+        <label>Date of Birth</label>
+        <div class="input-group date">
+            <input type="text" class="form-control" asp-for="User.DOB" data-date-format="yyyy-mm-dd" id="datepicker" />
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
         <label asp-for="User.Location"></label>
         <div><span asp-validation-for="User.Location" class="text-danger"></span></div>
         <input asp-for="User.Location" class="form-control" />
@@ -66,6 +75,16 @@
         <div><span asp-validation-for="User.Reddit" class="text-danger"></span></div>
         <input asp-for="User.Reddit" class="form-control" />
     </div>
+    <div class="form-group">
+        <label asp-for="User.Spotify"></label>
+        <div><span asp-validation-for="User.Spotify" class="text-danger"></span></div>
+        <input asp-for="User.Spotify" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="User.Wordpress"></label>
+        <div><span asp-validation-for="User.Wordpress" class="text-danger"></span></div>
+        <input asp-for="User.Wordpress" class="form-control" />
+    </div>
 
     <div class="form-group">
         <label asp-for="User.Twitch"></label>
@@ -96,3 +115,15 @@
         <button class="btn btn-primary" type="submit">Update Settings</button>
     </div>
 </form>
+<script type="text/javascript">
+        $('#datepicker').datepicker({
+            weekStart: 1,
+            daysOfWeekHighlighted: "6,0",
+            autoclose: true,
+            todayHighlight: true,
+            orientation: "bottom left"
+        });
+        $('#datepicker').data({ date: new Date() });
+        $('#datepicker').datepicker('update');
+        $('#datepicker').datepicker().children('input');
+</script>

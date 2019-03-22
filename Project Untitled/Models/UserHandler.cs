@@ -8,7 +8,7 @@ namespace Project_Untitled.Models
     public class UserHandler
     {
         [Key]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         // Reference to IdentityUser ID.
         public string OwnerId { get; set; }
@@ -16,6 +16,8 @@ namespace Project_Untitled.Models
         // User Data
         [PersonalData]
         public string Name { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [PersonalData]
         public DateTime DOB { get; set; }
         [PersonalData]
@@ -48,11 +50,13 @@ namespace Project_Untitled.Models
         [PersonalData]
         public string YouTube { get; set; }
         [PersonalData]
-        public string FacebookLive { get; set; }
-        [PersonalData]
         public string Periscope { get; set; }
         [PersonalData]
         public string LiveStream { get; set; }
+        [PersonalData]
+        public string Spotify { get; set; }
+        [PersonalData]
+        public string Wordpress { get; set; }
 
         // Privacy
         public bool AllowMessages { get; set; }

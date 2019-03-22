@@ -69,9 +69,10 @@ namespace Project_Untitled.Migrations
                     Twitch = table.Column<string>(nullable: true),
                     Mixer = table.Column<string>(nullable: true),
                     YouTube = table.Column<string>(nullable: true),
-                    FacebookLive = table.Column<string>(nullable: true),
                     Periscope = table.Column<string>(nullable: true),
                     LiveStream = table.Column<string>(nullable: true),
+                    Spotify = table.Column<string>(nullable: true),
+                    Wordpress = table.Column<string>(nullable: true),
                     AllowMessages = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
