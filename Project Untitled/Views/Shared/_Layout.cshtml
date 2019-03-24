@@ -32,49 +32,61 @@
     </style>
     <link href="~/css/sticky-footer-navbar.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
-    <script src="/lib/jquery/jquery.min.js"></script>
-    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
-    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/app.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <style type="text/css">
         .datepicker {
             font-size: 0.875em;
         }
     </style>
+    <script type="text/javascript" src="/lib/amplitudejs/amplitude.js"></script>
+
 </head>
 <body class="d-flex flex-column h-100">
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="/">Fixed navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
+                <a class="navbar-brand ml-2" href="/">Fixed navbar</a>
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="#">Link</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav mr-2">
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <li class="nav-item">
+                            <a class="nav-link" href="#">Upload</a>
+                        </li>
+                        <li class="nav-item">
                             <span class="nav-link text-light">Hello @UserManager.GetUserName(User)!</span>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Settings" asp-action="ViewSettings">Settings</a>
+                        <li class="nav-item mr-auto ml-2">
+                            <a class="nav-link">
+                                <span id="notification"><i class="fas fa-bell fa-lg"></i></span>
+                            </a>
+                        </li>
+                        <li class="nav-item mr-2 ml-2">
+                            <a class="nav-link">
+                                <span id="directmessage" style="color: red;"><i class="fas fa-envelope fa-lg"></i></span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">
-                                <button id="logout" type="submit" class="nav-link btn btn-link text-light">Logout</button>
-                            </form>
+                            <div class="dropdown">
+                                <a class="nav-link dropdown" id="dropdownMenu2" href="#" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                                    <i class="fas fa-caret-square-down fa-lg"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="dropdownMenu2">
+                                    <a class="dropdown-item text-dark" asp-controller="Settings" asp-action="ViewSettings">Settings</a>
+                                    <a id="logout" class="dropdown-item text-dark" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">Logout</a>
+                                </div>
+                            </div>
                         </li>
                     }
                     else
@@ -102,5 +114,10 @@
             <span class="text-muted">Place sticky footer content here.</span>
         </div>
     </footer>
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/js/foundation.min.js"></script>
 </body>
 </html>

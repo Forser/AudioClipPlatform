@@ -44,8 +44,8 @@ namespace Project_Untitled.Controllers
             if(ModelState.IsValid)
             {
                 var user = await userManager.GetUserAsync(HttpContext.User);
-
                 var Succeeded = await repository.UpdateSettings(userViewModel, user);
+
                 if (Succeeded)
                 {
                     TempData["message"] = "Your settings has been updated";
