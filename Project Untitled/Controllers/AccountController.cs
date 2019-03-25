@@ -16,13 +16,15 @@ namespace Project_Untitled.Controllers
         private RoleManager<IdentityRole> roleManager;
         private SignInManager<IdentityUser> signInManager;
         private readonly IEmailSender emailSender;
+        private readonly IAccountRepository accountRepository;
 
-        public AccountController(UserManager<IdentityUser> userMgr, RoleManager<IdentityRole> roleMgr, SignInManager<IdentityUser> signInMgr, IEmailSender emailSndr)
+        public AccountController(UserManager<IdentityUser> userMgr, RoleManager<IdentityRole> roleMgr, SignInManager<IdentityUser> signInMgr, IEmailSender emailSndr, IAccountRepository accRepository)
         {
             userManager = userMgr;
             roleManager = roleMgr;
             signInManager = signInMgr;
             emailSender = emailSndr;
+            accountRepository = accRepository;
 
             IdentitySeedData.EnsurePopulated(userMgr, roleMgr).Wait();
         }
@@ -215,6 +217,16 @@ namespace Project_Untitled.Controllers
         public async Task<RedirectResult> Logout(string returnUrl = "/")
         {
             await signInManager.SignOutAsync();
+            return Redirect(returnUrl);
+        }
+
+        public async Task<RedirectResult> DeleteAccount(string returnUrl = "/")
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            accountRepository.DeleteUser(user);
+            await userManager.DeleteAsync(user);
+            await signInManager.SignOutAsync();
+
             return Redirect(returnUrl);
         }
     }

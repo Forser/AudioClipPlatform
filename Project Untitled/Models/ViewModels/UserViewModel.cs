@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Project_Untitled.Models.ViewModels
 {
@@ -6,5 +7,7 @@ namespace Project_Untitled.Models.ViewModels
     {
         [BindRequired]
         public UserHandler User { get; set; }
+        [BindRequired]
+        public IdentityUser IdentityUser { get; set; }
     }
 }

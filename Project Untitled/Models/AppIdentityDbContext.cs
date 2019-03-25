@@ -14,6 +14,16 @@ namespace Project_Untitled.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Notifications>()
+                .HasKey(a => a.Id);
+
+            builder.Entity<UserHandler>()
+                .ToTable("Users")
+                .HasOne(a => a.Notifications)
+                .WithOne()
+                .HasForeignKey<Notifications>(b => b.UserId)
+                .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
         }
     }
 }

@@ -58,6 +58,7 @@ namespace Project_Untitled
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ISettingsRepository, SettingsRepository>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddMemoryCache();

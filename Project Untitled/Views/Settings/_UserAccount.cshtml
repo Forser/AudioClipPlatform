@@ -1,0 +1,24 @@
+﻿@model UserViewModel
+
+@if (Model.IdentityUser != null)
+{
+    <form asp-action="ViewSettings" method="post">
+        <input type="hidden" asp-for="User.Id" />
+        <div class="row">
+            <div class="col">
+                <p class="text-left">Username : @Model.IdentityUser.UserName</p>
+            </div>
+            <div class="col">
+                <p class="text-left">Email Address : @Model.IdentityUser.Email</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <a asp-action="DeleteAccount" asp-controller="Account" class="btn btn-danger" role="button">Delete Your Account</a>
+            </div>
+        </div>
+    </form>
+}

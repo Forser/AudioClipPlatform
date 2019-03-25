@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project_Untitled.Models
 {
     public class Notifications
     {
         [Key]
-        // UserId
-        public int NotificationId { get; set; }
+        public int Id { get; set; }
+
+        // Reference to IdentityUser ID.
+        public IdentityUser IdentityUser { get; set; }
+
+        public int? UserId { get; set; }
 
         // Desktop Notification
         public bool DesktopNotification { get; set; }

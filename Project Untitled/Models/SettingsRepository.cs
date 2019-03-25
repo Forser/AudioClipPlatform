@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -16,15 +15,25 @@ namespace Project_Untitled.Models
 
         public UserViewModel GetUser(IdentityUser user)
         {
-            var _user = context.UserHandler.FirstOrDefault(t => t.OwnerId == user.Id);
             UserViewModel userViewModel = new UserViewModel();
+
+            var _user = context.UserHandler.FirstOrDefault(t => t.IdentityUser == user);
+            var _notifications = context.Notifications.Where(t => t.IdentityUser == user) as Notifications;
 
             if (_user == null)
             {
+                userViewModel.IdentityUser = user;
+                return userViewModel;
+            }
+            else if (_user != null && _notifications == null)
+            {
+                userViewModel.User = _user;
+                userViewModel.User.Notifications = new Notifications();
                 return userViewModel;
             }
 
             userViewModel.User = _user;
+            userViewModel.User.Notifications = _notifications;
 
             return userViewModel;
         }
@@ -35,11 +44,24 @@ namespace Project_Untitled.Models
 
             if (userViewModel != null)
             {
-                userViewModel.User.OwnerId = user.Id;
+                userViewModel.User.IdentityUser = user;
                 context.UserHandler.Update(userViewModel.User);
-                logger.LogDebug("Update was called");
                 await context.SaveChangesAsync();
-                logger.LogDebug("SaveChangesAsync was called");
+                Succeeded = true;
+                return Succeeded;
+            }
+
+            return Succeeded;
+        }
+
+        public async Task<bool> UpdateNotifications(UserViewModel userViewModel)
+        {
+            bool Succeeded = false;
+
+            if (userViewModel != null)
+            {
+                context.Notifications.Update(userViewModel.User.Notifications);
+                await context.SaveChangesAsync();
                 Succeeded = true;
                 return Succeeded;
             }

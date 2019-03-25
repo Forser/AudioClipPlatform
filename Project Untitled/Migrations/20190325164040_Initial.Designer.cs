@@ -10,7 +10,7 @@ using Project_Untitled.Models;
 namespace Project_Untitled.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20190322171148_Initial")]
+    [Migration("20190325164040_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -184,7 +184,7 @@ namespace Project_Untitled.Migrations
 
             modelBuilder.Entity("Project_Untitled.Models.Notifications", b =>
                 {
-                    b.Property<int>("NotificationId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -193,6 +193,8 @@ namespace Project_Untitled.Migrations
                     b.Property<bool>("CommentOnYourPostEmail");
 
                     b.Property<bool>("DesktopNotification");
+
+                    b.Property<string>("IdentityUserId");
 
                     b.Property<bool>("LikeOnYourPostDevice");
 
@@ -234,18 +236,22 @@ namespace Project_Untitled.Migrations
 
                     b.Property<bool>("TipsAndOffersEmail");
 
-                    b.Property<int?>("UserHandlerUserId");
+                    b.Property<int?>("UserId");
 
-                    b.HasKey("NotificationId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("UserHandlerUserId");
+                    b.HasIndex("IdentityUserId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Project_Untitled.Models.UserHandler", b =>
                 {
-                    b.Property<int?>("UserId")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -261,6 +267,8 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("HeaderImage");
 
+                    b.Property<string>("IdentityUserId");
+
                     b.Property<string>("Instagram");
 
                     b.Property<string>("LiveStream");
@@ -270,8 +278,6 @@ namespace Project_Untitled.Migrations
                     b.Property<string>("Mixer");
 
                     b.Property<string>("Name");
-
-                    b.Property<string>("OwnerId");
 
                     b.Property<string>("Periscope");
 
@@ -291,9 +297,11 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("YouTube");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
-                    b.ToTable("UserHandler");
+                    b.HasIndex("IdentityUserId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -343,9 +351,21 @@ namespace Project_Untitled.Migrations
 
             modelBuilder.Entity("Project_Untitled.Models.Notifications", b =>
                 {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
+
                     b.HasOne("Project_Untitled.Models.UserHandler")
-                        .WithMany("Notifications")
-                        .HasForeignKey("UserHandlerUserId");
+                        .WithOne("Notifications")
+                        .HasForeignKey("Project_Untitled.Models.Notifications", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.UserHandler", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
                 });
 #pragma warning restore 612, 618
         }

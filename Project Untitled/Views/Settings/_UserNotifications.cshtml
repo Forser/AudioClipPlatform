@@ -1,0 +1,130 @@
+﻿@model UserViewModel
+
+    <form asp-action="UpdateNotifications" method="post">
+        <input type="hidden" asp-for="User.Id" />
+        <input type="hidden" asp-for="User.Notifications.Id" />
+        <table class="table table-sm table-borderless table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Notifications</th>
+                    <th scope="col">Device</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">New Follower</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewFollowerDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewFollowerEmail"  />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Repost Of Your Clip</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.RepostOfPostDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.RepostOfPostEmail" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">New Clip By Followed Member</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewPostByFollowedUserDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewPostByFollowedUserEmail" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Thumbs Up On Your Clip</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.LikeOnYourPostDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.LikeOnYourPostEmail" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Comment On Your Clip</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.CommentOnYourPostDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.CommentOnYourPostEmail" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Suggested Content</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.SuggestedContentDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.SuggestedContentEmail" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">New Message</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewMessageDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewMessageEmail" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-borderless table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Updates from StreamerAudio</th>
+                    <th scope="col">Device</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">New StreamerAudio Feature</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewFeatureDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewFeatureEmail" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Survey / Feedback</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.SurveyAndFeedbackDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.SurveyAndFeedbackEmail" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">StreamerAudio Tips &Aacute; Offers</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.TipsAndOffersDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.TipsAndOffersEmail" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">StreamerAudio Newsletter</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewsLetterDevice" />
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewsLetterEmail" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Update Notifications</button>
+    </div>
+</form>

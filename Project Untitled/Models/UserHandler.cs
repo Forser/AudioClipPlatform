@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Project_Untitled.Models
@@ -8,10 +7,10 @@ namespace Project_Untitled.Models
     public class UserHandler
     {
         [Key]
-        public int? UserId { get; set; }
+        public int? Id { get; set; }
 
         // Reference to IdentityUser ID.
-        public string OwnerId { get; set; }
+        public IdentityUser IdentityUser { get; set; }
 
         // User Data
         [PersonalData]
@@ -62,7 +61,7 @@ namespace Project_Untitled.Models
         public bool AllowMessages { get; set; }
 
         // Email / Device notifications
-        public ICollection<Notifications> Notifications { get; set; }
+        public Notifications Notifications { get; set; }
 
         // Blacklisted Users
         // public List<IdentityUser> BlacklistedUsers { get; set; }

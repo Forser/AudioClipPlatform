@@ -1,0 +1,153 @@
+﻿@model UserViewModel
+
+<form asp-action="ViewSettings" method="post">
+    <input type="hidden" asp-for="User.Id" />
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Name"></label>
+                <div><span asp-validation-for="User.Name" class="text-danger"></span></div>
+                <input asp-for="User.Name" class="form-control" />
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Gender"></label>
+                <select class="form-control" id="User.Gender" asp-for="User.Gender">
+                    <option>-- Select Gender --</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="secret">Prefer not to say</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label>Date of Birth</label>
+                <div class="input-group date">
+                    <input type="text" class="form-control" asp-for="User.DOB" data-date-format="yyyy-mm-dd" id="datepicker" />
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Location"></label>
+                <div><span asp-validation-for="User.Location" class="text-danger"></span></div>
+                <input asp-for="User.Location" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Biography"></label>
+                <div><span asp-validation-for="User.Biography" class="text-danger"></span></div>
+                <textarea asp-for="User.Biography" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Twitter"><i class="fab fa-twitter-square fa-2x"></i></label>
+                <div><span asp-validation-for="User.Twitter" class="text-danger"></span></div>
+                <input asp-for="User.Twitter" class="form-control" />
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Facebook"><i class="fab fa-facebook-square fa-2x"></i></label>
+                <div><span asp-validation-for="User.Facebook" class="text-danger"></span></div>
+                <input asp-for="User.Facebook" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Instagram"><i class="fab fa-instagram fa-2x"></i></label>
+                <div><span asp-validation-for="User.Instagram" class="text-danger"></span></div>
+                <input asp-for="User.Instagram" class="form-control" />
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Tumblr"><i class="fab fa-tumblr fa-2x"></i></label>
+                <div><span asp-validation-for="User.Tumblr" class="text-danger"></span></div>
+                <input asp-for="User.Tumblr" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Reddit"><i class="fab fa-reddit-square fa-2x"></i></label>
+                <div><span asp-validation-for="User.Reddit" class="text-danger"></span></div>
+                <input asp-for="User.Reddit" class="form-control" />
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Spotify"><i class="fab fa-spotify fa-2x"></i></label>
+                <div><span asp-validation-for="User.Spotify" class="text-danger"></span></div>
+                <input asp-for="User.Spotify" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Wordpress"><i class="fab fa-wordpress fa-2x"></i></label>
+                <div><span asp-validation-for="User.Wordpress" class="text-danger"></span></div>
+                <input asp-for="User.Wordpress" class="form-control" />
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Twitch"><i class="fab fa-twitch fa-2x"></i></label>
+                <div><span asp-validation-for="User.Twitch" class="text-danger"></span></div>
+                <input asp-for="User.Twitch" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Periscope"><i class="fab fa-periscope fa-2x"></i></label>
+                <div><span asp-validation-for="User.Periscope" class="text-danger"></span></div>
+                <input asp-for="User.Periscope" class="form-control" />
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.YouTube"><i class="fab fa-youtube fa-2x"></i></label>
+                <div><span asp-validation-for="User.YouTube" class="text-danger"></span></div>
+                <input asp-for="User.YouTube" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.Mixer"></label>
+                <div><span asp-validation-for="User.Mixer" class="text-danger"></span></div>
+                <input asp-for="User.Mixer" class="form-control" />
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <label asp-for="User.LiveStream"></label>
+                <div><span asp-validation-for="User.LiveStream" class="text-danger"></span></div>
+                <input asp-for="User.LiveStream" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Update Settings</button>
+    </div>
+</form>
