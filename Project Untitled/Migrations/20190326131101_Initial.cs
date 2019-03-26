@@ -48,6 +48,39 @@ namespace Project_Untitled.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IdentityId = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    DOB = table.Column<DateTime>(nullable: false),
+                    Gender = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    Biography = table.Column<string>(nullable: true),
+                    ProfileImage = table.Column<string>(nullable: true),
+                    HeaderImage = table.Column<string>(nullable: true),
+                    Twitter = table.Column<string>(nullable: true),
+                    Facebook = table.Column<string>(nullable: true),
+                    Instagram = table.Column<string>(nullable: true),
+                    Tumblr = table.Column<string>(nullable: true),
+                    Reddit = table.Column<string>(nullable: true),
+                    Twitch = table.Column<string>(nullable: true),
+                    Mixer = table.Column<string>(nullable: true),
+                    YouTube = table.Column<string>(nullable: true),
+                    Periscope = table.Column<string>(nullable: true),
+                    LiveStream = table.Column<string>(nullable: true),
+                    Spotify = table.Column<string>(nullable: true),
+                    Wordpress = table.Column<string>(nullable: true),
+                    AllowMessages = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -154,51 +187,12 @@ namespace Project_Untitled.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IdentityUserId = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    DOB = table.Column<DateTime>(nullable: false),
-                    Gender = table.Column<string>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
-                    Biography = table.Column<string>(nullable: true),
-                    ProfileImage = table.Column<string>(nullable: true),
-                    HeaderImage = table.Column<string>(nullable: true),
-                    Twitter = table.Column<string>(nullable: true),
-                    Facebook = table.Column<string>(nullable: true),
-                    Instagram = table.Column<string>(nullable: true),
-                    Tumblr = table.Column<string>(nullable: true),
-                    Reddit = table.Column<string>(nullable: true),
-                    Twitch = table.Column<string>(nullable: true),
-                    Mixer = table.Column<string>(nullable: true),
-                    YouTube = table.Column<string>(nullable: true),
-                    Periscope = table.Column<string>(nullable: true),
-                    LiveStream = table.Column<string>(nullable: true),
-                    Spotify = table.Column<string>(nullable: true),
-                    Wordpress = table.Column<string>(nullable: true),
-                    AllowMessages = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_AspNetUsers_IdentityUserId",
-                        column: x => x.IdentityUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Notifications",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IdentityUserId = table.Column<string>(nullable: true),
+                    IdentityId = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: true),
                     DesktopNotification = table.Column<bool>(nullable: false),
                     NewFollowerEmail = table.Column<bool>(nullable: false),
@@ -227,12 +221,6 @@ namespace Project_Untitled.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Notifications", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Notifications_AspNetUsers_IdentityUserId",
-                        column: x => x.IdentityUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Notifications_Users_UserId",
                         column: x => x.UserId,
@@ -281,21 +269,11 @@ namespace Project_Untitled.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notifications_IdentityUserId",
-                table: "Notifications",
-                column: "IdentityUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Notifications_UserId",
                 table: "Notifications",
                 column: "UserId",
                 unique: true,
                 filter: "[UserId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_IdentityUserId",
-                table: "Users",
-                column: "IdentityUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -322,10 +300,10 @@ namespace Project_Untitled.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Users");
         }
     }
 }

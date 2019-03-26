@@ -8,7 +8,7 @@ namespace Project_Untitled.Models
     {
         Task<bool> UpdateSettings(UserViewModel userViewModel, IdentityUser user);
 
-        Task<bool> UpdateNotifications(UserViewModel userViewModel);
+        Task<bool> UpdateNotifications(UserViewModel userViewModel, IdentityUser user);
 
         UserViewModel GetUser(IdentityUser user);
     }

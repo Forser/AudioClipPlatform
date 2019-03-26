@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Project_Untitled.Models
 {
@@ -8,9 +7,10 @@ namespace Project_Untitled.Models
         [Key]
         public int Id { get; set; }
 
-        // Reference to IdentityUser ID.
-        public IdentityUser IdentityUser { get; set; }
+        // Identity UserID
+        public string IdentityId { get; set; }
 
+        // UserHandler UserID
         public int? UserId { get; set; }
 
         // Desktop Notification

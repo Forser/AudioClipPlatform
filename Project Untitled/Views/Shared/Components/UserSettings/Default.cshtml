@@ -1,7 +1,8 @@
 ﻿@model UserViewModel
 
-<form asp-action="ViewSettings" method="post">
+<form asp-action="UpdateSettings" asp-controller="Settings" method="post">
     <input type="hidden" asp-for="User.Id" />
+    <input type="hidden" asp-for="IdentityUser.Id" />
     <div class="row mx-md-n5">
         <div class="col px-md-5">
             <div class="form-group p-3 border bg-light">
@@ -19,6 +20,21 @@
                     <option value="female">Female</option>
                     <option value="secret">Prefer not to say</option>
                 </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="messageSwitch" asp-for="@Model.User.AllowMessages" />
+                    <label class="custom-control-label" for="messageSwitch">Allow Private Messages</label>
+                </div>
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="form-group p-3 border bg-light">
+                &nbsp;
             </div>
         </div>
     </div>

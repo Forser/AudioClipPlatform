@@ -19,27 +19,16 @@ namespace Project_Untitled.Controllers
             userManager = userMgr;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> ViewSettings()
+        public async Task<IActionResult> Index()
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
             UserViewModel userViewModel = repository.GetUser(user);
 
-            if (userViewModel.User != null)
-            {
-                return View(userViewModel);
-            }
-
             return View(userViewModel);
         }
 
-        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ViewSettings(UserViewModel userViewModel)
+        public async Task<IActionResult> UpdateSettings(UserViewModel userViewModel)
         {
             if(ModelState.IsValid)
             {
@@ -49,45 +38,39 @@ namespace Project_Untitled.Controllers
                 if (Succeeded)
                 {
                     TempData["message"] = "Your settings has been updated";
-                    return View();
+                    return Redirect("Index");
                 }
                 else
                 {
                     ModelState.AddModelError("", "Could not update the settings!");
-                    return View(userViewModel);
+                    return View("Index", userViewModel);
                 }
             }
             ModelState.AddModelError("", "Error : Could not update the settings!");
-            return View(userViewModel);
+            return View("Index", userViewModel);
         }
 
-        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateNotifications(UserViewModel userViewModel)
         {
             if(ModelState.IsValid)
             {
-                userViewModel.User.Notifications.UserId = userViewModel.User.Id;
-                var Succeeded = await repository.UpdateNotifications(userViewModel);
+                var user = await userManager.GetUserAsync(HttpContext.User);
+                var Succeeded = await repository.UpdateNotifications(userViewModel, user);
 
                 if (Succeeded)
                 {
                     TempData["message"] = "Your notifications has been updated";
-                    return RedirectToAction("ViewSettings");
+                    return Redirect("Index");
                 }
                 else
                 {
                     ModelState.AddModelError("", "Could not update your notifications!");
-                    return View(userViewModel);
+                    return View("Index", userViewModel);
                 }
             }
             ModelState.AddModelError("", "Error: Could not update your notifications!");
-            return View(userViewModel);
-        }
-
-        public IActionResult ViewNotificationSettings()
-        {
-            return View();
+            return View("Index", userViewModel);
         }
     }
 }

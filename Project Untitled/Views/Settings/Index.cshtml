@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "ViewSettings";
 }
 
@@ -25,12 +24,12 @@
 </ul>
 <div class="tab-content" id="user-tabContent">
     <div class="tab-pane fade show active" id="user-home" role="tabpanel" aria-labelledby="user-home-tab">
-        @await Html.PartialAsync("_UserSettings")
+        @await Component.InvokeAsync("UserSettings", Model)
     </div>
     <div class="tab-pane fade" id="user-notify" role="tabpanel" aria-labelledby="user-notify-tab">
-        @await Html.PartialAsync("_UserNotifications")
+        @await Component.InvokeAsync("UserNotifications", Model)
     </div>
     <div class="tab-pane fade" id="user-account" role="tabpanel" aria-labelledby="user-account-tab">
-        @await Html.PartialAsync("_UserAccount")
+        @await Component.InvokeAsync("UserAccount", Model)
     </div>
 </div>

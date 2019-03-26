@@ -9,8 +9,8 @@ namespace Project_Untitled.Models
         [Key]
         public int? Id { get; set; }
 
-        // Reference to IdentityUser ID.
-        public IdentityUser IdentityUser { get; set; }
+        // Identity UserID
+        public string IdentityId { get; set; }
 
         // User Data
         [PersonalData]

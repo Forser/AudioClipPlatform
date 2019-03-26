@@ -192,7 +192,7 @@ namespace Project_Untitled.Migrations
 
                     b.Property<bool>("DesktopNotification");
 
-                    b.Property<string>("IdentityUserId");
+                    b.Property<string>("IdentityId");
 
                     b.Property<bool>("LikeOnYourPostDevice");
 
@@ -238,8 +238,6 @@ namespace Project_Untitled.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdentityUserId");
-
                     b.HasIndex("UserId")
                         .IsUnique()
                         .HasFilter("[UserId] IS NOT NULL");
@@ -265,7 +263,7 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("HeaderImage");
 
-                    b.Property<string>("IdentityUserId");
+                    b.Property<string>("IdentityId");
 
                     b.Property<string>("Instagram");
 
@@ -296,8 +294,6 @@ namespace Project_Untitled.Migrations
                     b.Property<string>("YouTube");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("Users");
                 });
@@ -349,21 +345,10 @@ namespace Project_Untitled.Migrations
 
             modelBuilder.Entity("Project_Untitled.Models.Notifications", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("IdentityUserId");
-
                     b.HasOne("Project_Untitled.Models.UserHandler")
                         .WithOne("Notifications")
                         .HasForeignKey("Project_Untitled.Models.Notifications", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Project_Untitled.Models.UserHandler", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("IdentityUserId");
                 });
 #pragma warning restore 612, 618
         }
