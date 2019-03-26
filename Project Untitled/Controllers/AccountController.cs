@@ -123,6 +123,49 @@ namespace Project_Untitled.Controllers
             return View(new ForgotPasswordViewModel());
         }
 
+        public async Task<IActionResult> ChangePassword()
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            if(user == null)
+            {
+                return NotFound($"Unable to load user with ID '{ userManager.GetUserId(User) }'.");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword([FromForm]PasswordViewModel Input)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var user = await userManager.GetUserAsync(User);
+
+            if(user == null)
+            {
+                return NotFound($"Unable to load user with ID '{ userManager.GetUserId(User) }'.");
+            }
+
+            var changePasswordResult = await userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
+            if(!changePasswordResult.Succeeded)
+            {
+                foreach(var error in changePasswordResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View();
+            }
+
+            await signInManager.RefreshSignInAsync(user);
+            TempData["message"] = "Your password has been changed.";
+            return RedirectToAction("ViewSettings", "Settings");
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
