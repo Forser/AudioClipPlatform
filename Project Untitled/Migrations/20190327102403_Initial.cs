@@ -48,6 +48,28 @@ namespace Project_Untitled.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    SenderId = table.Column<string>(nullable: true),
+                    SenderUserName = table.Column<string>(nullable: true),
+                    RecipentId = table.Column<string>(nullable: true),
+                    RecipentUserName = table.Column<string>(nullable: true),
+                    SenderStatus = table.Column<string>(nullable: false),
+                    RecipentStatus = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Message = table.Column<string>(nullable: true),
+                    ReadAt = table.Column<DateTime>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -292,6 +314,9 @@ namespace Project_Untitled.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "Notifications");

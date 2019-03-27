@@ -180,6 +180,39 @@ namespace Project_Untitled.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Project_Untitled.Models.Messages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Message");
+
+                    b.Property<DateTime>("ReadAt");
+
+                    b.Property<string>("RecipentId");
+
+                    b.Property<string>("RecipentStatus")
+                        .IsRequired();
+
+                    b.Property<string>("RecipentUserName");
+
+                    b.Property<string>("SenderId");
+
+                    b.Property<string>("SenderStatus")
+                        .IsRequired();
+
+                    b.Property<string>("SenderUserName");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Project_Untitled.Models.Notifications", b =>
                 {
                     b.Property<int>("Id")

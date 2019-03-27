@@ -38,7 +38,7 @@ namespace Project_Untitled.Controllers
                 if (Succeeded)
                 {
                     TempData["message"] = "Your settings has been updated";
-                    return Redirect("Index");
+                    return RedirectToAction("Index", "Settings", "user-home");
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace Project_Untitled.Controllers
                 if (Succeeded)
                 {
                     TempData["message"] = "Your notifications has been updated";
-                    return Redirect("Index");
+                    return RedirectToAction("Index", "Settings", "user-notify");
                 }
                 else
                 {

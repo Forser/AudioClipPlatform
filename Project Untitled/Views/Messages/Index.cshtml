@@ -1,0 +1,85 @@
+﻿@model MessagesViewModel
+@{
+    Layout = "_Layout";
+}
+
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>@TempData["message"]</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newMessageCenter">
+    Send a Message
+</button>
+<form asp-action="SendMessage" asp-controller="Messages" class="eventInsForm" method="post">
+    <input type="hidden" asp-for="User.Id" />
+    <div class="modal fade" id="newMessageCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterMessage" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalCenterMessage">New Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mx-md-n5">
+                        <div class="col px-md-5">
+                            <div class="form-group p-3 border bg-light">
+                                <label asp-for="NewMessage.RecipentUserName"></label>
+                                <div><span asp-validation-for="NewMessage.RecipentUserName" class="text-danger"></span></div>
+                                <input asp-for="NewMessage.RecipentUserName" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mx-md-n5">
+                        <div class="col px-md-5">
+                            <div class="form-group p-3 border bg-light">
+                                <label asp-for="NewMessage.Title"></label>
+                                <div><span asp-validation-for="NewMessage.Title" class="text-danger"></span></div>
+                                <input asp-for="NewMessage.Title" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mx-md-n5">
+                        <div class="col px-md-5">
+                            <div class="form-group p-3 border bg-light">
+                                <label asp-for="NewMessage.Message"></label>
+                                <div><span asp-validation-for="NewMessage.Message" class="text-danger"></span></div>
+                                <textarea asp-for="NewMessage.Message" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">From :</th>
+            <th scope="col">Subject :</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var message in Model.Messages)
+        {
+            <tr>
+                <th scope="col">@message.SenderUserName</th>
+                <th scope="col"><a asp-action="GetMessage" asp-route-messageId="@message.Id">@message.Title</a></th>
+                <th scope="col"><a asp-action="DeleteMessage" asp-route-messageId="@message.Id"><i class="fas fa-trash-alt"></i></a></th>
+            </tr>
+        }
+    </tbody>
+</table>
