@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Project_Untitled.Models
 {
@@ -10,9 +11,12 @@ namespace Project_Untitled.Models
 
         public DbSet<UserHandler> UserHandler { get; set; }
         public DbSet<Notifications> Notifications { get; set; }
+        public DbSet<Messages> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            var converter = new EnumToStringConverter<MessageStatus>();
+
             base.OnModelCreating(builder);
 
             builder.Entity<Notifications>()
@@ -24,6 +28,14 @@ namespace Project_Untitled.Models
                 .WithOne()
                 .HasForeignKey<Notifications>(b => b.UserId)
                 .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
+
+            builder.Entity<Messages>()
+                .Property(e => e.SenderStatus)
+                .HasConversion(converter);
+
+            builder.Entity<Messages>()
+                .Property(e => e.RecipentStatus)
+                .HasConversion(converter);
         }
     }
 }

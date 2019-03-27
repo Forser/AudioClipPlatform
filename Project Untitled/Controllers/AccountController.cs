@@ -163,7 +163,7 @@ namespace Project_Untitled.Controllers
 
             await signInManager.RefreshSignInAsync(user);
             TempData["message"] = "Your password has been changed.";
-            return RedirectToAction("ViewSettings", "Settings");
+            return RedirectToAction("Index", "Settings", "user-account");
         }
 
         [HttpPost]

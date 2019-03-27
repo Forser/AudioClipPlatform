@@ -76,9 +76,18 @@
                             </a>
                         </li>
                         <li class="nav-item mr-2 ml-2">
-                            <a class="nav-link">
-                                <span id="directmessage" style="color: red;"><i class="fas fa-envelope fa-lg"></i></span>
-                            </a>
+                            <div class="dropdown">
+                                <a class="nav-link dropdown" id="dropdownMenu" href="#" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                                    <span id="directmessage" style="color: red;"><i class="fas fa-envelope fa-lg"></i></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg-right text-center" aria-labelledby="dropdownMenu">
+                                    <h6 class="dropdown-header text-center bg-dark text-white">Messages</h6>
+                                    <div class="dropdown-divider"></div>
+                                    <span class="dropdown-item text-dark">No messages</span>
+                                    <div class="dropdown-divider"></div>
+                                    <a asp-controller="Messages" asp-action="Index" class="dropdown-item text-dark">View all messages</a>
+                                </div>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <div class="dropdown">
