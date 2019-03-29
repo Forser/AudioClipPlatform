@@ -23,10 +23,6 @@ namespace Project_Untitled.Models
 
                 IdentityResult chkUser = await userManager.CreateAsync(user, userPassword);
 
-                var userHandler = new UserHandler();
-                userHandler.IdentityId = user.Id;
-                context.UserHandler.Update(userHandler);                
-
                 if (chkUser.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, "Admin");
@@ -44,10 +40,6 @@ namespace Project_Untitled.Models
                 user.UserName = "Moderator";
                 user.Email = "moderator@moderator.com";
                 user.EmailConfirmed = true;
-
-                var userHandler = new UserHandler();
-                userHandler.IdentityId = user.Id;
-                context.UserHandler.Update(userHandler);
 
                 IdentityResult chkUser = await userManager.CreateAsync(user, userPassword);
 
@@ -68,10 +60,6 @@ namespace Project_Untitled.Models
                 user.UserName = "Forser";
                 user.Email = "marckus@gmail.com";
                 user.EmailConfirmed = true;
-
-                var userHandler = new UserHandler();
-                userHandler.IdentityId = user.Id;
-                context.UserHandler.Update(userHandler);
 
                 IdentityResult chkUser = await userManager.CreateAsync(user, userPassword);
 

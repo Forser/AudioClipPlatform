@@ -70,16 +70,37 @@ namespace Project_Untitled.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "UserSettings",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IdentityId = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    Gender = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    Biography = table.Column<string>(nullable: true),
+                    ProfileImage = table.Column<string>(nullable: true),
+                    HeaderImage = table.Column<string>(nullable: true),
+                    Twitter = table.Column<string>(nullable: true),
+                    Facebook = table.Column<string>(nullable: true),
+                    Instagram = table.Column<string>(nullable: true),
+                    Tumblr = table.Column<string>(nullable: true),
+                    Reddit = table.Column<string>(nullable: true),
+                    Twitch = table.Column<string>(nullable: true),
+                    Mixer = table.Column<string>(nullable: true),
+                    Youtube = table.Column<string>(nullable: true),
+                    Periscope = table.Column<string>(nullable: true),
+                    Livestream = table.Column<string>(nullable: true),
+                    Spotify = table.Column<string>(nullable: true),
+                    Wordpress = table.Column<string>(nullable: true),
+                    AllowMessages = table.Column<bool>(nullable: false),
+                    OwnerId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_UserSettings", x => x.Id);
+                    table.UniqueConstraint("AK_UserSettings_OwnerId", x => x.OwnerId);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,12 +210,54 @@ namespace Project_Untitled.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Clips",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FileName = table.Column<string>(nullable: true),
+                    UploadAt = table.Column<DateTime>(nullable: false),
+                    FileStatus = table.Column<string>(nullable: false),
+                    OwnerId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clips", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clips_UserSettings_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "UserSettings",
+                        principalColumn: "OwnerId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Followings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FollowerId = table.Column<string>(nullable: true),
+                    OwnerId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Followings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Followings_UserSettings_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "UserSettings",
+                        principalColumn: "OwnerId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Notifications",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: true),
+                    OwnerId = table.Column<string>(nullable: true),
                     DesktopNotification = table.Column<bool>(nullable: false),
                     NewFollowerEmail = table.Column<bool>(nullable: false),
                     NewFollowerDevice = table.Column<bool>(nullable: false),
@@ -223,113 +286,11 @@ namespace Project_Untitled.Migrations
                 {
                     table.PrimaryKey("PK_Notifications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Notifications_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserProfiles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Followers = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserProfiles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserProfiles_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserSettings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    DateOfBirth = table.Column<DateTime>(nullable: false),
-                    Gender = table.Column<string>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
-                    Biography = table.Column<string>(nullable: true),
-                    ProfileImage = table.Column<string>(nullable: true),
-                    HeaderImage = table.Column<string>(nullable: true),
-                    Twitter = table.Column<string>(nullable: true),
-                    Facebook = table.Column<string>(nullable: true),
-                    Instagram = table.Column<string>(nullable: true),
-                    Tumblr = table.Column<string>(nullable: true),
-                    Reddit = table.Column<string>(nullable: true),
-                    Twitch = table.Column<string>(nullable: true),
-                    Mixer = table.Column<string>(nullable: true),
-                    Youtube = table.Column<string>(nullable: true),
-                    Periscope = table.Column<string>(nullable: true),
-                    Livestream = table.Column<string>(nullable: true),
-                    Spotify = table.Column<string>(nullable: true),
-                    Wordpress = table.Column<string>(nullable: true),
-                    AllowMessages = table.Column<bool>(nullable: false),
-                    UserId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserSettings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserSettings_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
+                        name: "FK_Notifications_UserSettings_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "UserSettings",
+                        principalColumn: "OwnerId",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Clips",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FileName = table.Column<string>(nullable: true),
-                    UploadAt = table.Column<DateTime>(nullable: false),
-                    FileStatus = table.Column<string>(nullable: false),
-                    ProfileId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clips", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Clips_UserProfiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "UserProfiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Followings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FollowerId = table.Column<string>(nullable: true),
-                    FollowingId = table.Column<string>(nullable: true),
-                    ProfileId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Followings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Followings_UserProfiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "UserProfiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -338,7 +299,6 @@ namespace Project_Untitled.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FileId = table.Column<int>(nullable: false),
                     LikeByUserId = table.Column<string>(nullable: true),
                     ClipId = table.Column<int>(nullable: false)
                 },
@@ -393,14 +353,14 @@ namespace Project_Untitled.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clips_ProfileId",
+                name: "IX_Clips_OwnerId",
                 table: "Clips",
-                column: "ProfileId");
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Followings_ProfileId",
+                name: "IX_Followings_OwnerId",
                 table: "Followings",
-                column: "ProfileId");
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Likes_ClipId",
@@ -408,24 +368,11 @@ namespace Project_Untitled.Migrations
                 column: "ClipId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notifications_UserId",
+                name: "IX_Notifications_OwnerId",
                 table: "Notifications",
-                column: "UserId",
+                column: "OwnerId",
                 unique: true,
-                filter: "[UserId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserProfiles_UserId",
-                table: "UserProfiles",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserSettings_UserId",
-                table: "UserSettings",
-                column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
+                filter: "[OwnerId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -458,9 +405,6 @@ namespace Project_Untitled.Migrations
                 name: "Notifications");
 
             migrationBuilder.DropTable(
-                name: "UserSettings");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -470,10 +414,7 @@ namespace Project_Untitled.Migrations
                 name: "Clips");
 
             migrationBuilder.DropTable(
-                name: "UserProfiles");
-
-            migrationBuilder.DropTable(
-                name: "Users");
+                name: "UserSettings");
         }
     }
 }

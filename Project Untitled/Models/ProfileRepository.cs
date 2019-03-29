@@ -8,64 +8,31 @@ namespace Project_Untitled.Models
 {
     public class ProfileRepository : IProfileRepository
     {
-        private readonly AppIdentityDbContext _context;
+        private readonly AppIdentityDbContext context;
 
-        public ProfileRepository(AppIdentityDbContext context) { _context = context; }
+        public ProfileRepository(AppIdentityDbContext ctx) { context = ctx; }
 
         public async Task<UserProfileViewModel> GetProfile(string profileName)
         {
             UserProfileViewModel userProfile = new UserProfileViewModel();
 
-            var _user = _context.Users.Where(a => a.UserName == profileName).Select(s => new { s.Id, s.UserName }).FirstOrDefault();
+            var userIdentity = await context.Users.Where(a => a.UserName == profileName).Select(s => new { s.Id, s.UserName }).FirstOrDefaultAsync();
 
-            if(_user != null)
+            if (userIdentity != null)
             {
-                var _available = await _context.UserHandler.Where(s => s.IdentityId == _user.Id).FirstOrDefaultAsync();
+                var fetchedProfile = await context.UserSettings.Where(s => s.OwnerId == userIdentity.Id)
+                                                                .Include(s => s.Following).Include(s => s.Clips)
+                                                                .FirstOrDefaultAsync();
 
-                if(_available != null)
+                if(fetchedProfile != null)
                 {
-                    var _userHandler = _context.UserHandler;
-                    var _userSettings = _context.UserSettings;
+                    userProfile = Mapper.Map<UserProfileViewModel>(fetchedProfile);
 
-                    var _fullQuery = _userHandler.Join(_userSettings,
-                        p => p.Id, x => x.UserId,
-                        (userHandle, userSet) => new { userHandle, userSet });
-
-                    userProfile.FollowsTotal = _context.Followings.Where(s => s.FollowingId == _user.Id)
-                                            .Select(d => d.FollowingId).Count();
-
-                    userProfile.NumberOfFollowers = _context.Followings.Where(s => s.FollowerId == _user.Id)
-                                            .Select(d => d.FollowerId).Count();
-
-                    userProfile.NumberOfPublishedClips = _context.Clips.Where(s => s.UserProfile.UserId == _available.Id 
-                        && s.FileStatus == FileStatus.Listed)
-                        .Select(d => d.FileName).Count();
-
-                    var queryResult = _fullQuery.Select(sel => new
-                    {
-                        sel.userSet.DateOfBirth,
-                        sel.userSet.Gender,
-                        sel.userSet.Biography,
-                        sel.userSet.Twitter,
-                        sel.userSet.Facebook,
-                        sel.userSet.Instagram,
-                        sel.userSet.Tumblr,
-                        sel.userSet.Reddit,
-                        sel.userSet.Twitch,
-                        sel.userSet.Mixer,
-                        sel.userSet.Youtube,
-                        sel.userSet.Periscope,
-                        sel.userSet.Livestream,
-                        sel.userSet.Spotify,
-                        sel.userSet.Wordpress,
-                        _user.UserName,
-                        userProfile.NumberOfPublishedClips,
-                        userProfile.FollowsTotal,
-                        userProfile.NumberOfFollowers
-                    }).FirstOrDefault();
-
-                    userProfile = Mapper.Map<UserProfileViewModel>(queryResult);
-
+                    userProfile.UserName = userIdentity.UserName;
+                    userProfile.NumOfMembersYouFollow = fetchedProfile.Following.Select(s => s.OwnerId == fetchedProfile.OwnerId).Count();
+                    userProfile.NumberOfFollowers = fetchedProfile.Following.Select(s => s.FollowerId == fetchedProfile.OwnerId).Count();
+                    userProfile.NumberOfPublishedClips = fetchedProfile.Clips.Where(s => s.OwnerId == fetchedProfile.OwnerId
+                                                                                 && s.FileStatus == FileStatus.Listed).Count();
                 }
             }
 

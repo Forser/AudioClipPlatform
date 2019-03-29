@@ -8,9 +8,6 @@ namespace Project_Untitled.Models.ViewModels
         [RegularExpression(@"^[0-9""'\s-]*$"), Required]
         public int Id { get; set; }
 
-        [RegularExpression(@"^[0-9""'\s-]*$")]
-        public int? UserId { get; set; }
-
         [DataType(DataType.Text), StringLength(maximumLength: 50, ErrorMessage = "Can't be longer then 50 characters")]
         public string Name { get; set; }
 

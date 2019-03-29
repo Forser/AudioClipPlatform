@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project_Untitled.Models
 {
@@ -17,8 +18,9 @@ namespace Project_Untitled.Models
 
         public IList<Liked> Likes { get; set; }
 
-        public int ProfileId { get; set; }
-        public UserProfile UserProfile { get; set; }
+        public string OwnerId { get; set; }
+        [ForeignKey("OwnerId")]
+        public UserSettings UserSettings { get; set; }
     }
 
     public enum FileStatus

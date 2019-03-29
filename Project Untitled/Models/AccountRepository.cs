@@ -11,7 +11,7 @@ namespace Project_Untitled.Models
 
         public void DeleteUser(IdentityUser user)
         {
-            _context.UserHandler.RemoveRange(_context.UserHandler.Where(a => a.IdentityId == user.Id));
+            _context.UserSettings.RemoveRange(_context.UserSettings.Where(a => a.OwnerId == user.Id));
         }
     }
 }

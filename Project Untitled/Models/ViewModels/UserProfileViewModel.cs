@@ -6,7 +6,7 @@ namespace Project_Untitled.Models.ViewModels
     {
         public string UserName { get; set; }
         public int? NumberOfFollowers { get; set; } = 0;
-        public int? FollowsTotal { get; set; } = 0;
+        public int? NumOfMembersYouFollow { get; set; } = 0;
         public int? NumberOfPublishedClips { get; set; } = 0;
         public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }

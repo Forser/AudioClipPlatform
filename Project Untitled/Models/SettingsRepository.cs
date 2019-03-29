@@ -8,9 +8,9 @@ namespace Project_Untitled.Models
 {
     public class SettingsRepository : ISettingsRepository
     {
-        private readonly AppIdentityDbContext _context;
+        private readonly AppIdentityDbContext Context;
 
-        public SettingsRepository(AppIdentityDbContext ctx) { _context = ctx; }
+        public SettingsRepository(AppIdentityDbContext ctx) { Context = ctx; }
 
         public UserSettingsViewModel Settings { get; set; }
         public NotificationsViewModel Notifications { get; set; }
@@ -18,41 +18,30 @@ namespace Project_Untitled.Models
 
         public UserSettingsViewModel GetUserSettings(IdentityUser user)
         {
-            var _user = _context.UserHandler.Where(a => a.IdentityId == user.Id).Select(d => d.Id).FirstOrDefault();
-            if (_user != null)
+            var User = Context.UserSettings.Where(a => a.OwnerId == user.Id).FirstOrDefault();
+
+            if (User != null)
             {
-                var _settings = _context.UserSettings.SingleOrDefault(c => c.UserId == _user);
-
-                if (_settings != null)
-                {
-                    Settings = Mapper.Map<UserSettings, UserSettingsViewModel>(_settings);
-                }
-                else
-                {
-                    Settings = new UserSettingsViewModel();
-                }
-
-                Settings.UserId = _user.Value;
+                Settings = Mapper.Map<UserSettings, UserSettingsViewModel>(User);
             }
+            else
+            {
+                Settings = new UserSettingsViewModel();
+            }
+
             return Settings;
         }
 
         public NotificationsViewModel GetUserNotifications(IdentityUser user)
         {
-            var _user = _context.UserHandler.Where(a => a.IdentityId == user.Id).Select(d => d.Id).FirstOrDefault();
-            if(_user != null)
+            var userNotifications = Context.Notifications.Where(a => a.OwnerId == user.Id).FirstOrDefault();
+            if (userNotifications != null)
             {
-                var _notifications = _context.Notifications.SingleOrDefault(c => c.UserId == _user);
-                if( _notifications != null)
-                {
-                    Notifications = Mapper.Map<Notifications, NotificationsViewModel>(_notifications);
-                }
-                else
-                {
-                    Notifications = new NotificationsViewModel();
-                }
-
-                Notifications.UserId = _user.Value;
+                Notifications = Mapper.Map<Notifications, NotificationsViewModel>(userNotifications);
+            }
+            else
+            {
+                Notifications = new NotificationsViewModel();
             }
 
             return Notifications;
@@ -60,7 +49,7 @@ namespace Project_Untitled.Models
 
         public UserViewModel GetUser(IdentityUser user)
         {
-            var _user = _context.Users.Where(a => a.Id == user.Id).Select(d => new { d.UserName, d.Email }).FirstOrDefault();
+            var _user = Context.Users.Where(a => a.Id == user.Id).Select(d => new { d.UserName, d.Email }).FirstOrDefault();
             if(_user != null)
             {
                 User = Mapper.Map<UserViewModel>(_user);
@@ -77,8 +66,8 @@ namespace Project_Untitled.Models
         {
             var Succeeded = false;
 
-            _context.UserSettings.Update(userSettings);
-            int x = await _context.SaveChangesAsync();
+            Context.UserSettings.Update(userSettings);
+            int x = await Context.SaveChangesAsync();
 
             if (x > 0) { Succeeded = true; }
 
@@ -89,8 +78,8 @@ namespace Project_Untitled.Models
         {
             bool Succeeded = false;
 
-            _context.Notifications.Update(notificationsViewModel);
-            int x = await _context.SaveChangesAsync();
+            Context.Notifications.Update(notificationsViewModel);
+            int x = await Context.SaveChangesAsync();
 
             if (x > 0) { Succeeded = true; }
 

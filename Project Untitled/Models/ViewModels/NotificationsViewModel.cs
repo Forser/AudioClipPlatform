@@ -7,9 +7,6 @@ namespace Project_Untitled.Models.ViewModels
         [RegularExpression(@"^[0-9""'\s-]*$"), Required]
         public int Id { get; set; }
 
-        [RegularExpression(@"^[0-9""'\s-]*$")]
-        public int? UserId { get; set; }
-
         public bool DesktopNotification { get; set; }
         public bool NewFollowerEmail { get; set; }
         public bool NewFollowerDevice { get; set; }

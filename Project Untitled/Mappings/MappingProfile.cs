@@ -11,6 +11,10 @@ namespace Project_Untitled.Mappings
         {
             CreateMap<UserSettingsViewModel, UserSettings>();
             CreateMap<UserSettings, UserSettingsViewModel>();
+            CreateMap<UserSettings, UserProfileViewModel>().ForMember(dest => dest.UserName, opt => opt.Ignore())
+                                                        .ForMember(dest => dest.NumberOfFollowers, opt => opt.Ignore())
+                                                        .ForMember(dest => dest.NumberOfPublishedClips, opt => opt.Ignore())
+                                                        .ForMember(dest => dest.NumOfMembersYouFollow, opt => opt.Ignore());
 
             CreateMap<NotificationsViewModel, Notifications>();
             CreateMap<Notifications, NotificationsViewModel>();

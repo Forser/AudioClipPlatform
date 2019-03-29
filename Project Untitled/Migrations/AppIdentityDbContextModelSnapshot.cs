@@ -191,13 +191,13 @@ namespace Project_Untitled.Migrations
                     b.Property<string>("FileStatus")
                         .IsRequired();
 
-                    b.Property<int>("ProfileId");
+                    b.Property<string>("OwnerId");
 
                     b.Property<DateTime>("UploadAt");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfileId");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Clips");
                 });
@@ -210,13 +210,11 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("FollowerId");
 
-                    b.Property<string>("FollowingId");
-
-                    b.Property<int>("ProfileId");
+                    b.Property<string>("OwnerId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfileId");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Followings");
                 });
@@ -228,8 +226,6 @@ namespace Project_Untitled.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ClipId");
-
-                    b.Property<int>("FileId");
 
                     b.Property<string>("LikeByUserId");
 
@@ -309,6 +305,8 @@ namespace Project_Untitled.Migrations
 
                     b.Property<bool>("NewsLetterEmail");
 
+                    b.Property<string>("OwnerId");
+
                     b.Property<bool>("RepostOfPostDevice");
 
                     b.Property<bool>("RepostOfPostEmail");
@@ -325,46 +323,13 @@ namespace Project_Untitled.Migrations
 
                     b.Property<bool>("TipsAndOffersEmail");
 
-                    b.Property<int?>("UserId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("OwnerId")
                         .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                        .HasFilter("[OwnerId] IS NOT NULL");
 
                     b.ToTable("Notifications");
-                });
-
-            modelBuilder.Entity("Project_Untitled.Models.UserHandler", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("IdentityId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Project_Untitled.Models.UserProfile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Followers");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("UserProfiles");
                 });
 
             modelBuilder.Entity("Project_Untitled.Models.UserSettings", b =>
@@ -395,6 +360,9 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("OwnerId")
+                        .IsRequired();
+
                     b.Property<string>("Periscope");
 
                     b.Property<string>("ProfileImage");
@@ -409,17 +377,11 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("Twitter");
 
-                    b.Property<int?>("UserId");
-
                     b.Property<string>("Wordpress");
 
                     b.Property<string>("Youtube");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("UserSettings");
                 });
@@ -471,18 +433,18 @@ namespace Project_Untitled.Migrations
 
             modelBuilder.Entity("Project_Untitled.Models.Clips", b =>
                 {
-                    b.HasOne("Project_Untitled.Models.UserProfile", "UserProfile")
+                    b.HasOne("Project_Untitled.Models.UserSettings", "UserSettings")
                         .WithMany("Clips")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OwnerId")
+                        .HasPrincipalKey("OwnerId");
                 });
 
             modelBuilder.Entity("Project_Untitled.Models.Following", b =>
                 {
-                    b.HasOne("Project_Untitled.Models.UserProfile", "UserProfile")
+                    b.HasOne("Project_Untitled.Models.UserSettings", "UserSettings")
                         .WithMany("Following")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OwnerId")
+                        .HasPrincipalKey("OwnerId");
                 });
 
             modelBuilder.Entity("Project_Untitled.Models.Liked", b =>
@@ -495,25 +457,10 @@ namespace Project_Untitled.Migrations
 
             modelBuilder.Entity("Project_Untitled.Models.Notifications", b =>
                 {
-                    b.HasOne("Project_Untitled.Models.UserHandler")
+                    b.HasOne("Project_Untitled.Models.UserSettings", "UserSettings")
                         .WithOne("Notifications")
-                        .HasForeignKey("Project_Untitled.Models.Notifications", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Project_Untitled.Models.UserProfile", b =>
-                {
-                    b.HasOne("Project_Untitled.Models.UserHandler", "User")
-                        .WithOne("UserProfile")
-                        .HasForeignKey("Project_Untitled.Models.UserProfile", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Project_Untitled.Models.UserSettings", b =>
-                {
-                    b.HasOne("Project_Untitled.Models.UserHandler", "UserHandler")
-                        .WithOne("UserSettings")
-                        .HasForeignKey("Project_Untitled.Models.UserSettings", "UserId");
+                        .HasForeignKey("Project_Untitled.Models.Notifications", "OwnerId")
+                        .HasPrincipalKey("Project_Untitled.Models.UserSettings", "OwnerId");
                 });
 #pragma warning restore 612, 618
         }

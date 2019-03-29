@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project_Untitled.Models
 {
@@ -7,8 +8,10 @@ namespace Project_Untitled.Models
         [Key]
         public int Id { get; set; }
 
-        // UserHandler UserID
-        public int? UserId { get; set; }
+        // UserID
+        public string OwnerId { get; set; }
+        [ForeignKey("OwnerId")]
+        public UserSettings UserSettings {get; set;}
 
         // Desktop Notification
         public bool DesktopNotification { get; set; }

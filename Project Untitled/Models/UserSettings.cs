@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Project_Untitled.Models
@@ -56,8 +57,16 @@ namespace Project_Untitled.Models
         // Privacy
         public bool AllowMessages { get; set; }
 
-        // User
-        public int? UserId { get; set; }
-        public UserHandler UserHandler { get; set; }
+        // User Identity
+        public string OwnerId { get; set; }
+
+        // Email / Device notifications
+        public Notifications Notifications { get; set; }
+
+        // Followers / Following
+        public IList<Following> Following { get; set; }
+
+        // Users Clips
+        public IList<Clips> Clips { get; set; }
     }
 }

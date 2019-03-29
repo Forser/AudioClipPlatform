@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_Untitled.Models;
 using Project_Untitled.Models.ViewModels;
@@ -11,10 +12,12 @@ namespace Project_Untitled.Controllers
     public class SettingsController : Controller
     {
         private readonly ISettingsRepository repository;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public SettingsController(ISettingsRepository repo)
+        public SettingsController(ISettingsRepository repo, UserManager<IdentityUser> usrManager)
         {
             repository = repo;
+            userManager = usrManager;
         }
 
         public IActionResult Index()
@@ -27,8 +30,10 @@ namespace Project_Untitled.Controllers
         {
             if(ModelState.IsValid)
             {
-                var _userSettings = Mapper.Map<UserSettings>(userSettingsViewModel);
-                var Succeeded = await repository.UpdateSettings(_userSettings);
+                var userSettings = Mapper.Map<UserSettings>(userSettingsViewModel);
+                var currentUser = await userManager.GetUserAsync(HttpContext.User);
+                userSettings.OwnerId = currentUser.Id;
+                var Succeeded = await repository.UpdateSettings(userSettings);
 
                 if (Succeeded)
                 {
@@ -46,8 +51,10 @@ namespace Project_Untitled.Controllers
         {
             if(ModelState.IsValid)
             {
-                var _notifications = Mapper.Map<Notifications>(notificationsViewModel);
-                var Succeeded = await repository.UpdateNotifications(_notifications);
+                var userNotifications = Mapper.Map<Notifications>(notificationsViewModel);
+                var currentUser = await userManager.GetUserAsync(HttpContext.User);
+                userNotifications.OwnerId = currentUser.Id;
+                var Succeeded = await repository.UpdateNotifications(userNotifications);
 
                 if (Succeeded)
                 {
