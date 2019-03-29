@@ -11,11 +11,10 @@
         </button>
     </div>
 }
+<div class="text-danger" asp-validation-summary="All"></div>
 <form asp-action="ReplyMessage" asp-controller="Messages" method="post">
     <input type="hidden" asp-for="Message.Id" />
-    <input type="hidden" asp-for="Message.RecipentId" />
     <input type="hidden" asp-for="Message.SenderId" />
-    <input type="hidden" asp-for="ReturnUrl" />
     <div class="modal fade" id="newMessageCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterMessage" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -37,9 +36,9 @@
                     <div class="row mx-md-n5">
                         <div class="col px-md-5">
                             <div class="form-group p-3 border bg-light">
-                                <label asp-for="NewMessage.Message"></label>
-                                <div><span asp-validation-for="NewMessage.Message" class="text-danger"></span></div>
-                                <textarea asp-for="NewMessage.Message" class="form-control"></textarea>
+                                <label asp-for="NewMessage.Content"></label>
+                                <div><span asp-validation-for="NewMessage.Content" class="text-danger"></span></div>
+                                <textarea asp-for="NewMessage.Content" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
@@ -61,7 +60,7 @@
         <span>From : @Model.Message.SenderUserName</span>
     </div>
     <div class="d-flex flex-row bd-highlight mb-3">
-        <span>@Model.Message.Message</span>
+        <span>@Model.Message.Content</span>
     </div>
     <div class="d-flex flex-row bd-highlight mb-3">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newMessageCenter">

@@ -2,7 +2,7 @@
 
 namespace Project_Untitled.Models
 {
-    public class Messages
+    public class Message
     {
         public int Id { get; set; }
 
@@ -15,7 +15,7 @@ namespace Project_Untitled.Models
         public MessageStatus RecipentStatus { get; set; } = MessageStatus.Unread;
 
         public string Title { get; set; }
-        public string Message { get; set; }
+        public string Content { get; set; }
 
         public DateTime ReadAt { get; set; }
 

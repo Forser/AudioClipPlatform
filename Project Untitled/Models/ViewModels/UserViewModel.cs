@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Project_Untitled.Models.ViewModels
 {
     public class UserViewModel
     {
-        public UserHandler User { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
 
-        public IdentityUser IdentityUser { get; set; }
+        [DataType(DataType.Text)]
+        public string UserName { get; set; }
     }
 }

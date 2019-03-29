@@ -1,13 +1,14 @@
 ﻿@model UserViewModel
 
+<div class="text-danger" asp-validation-summary="All"></div>
 @if (Model != null)
 {
     <div class="row">
         <div class="col">
-            <p class="text-left">Username : @Model.IdentityUser.UserName</p>
+            <p class="text-left">Username : @Model.UserName</p>
         </div>
         <div class="col">
-            <p class="text-left">Email Address : @Model.IdentityUser.Email</p>
+            <p class="text-left">Email Address : @Model.Email</p>
         </div>
     </div>
     <div class="row">

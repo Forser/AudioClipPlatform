@@ -2,10 +2,9 @@
 {
     public class GetMessageViewModel
     {
-        public Messages Message { get; set; }
+        public Message Message { get; set; }
 
-        public Messages NewMessage { get; set; }
+        public Message NewMessage { get; set; }
 
-        public string ReturnUrl { get; set; } = "/";
     }
 }

@@ -12,12 +12,11 @@
         </button>
     </div>
 }
-
+<div class="text-danger" asp-validation-summary="All"></div>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newMessageCenter">
     Send a Message
 </button>
-<form asp-action="SendMessage" asp-controller="Messages" class="eventInsForm" method="post">
-    <input type="hidden" asp-for="User.Id" />
+<form asp-action="SendMessage" asp-controller="Messages" method="post">
     <div class="modal fade" id="newMessageCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterMessage" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -49,9 +48,9 @@
                     <div class="row mx-md-n5">
                         <div class="col px-md-5">
                             <div class="form-group p-3 border bg-light">
-                                <label asp-for="NewMessage.Message"></label>
-                                <div><span asp-validation-for="NewMessage.Message" class="text-danger"></span></div>
-                                <textarea asp-for="NewMessage.Message" class="form-control"></textarea>
+                                <label asp-for="NewMessage.Content"></label>
+                                <div><span asp-validation-for="NewMessage.Content" class="text-danger"></span></div>
+                                <textarea asp-for="NewMessage.Content" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
