@@ -6,10 +6,14 @@ namespace Project_Untitled.Models
 {
     public interface ISettingsRepository
     {
-        Task<bool> UpdateSettings(UserViewModel userViewModel, IdentityUser user);
+        Task<bool> UpdateSettings(UserSettings userSettingsViewModel);
 
-        Task<bool> UpdateNotifications(UserViewModel userViewModel, IdentityUser user);
+        Task<bool> UpdateNotifications(Notifications notificationsViewModel);
 
         UserViewModel GetUser(IdentityUser user);
+
+        UserSettingsViewModel GetUserSettings(IdentityUser user);
+
+        NotificationsViewModel GetUserNotifications(IdentityUser user);
     }
 }

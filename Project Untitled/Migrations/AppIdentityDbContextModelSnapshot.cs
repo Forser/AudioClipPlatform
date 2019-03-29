@@ -180,15 +180,75 @@ namespace Project_Untitled.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Messages", b =>
+            modelBuilder.Entity("Project_Untitled.Models.Clips", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<string>("FileName");
 
-                    b.Property<string>("Message");
+                    b.Property<string>("FileStatus")
+                        .IsRequired();
+
+                    b.Property<int>("ProfileId");
+
+                    b.Property<DateTime>("UploadAt");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Clips");
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.Following", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FollowerId");
+
+                    b.Property<string>("FollowingId");
+
+                    b.Property<int>("ProfileId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Followings");
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.Liked", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClipId");
+
+                    b.Property<int>("FileId");
+
+                    b.Property<string>("LikeByUserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClipId");
+
+                    b.ToTable("Likes");
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("CreatedAt");
 
                     b.Property<DateTime>("ReadAt");
 
@@ -224,8 +284,6 @@ namespace Project_Untitled.Migrations
                     b.Property<bool>("CommentOnYourPostEmail");
 
                     b.Property<bool>("DesktopNotification");
-
-                    b.Property<string>("IdentityId");
 
                     b.Property<bool>("LikeOnYourPostDevice");
 
@@ -284,11 +342,42 @@ namespace Project_Untitled.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("IdentityId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.UserProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Followers");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserProfiles");
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.UserSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<bool>("AllowMessages");
 
                     b.Property<string>("Biography");
 
-                    b.Property<DateTime>("DOB");
+                    b.Property<DateTime>("DateOfBirth");
 
                     b.Property<string>("Facebook");
 
@@ -296,11 +385,9 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("HeaderImage");
 
-                    b.Property<string>("IdentityId");
-
                     b.Property<string>("Instagram");
 
-                    b.Property<string>("LiveStream");
+                    b.Property<string>("Livestream");
 
                     b.Property<string>("Location");
 
@@ -322,13 +409,19 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("Twitter");
 
+                    b.Property<int?>("UserId");
+
                     b.Property<string>("Wordpress");
 
-                    b.Property<string>("YouTube");
+                    b.Property<string>("Youtube");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("UserSettings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -376,12 +469,51 @@ namespace Project_Untitled.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Project_Untitled.Models.Clips", b =>
+                {
+                    b.HasOne("Project_Untitled.Models.UserProfile", "UserProfile")
+                        .WithMany("Clips")
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.Following", b =>
+                {
+                    b.HasOne("Project_Untitled.Models.UserProfile", "UserProfile")
+                        .WithMany("Following")
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.Liked", b =>
+                {
+                    b.HasOne("Project_Untitled.Models.Clips", "Clips")
+                        .WithMany("Likes")
+                        .HasForeignKey("ClipId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Project_Untitled.Models.Notifications", b =>
                 {
                     b.HasOne("Project_Untitled.Models.UserHandler")
                         .WithOne("Notifications")
                         .HasForeignKey("Project_Untitled.Models.Notifications", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.UserProfile", b =>
+                {
+                    b.HasOne("Project_Untitled.Models.UserHandler", "User")
+                        .WithOne("UserProfile")
+                        .HasForeignKey("Project_Untitled.Models.UserProfile", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.UserSettings", b =>
+                {
+                    b.HasOne("Project_Untitled.Models.UserHandler", "UserHandler")
+                        .WithOne("UserSettings")
+                        .HasForeignKey("Project_Untitled.Models.UserSettings", "UserId");
                 });
 #pragma warning restore 612, 618
         }

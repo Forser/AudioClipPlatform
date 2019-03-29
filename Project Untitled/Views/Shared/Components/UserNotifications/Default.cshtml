@@ -1,8 +1,9 @@
-﻿@model UserViewModel
-
+﻿@model NotificationsViewModel
+    
+<div class="text-danger" asp-validation-summary="All"></div>
 <form asp-action="UpdateNotifications" asp-controller="Settings" method="post">
-    <input type="hidden" asp-for="User.IdentityId" />
-    <input type="hidden" asp-for="User.Notifications.Id" />
+    <input type="hidden" asp-for="UserId" />
+    <input type="hidden" asp-for="Id" />
     <table class="table table-sm table-borderless table-hover">
         <thead>
             <tr>
@@ -15,64 +16,64 @@
             <tr>
                 <td scope="row">New Follower</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewFollowerDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.NewFollowerDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewFollowerEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.NewFollowerEmail" />
                 </td>
             </tr>
             <tr>
                 <td scope="row">Repost Of Your Clip</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.RepostOfPostDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.RepostOfPostDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.RepostOfPostEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.RepostOfPostEmail" />
                 </td>
             </tr>
             <tr>
                 <td scope="row">New Clip By Followed Member</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewPostByFollowedUserDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.NewPostByFollowedUserDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewPostByFollowedUserEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.NewPostByFollowedUserEmail" />
                 </td>
             </tr>
             <tr>
                 <td scope="row">Thumbs Up On Your Clip</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.LikeOnYourPostDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.LikeOnYourPostDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.LikeOnYourPostEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.LikeOnYourPostEmail" />
                 </td>
             </tr>
             <tr>
                 <td scope="row">Comment On Your Clip</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.CommentOnYourPostDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.CommentOnYourPostDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.CommentOnYourPostEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.CommentOnYourPostEmail" />
                 </td>
             </tr>
             <tr>
                 <td scope="row">Suggested Content</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.SuggestedContentDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.SuggestedContentDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.SuggestedContentEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.SuggestedContentEmail" />
                 </td>
             </tr>
             <tr>
                 <td scope="row">New Message</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewMessageDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.NewMessageDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewMessageEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.NewMessageEmail" />
                 </td>
             </tr>
         </tbody>
@@ -89,37 +90,37 @@
             <tr>
                 <td scope="row">New StreamerAudio Feature</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewFeatureDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.NewFeatureDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewFeatureEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.NewFeatureEmail" />
                 </td>
             </tr>
             <tr>
                 <td scope="row">Survey / Feedback</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.SurveyAndFeedbackDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.SurveyAndFeedbackDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.SurveyAndFeedbackEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.SurveyAndFeedbackEmail" />
                 </td>
             </tr>
             <tr>
                 <td scope="row">StreamerAudio Tips &Aacute; Offers</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.TipsAndOffersDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.TipsAndOffersDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.TipsAndOffersEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.TipsAndOffersEmail" />
                 </td>
             </tr>
             <tr>
                 <td scope="row">StreamerAudio Newsletter</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewsLetterDevice" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.NewsLetterDevice" />
                 </td>
                 <td>
-                    <input class="form-check-input" type="checkbox" asp-for="@Model.User.Notifications.NewsLetterEmail" />
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.NewsLetterEmail" />
                 </td>
             </tr>
         </tbody>

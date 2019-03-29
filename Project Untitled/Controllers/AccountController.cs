@@ -17,16 +17,18 @@ namespace Project_Untitled.Controllers
         private SignInManager<IdentityUser> signInManager;
         private readonly IEmailSender emailSender;
         private readonly IAccountRepository accountRepository;
+        private readonly AppIdentityDbContext _context;
 
-        public AccountController(UserManager<IdentityUser> userMgr, RoleManager<IdentityRole> roleMgr, SignInManager<IdentityUser> signInMgr, IEmailSender emailSndr, IAccountRepository accRepository)
+        public AccountController(UserManager<IdentityUser> userMgr, RoleManager<IdentityRole> roleMgr, SignInManager<IdentityUser> signInMgr, IEmailSender emailSndr, IAccountRepository accRepository, AppIdentityDbContext context)
         {
             userManager = userMgr;
             roleManager = roleMgr;
             signInManager = signInMgr;
             emailSender = emailSndr;
             accountRepository = accRepository;
+            _context = context;
 
-            IdentitySeedData.EnsurePopulated(userMgr, roleMgr).Wait();
+            IdentitySeedData.EnsurePopulated(userMgr, roleMgr, _context).Wait();
         }
 
         [AllowAnonymous]

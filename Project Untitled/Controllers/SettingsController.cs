@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project_Untitled.Models;
 using Project_Untitled.Models.ViewModels;
@@ -11,66 +11,53 @@ namespace Project_Untitled.Controllers
     public class SettingsController : Controller
     {
         private readonly ISettingsRepository repository;
-        private UserManager<IdentityUser> userManager;
 
-        public SettingsController(ISettingsRepository repo, UserManager<IdentityUser> userMgr)
+        public SettingsController(ISettingsRepository repo)
         {
             repository = repo;
-            userManager = userMgr;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var user = await userManager.GetUserAsync(HttpContext.User);
-            UserViewModel userViewModel = repository.GetUser(user);
-
-            return View(userViewModel);
+            return View();
         }
 
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateSettings(UserViewModel userViewModel)
+        public async Task<IActionResult> UpdateSettings([FromForm] UserSettingsViewModel userSettingsViewModel)
         {
             if(ModelState.IsValid)
             {
-                var user = await userManager.GetUserAsync(HttpContext.User);
-                var Succeeded = await repository.UpdateSettings(userViewModel, user);
+                var _userSettings = Mapper.Map<UserSettings>(userSettingsViewModel);
+                var Succeeded = await repository.UpdateSettings(_userSettings);
 
                 if (Succeeded)
                 {
                     TempData["message"] = "Your settings has been updated";
                     return RedirectToAction("Index", "Settings", "user-home");
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Could not update the settings!");
-                    return View("Index", userViewModel);
-                }
             }
+
             ModelState.AddModelError("", "Error : Could not update the settings!");
-            return View("Index", userViewModel);
+            return View("Index", userSettingsViewModel);
         }
 
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateNotifications(UserViewModel userViewModel)
+        public async Task<IActionResult> UpdateNotifications([FromForm] NotificationsViewModel notificationsViewModel)
         {
             if(ModelState.IsValid)
             {
-                var user = await userManager.GetUserAsync(HttpContext.User);
-                var Succeeded = await repository.UpdateNotifications(userViewModel, user);
+                var _notifications = Mapper.Map<Notifications>(notificationsViewModel);
+                var Succeeded = await repository.UpdateNotifications(_notifications);
 
                 if (Succeeded)
                 {
                     TempData["message"] = "Your notifications has been updated";
                     return RedirectToAction("Index", "Settings", "user-notify");
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Could not update your notifications!");
-                    return View("Index", userViewModel);
-                }
             }
+
             ModelState.AddModelError("", "Error: Could not update your notifications!");
-            return View("Index", userViewModel);
+            return View("Index", notificationsViewModel);
         }
     }
 }

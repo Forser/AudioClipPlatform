@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Project_Untitled.Models.ViewModels
 {
     public class MessagesViewModel
     {
-        public IList<Messages> Messages { get; set; }
+        public MessagesViewModel()
+        {
+            NewMessage = new NewMessageViewModel();
+        }
 
-        public Messages NewMessage { get; set; }
-
-        public IdentityUser User { get; set; }
+        public IEnumerable<MessageViewModel> Messages { get; set; }
+        public NewMessageViewModel NewMessage { get; set; }
     }
 }

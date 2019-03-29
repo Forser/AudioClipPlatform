@@ -7,11 +7,11 @@ namespace Project_Untitled.Models
 {
     public interface IMessageRepository
     {
-        IList<Messages> GetMessages(IdentityUser user);
+        IEnumerable<Message> GetMessages(IdentityUser user);
 
-        Task<bool> SendMessage(MessagesViewModel message);
+        Task<bool> SendMessage(Message message);
 
-        Task<bool> ReplyMessage(GetMessageViewModel message);
+        Task<bool> ReplyMessage(GetMessageViewModel message, IdentityUser _sender);
 
         GetMessageViewModel GetMessage(int messageId, string userId);
 

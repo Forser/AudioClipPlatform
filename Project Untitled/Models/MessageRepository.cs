@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Project_Untitled.Models.ViewModels;
 
@@ -33,12 +34,12 @@ namespace Project_Untitled.Models
             context.SaveChangesAsync();
         }
 
-        public IList<Messages> GetMessages(IdentityUser user)
+        public IEnumerable<Message> GetMessages(IdentityUser user)
         {
-            var messages = context.Messages.Where(r => r.RecipentId == user.Id && r.RecipentStatus != MessageStatus.Deleted)
+            var _messages = context.Messages.Where(r => r.RecipentId == user.Id && r.RecipentStatus != MessageStatus.Deleted)
                 .OrderBy(o => o.CreatedAt).ToList();
 
-            return messages;
+            return _messages;
         }
 
         public GetMessageViewModel GetMessage(int messageId, string userId)
@@ -55,46 +56,35 @@ namespace Project_Untitled.Models
             return messages;
         }
 
-        public async Task<bool> SendMessage(MessagesViewModel message)
+        public async Task<bool> SendMessage(Message message)
         {
             bool Succeeded = false;
+            message.CreatedAt = DateTime.Now;
 
-            var _recipient = context.Users.Where(r => r.UserName == message.NewMessage.RecipentUserName).Select(s => new { s.UserName, s.Id }).FirstOrDefault();
-            var _sender = context.Users.Where(r => r.Id == message.User.Id).Select(s => new { s.UserName }).FirstOrDefault();
-
-            if (_recipient != null)
-            {
-                message.NewMessage.CreatedAt = DateTime.Now;
-                message.NewMessage.SenderId = message.User.Id;
-                message.NewMessage.SenderUserName = _sender.UserName;
-                message.NewMessage.RecipentUserName = _recipient.UserName;
-                message.NewMessage.RecipentId = _recipient.Id;
-                context.Messages.Update(message.NewMessage);
-                var result = await context.SaveChangesAsync();
-                Succeeded = true;
-                return Succeeded;
-            }
+            context.Messages.Update(message);
+            var result = await context.SaveChangesAsync();
+            if (result > 0) { Succeeded = true; }
 
             return Succeeded;
         }
 
-        public async Task<bool> ReplyMessage(GetMessageViewModel message)
+        public async Task<bool> ReplyMessage(GetMessageViewModel replyMessage, IdentityUser _sender)
         {
             bool Succeeded = false;
 
-            var _sender = context.Users.Where(c => c.Id == message.Message.RecipentId).Select(s => new { s.Id, s.UserName }).FirstOrDefault();
-            var _recipent = context.Users.Where(c => c.Id == message.Message.SenderId).Select(s => new { s.Id, s.UserName }).FirstOrDefault();
+            var _recipent = context.Users.Where(c => c.Id == replyMessage.Message.SenderId).Select(s => new { s.Id, s.UserName }).FirstOrDefault();
 
-            message.NewMessage.CreatedAt = DateTime.Now;
-            message.NewMessage.SenderId = _sender.Id;
-            message.NewMessage.SenderUserName = _sender.UserName;
-            message.NewMessage.RecipentId = _recipent.Id;
-            message.NewMessage.RecipentUserName = _recipent.UserName;
-            message.NewMessage.Title = "RE: " + message.Message.Title;
-            context.Messages.Update(message.NewMessage);
+            replyMessage.NewMessage.RecipentId = _recipent.Id;
+            replyMessage.NewMessage.RecipentUserName = _recipent.UserName;
+            replyMessage.NewMessage.CreatedAt = DateTime.Now;
+            replyMessage.NewMessage.SenderId = _sender.Id;
+            replyMessage.NewMessage.SenderUserName = _sender.UserName;
+            replyMessage.NewMessage.Title = "RE: " + replyMessage.Message.Title;
+
+            context.Messages.Update(replyMessage.NewMessage);
             var result = await context.SaveChangesAsync();
 
-            var _message = context.Messages.FirstOrDefault(i => i.Id == message.Message.Id);
+            var _message = context.Messages.FirstOrDefault(i => i.Id == replyMessage.Message.Id);
             _message.RecipentStatus = MessageStatus.Replied;
             context.Messages.Update(_message);
             await context.SaveChangesAsync();

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Project_Untitled.Service;
+using AutoMapper;
+using Project_Untitled.Mappings;
 
 namespace Project_Untitled
 {
@@ -26,7 +28,8 @@ namespace Project_Untitled
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:ProjectUntitled:ConnectionString"]));
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:ProjectUntitled:ConnectionString"])
+            .EnableSensitiveDataLogging());
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 // Password Requirements
@@ -60,10 +63,18 @@ namespace Project_Untitled
             services.AddTransient<ISettingsRepository, SettingsRepository>();
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IMessageRepository, MessageRepository>();
+            services.AddTransient<IProfileRepository, ProfileRepository>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddMemoryCache();
             services.AddSession();
+
+            // Registering and Initializing AutoMapper
+
+            Mapper.Initialize(cfg => cfg.AddProfile<MappingProfile>());
+            services.AddAutoMapper();
+
+            // End Registering and Initalizing AutoMapper
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -86,7 +97,18 @@ namespace Project_Untitled
             app.UseStaticFiles();
             app.UseSession();
             app.UseAuthentication();
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    "Profile",
+                    "Profile/{profileName}",
+                    new { controller="Profile", action="GetProfile"},
+                    new { profileName = @"\w+"}
+                    );
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
