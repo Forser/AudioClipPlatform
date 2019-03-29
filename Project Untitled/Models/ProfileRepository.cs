@@ -21,7 +21,8 @@ namespace Project_Untitled.Models
             if (userIdentity != null)
             {
                 var fetchedProfile = await context.UserSettings.Where(s => s.OwnerId == userIdentity.Id)
-                                                                .Include(s => s.Following).Include(s => s.Clips)
+                                                                .Include(s => s.Following)
+                                                                .Include(s => s.Clips)
                                                                 .FirstOrDefaultAsync();
 
                 if(fetchedProfile != null)
@@ -29,10 +30,9 @@ namespace Project_Untitled.Models
                     userProfile = Mapper.Map<UserProfileViewModel>(fetchedProfile);
 
                     userProfile.UserName = userIdentity.UserName;
-                    userProfile.NumOfMembersYouFollow = fetchedProfile.Following.Select(s => s.OwnerId == fetchedProfile.OwnerId).Count();
-                    userProfile.NumberOfFollowers = fetchedProfile.Following.Select(s => s.FollowerId == fetchedProfile.OwnerId).Count();
-                    userProfile.NumberOfPublishedClips = fetchedProfile.Clips.Where(s => s.OwnerId == fetchedProfile.OwnerId
-                                                                                 && s.FileStatus == FileStatus.Listed).Count();
+                    userProfile.NumOfMembersYouFollow = fetchedProfile.Following.Count();
+                    userProfile.NumberOfFollowers = fetchedProfile.Following.Select(s => s.FollowerId == userIdentity.Id).Count();
+                    userProfile.NumberOfPublishedClips = fetchedProfile.Clips.Count(s => s.FileStatus == FileStatus.Listed);
                 }
             }
 
