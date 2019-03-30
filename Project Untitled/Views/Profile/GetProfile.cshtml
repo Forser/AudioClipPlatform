@@ -11,3 +11,5 @@
         <p>Number of published clips : @Model.NumberOfPublishedClips</p>
     </div>
 </div>
+
+@await Component.InvokeAsync("Follow", new { profileName = Model.UserName })
