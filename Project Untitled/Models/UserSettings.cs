@@ -64,7 +64,9 @@ namespace Project_Untitled.Models
         public Notifications Notifications { get; set; }
 
         // Followers / Following
-        public IList<Following> Following { get; set; }
+        public virtual IList<Following> YouFollowing { get; set; }
+
+        public virtual IList<Following> TheyFollowing { get; set; }
 
         // Users Clips
         public IList<Clips> Clips { get; set; }

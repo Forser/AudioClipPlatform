@@ -6,5 +6,7 @@ namespace Project_Untitled.Models
     public interface IProfileRepository
     {
         Task<UserProfileViewModel> GetProfile(string profileName);
+
+        void ChangeFollowStatus(string profileName, string loggedInUser, bool status);
     }
 }

@@ -10,7 +10,7 @@ using Project_Untitled.Models;
 namespace Project_Untitled.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20190329114001_Initial")]
+    [Migration("20190330165252_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -210,13 +210,15 @@ namespace Project_Untitled.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FollowerId");
+                    b.Property<string>("TheyFollowingId");
 
-                    b.Property<string>("OwnerId");
+                    b.Property<string>("YouFollowId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("TheyFollowingId");
+
+                    b.HasIndex("YouFollowId");
 
                     b.ToTable("Followings");
                 });
@@ -443,9 +445,14 @@ namespace Project_Untitled.Migrations
 
             modelBuilder.Entity("Project_Untitled.Models.Following", b =>
                 {
-                    b.HasOne("Project_Untitled.Models.UserSettings", "UserSettings")
-                        .WithMany("Following")
-                        .HasForeignKey("OwnerId")
+                    b.HasOne("Project_Untitled.Models.UserSettings", "TheyFollowing")
+                        .WithMany("TheyFollowing")
+                        .HasForeignKey("TheyFollowingId")
+                        .HasPrincipalKey("OwnerId");
+
+                    b.HasOne("Project_Untitled.Models.UserSettings", "YouFollow")
+                        .WithMany("YouFollowing")
+                        .HasForeignKey("YouFollowId")
                         .HasPrincipalKey("OwnerId");
                 });
 

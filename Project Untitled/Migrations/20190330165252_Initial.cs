@@ -237,15 +237,21 @@ namespace Project_Untitled.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FollowerId = table.Column<string>(nullable: true),
-                    OwnerId = table.Column<string>(nullable: true)
+                    YouFollowId = table.Column<string>(nullable: true),
+                    TheyFollowingId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Followings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Followings_UserSettings_OwnerId",
-                        column: x => x.OwnerId,
+                        name: "FK_Followings_UserSettings_TheyFollowingId",
+                        column: x => x.TheyFollowingId,
+                        principalTable: "UserSettings",
+                        principalColumn: "OwnerId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Followings_UserSettings_YouFollowId",
+                        column: x => x.YouFollowId,
                         principalTable: "UserSettings",
                         principalColumn: "OwnerId",
                         onDelete: ReferentialAction.Restrict);
@@ -358,9 +364,14 @@ namespace Project_Untitled.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Followings_OwnerId",
+                name: "IX_Followings_TheyFollowingId",
                 table: "Followings",
-                column: "OwnerId");
+                column: "TheyFollowingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Followings_YouFollowId",
+                table: "Followings",
+                column: "YouFollowId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Likes_ClipId",

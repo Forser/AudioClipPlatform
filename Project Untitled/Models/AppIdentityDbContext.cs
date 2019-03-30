@@ -53,10 +53,16 @@ namespace Project_Untitled.Models
                 .HasPrincipalKey(k => k.OwnerId);
 
             builder.Entity<Following>()
-                .HasOne<UserSettings>(a => a.UserSettings)
-                .WithMany(g => g.Following)
-                .HasForeignKey(s => s.OwnerId)
-                .HasPrincipalKey(k => k.OwnerId);
+                .HasOne<UserSettings>(a => a.YouFollow)
+                .WithMany(g => g.YouFollowing)
+                .HasForeignKey(a => a.YouFollowId)
+                .HasPrincipalKey(g => g.OwnerId);
+
+            builder.Entity<Following>()
+                .HasOne<UserSettings>(a => a.TheyFollowing)
+                .WithMany(g => g.TheyFollowing)
+                .HasForeignKey(a => a.TheyFollowingId)
+                .HasPrincipalKey(g => g.OwnerId);
 
             builder.Entity<Notifications>()
                 .HasOne<UserSettings>(a => a.UserSettings)

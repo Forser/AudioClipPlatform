@@ -1,39 +1,32 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Project_Untitled.Models;
+using Project_Untitled.Models.ViewModels;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project_Untitled.ViewComponents
 {
     public class FollowViewComponent : ViewComponent
     {
         private readonly AppIdentityDbContext context;
-        private readonly UserManager<IdentityUser> userManager;
 
-        public FollowViewComponent(AppIdentityDbContext ctx, UserManager<IdentityUser> usrManager) { context = ctx; userManager = usrManager; }
+        public FollowViewComponent(AppIdentityDbContext ctx) { context = ctx; }
 
-        public async Task<IViewComponentResult> InvokeAsync(string profileName)
+        public IViewComponentResult Invoke(string profileName)
         {
-            var userIdentity = context.Users.Where(a => a.UserName == profileName).FirstOrDefault();
-            var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
+            FollowViewModel followViewModel = new FollowViewModel();
 
-            string result = "Not able to follow!";
+            followViewModel.FollowState = "default";
 
-            if(loggedInUser != null)
+            var userIdentity = context.Users.Where(a => a.UserName == profileName).First();
+            var userLoggedIn = context.Users.Where(a => a.UserName == User.Identity.Name).First();
+
+            if (userIdentity.UserName != User.Identity.Name)
             {
-                if(userIdentity.UserName != loggedInUser.UserName)
-                {
-                    result = "You can follow!";
-                }
-                else
-                {
-                    result = "You are logged in but viewing your own profile!";
-                }
-
+                followViewModel.FollowState = (context.Followings.Where(t => t.YouFollowId == userLoggedIn.Id).Count() > 0) ? "Unfollow" : "Follow";
+                followViewModel.MemberName = userIdentity.UserName;
             }
 
-            return View("Default", result);
+            return View("Default", followViewModel);
         }
     }
 }

@@ -1,4 +1,17 @@
-﻿@model string
-<h1>Default</h1>
+﻿@model FollowViewModel
 
-@Html.Raw(Model)
+@{
+    switch (Model.FollowState)
+    {
+        case "Unfollow":
+            <a asp-controller="Profile" asp-action="UnFollowMember" asp-route-profileName="@Model.MemberName" type="button" class="btn btn-primary">Unfollow</a>
+            break;
+
+        case "Follow":
+            <a asp-controller="Profile" asp-action="FollowMember" asp-route-profileName="@Model.MemberName" type="button" class="btn btn-primary">Follow</a>
+            break;
+
+        default:
+            break;
+    }
+}

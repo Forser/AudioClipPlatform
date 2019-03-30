@@ -1,28 +1,46 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Project_Untitled.Models;
 using System.Threading.Tasks;
 
 namespace Project_Untitled.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
-        private readonly IProfileRepository _profileRepository;
+        private readonly IProfileRepository profileRepository;
 
-        public ProfileController(IProfileRepository profileRepository)
+        public ProfileController(IProfileRepository profileRepo)
         {
-            _profileRepository = profileRepository;
+            profileRepository = profileRepo;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> GetProfile(string profileName)
         {
-            var profile = await _profileRepository.GetProfile(profileName);
+            var profile = await profileRepository.GetProfile(profileName);
 
             return View(profile);
+        }
+
+        public IActionResult FollowMember(string profileName)
+        {
+            profileRepository.ChangeFollowStatus(profileName, User.Identity.Name, true);
+
+            return RedirectToAction("GetProfile", routeValues: new { profileName });
+        }
+
+        public IActionResult UnfollowMember(string profileName)
+        {
+            profileRepository.ChangeFollowStatus(profileName, User.Identity.Name, false);
+
+            return RedirectToAction("GetProfile", routeValues: new { profileName });
         }
 
         public IActionResult Settings()

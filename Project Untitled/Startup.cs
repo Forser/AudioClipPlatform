@@ -106,6 +106,18 @@ namespace Project_Untitled
                     new { profileName = @"\w+"}
                     );
                 routes.MapRoute(
+                    "FollowMember",
+                    "Profile/FollowMember/{profileName}",
+                    new { controller = "Profile", action = "FollowMember" },
+                    new { profileName = @"\w+" }
+                    );
+                routes.MapRoute(
+                    "UnfollowMember",
+                    "Profile/UnfollowMember/{profileName}",
+                    new { controller = "Profile", action = "UnfollowMember" },
+                    new { profileName = @"\w+" }
+                    );
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
