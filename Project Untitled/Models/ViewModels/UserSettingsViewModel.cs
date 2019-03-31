@@ -50,15 +50,9 @@ namespace Project_Untitled.Models.ViewModels
         public string Twitch { get; set; }
 
         [DataType(DataType.Text)]
-        public string Periscope { get; set; }
-
-        [DataType(DataType.Text)]
         public string Youtube { get; set; }
 
         [DataType(DataType.Text)]
         public string Mixer { get; set; }
-
-        [DataType(DataType.Text)]
-        public string Livestream { get; set; }
     }
 }

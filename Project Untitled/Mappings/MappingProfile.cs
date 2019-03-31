@@ -22,6 +22,13 @@ namespace Project_Untitled.Mappings
             CreateMap<IdentityUser, UserViewModel>().ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email)).ForAllOtherMembers(opts => opts.Ignore());
 
+            CreateMap<FileUploadView, Clips>().ForMember(dest => dest.FileStatus, opt => opt.Ignore())
+                                              .ForMember(dest => dest.Id, opt => opt.Ignore())
+                                              .ForMember(dest => dest.Likes, opt => opt.Ignore())
+                                              .ForMember(dest => dest.OwnerId, opt => opt.Ignore())
+                                              .ForMember(dest => dest.UploadAt, opt => opt.Ignore())
+                                              .ForMember(dest => dest.UserSettings, opt => opt.Ignore());
+
             CreateMap<Message, MessageViewModel>();
             CreateMap<Message, NewMessageViewModel>();
             CreateMap<NewMessageViewModel, Message>();

@@ -15,5 +15,7 @@ namespace Project_Untitled.Models
         UserSettingsViewModel GetUserSettings(IdentityUser user);
 
         NotificationsViewModel GetUserNotifications(IdentityUser user);
+
+        Task<bool> SaveFileInfo(FileUploadView fileUpload, IdentityUser user);
     }
 }

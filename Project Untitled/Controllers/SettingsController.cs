@@ -66,5 +66,30 @@ namespace Project_Untitled.Controllers
             ModelState.AddModelError("", "Error: Could not update your notifications!");
             return View("Index", notificationsViewModel);
         }
+
+        public IActionResult UploadAudio()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadAudio([FromForm]FileUploadView fileUpload)
+        {
+            if(ModelState.IsValid)
+            {
+                var currentUser = await userManager.GetUserAsync(HttpContext.User);
+                var Succeeded = await repository.SaveFileInfo(fileUpload, currentUser);
+
+                if(Succeeded)
+                {
+                    TempData["message"] = "Your audioclip has been uploaded!";
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            ModelState.AddModelError("", "Error: Could not upload your clip!");
+            return View("Index", fileUpload);
+        }
     }
 }

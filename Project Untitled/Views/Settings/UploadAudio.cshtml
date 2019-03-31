@@ -1,0 +1,39 @@
+﻿@model FileUploadView
+@{
+    Layout = "_Layout";
+}
+
+<h1>Upload AudioClip</h1>
+<div class="row">
+    <section>
+        <form method="post" enctype="multipart/form-data"
+              asp-controller="Settings" asp-action="UploadAudio" acc>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p>Title of Audio Clip :</p>
+                    <div><span asp-validation-for="Title" class="text-danger"></span></div>
+                    <input asp-for="Title" class="form-control" />
+                </div>
+                <div class="col-md-10">
+                    <p>Content Creator's Name :</p>
+                    <div><span asp-validation-for="ContentCreator" class="text-danger"></span></div>
+                    <input asp-for="ContentCreator" class="form-control" />
+                </div>
+                <div class="col-md-10">
+                    <p>Select which Content Platform streamer is on :</p>
+                    <div><span asp-validation-for="ContentPlatform" class="text-danger"></span></div>
+                    <select asp-for="ContentPlatform" asp-items="Html.GetEnumSelectList<ContentPlatform>()" class="form-control"></select>
+                </div>
+                <div class="col-md-10">
+                    <p>Upload one file using this form:</p>
+                    <input type="file" name="formFile" accept="audio/mp3" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="Upload" />
+                </div>
+            </div>
+        </form>
+    </section>
+</div>

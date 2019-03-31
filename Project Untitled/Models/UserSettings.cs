@@ -37,6 +37,10 @@ namespace Project_Untitled.Models
         public string Tumblr { get; set; }
         [PersonalData]
         public string Reddit { get; set; }
+        [PersonalData]
+        public string Wordpress { get; set; }
+        [PersonalData]
+        public string Spotify { get; set; }
 
         // Streaming Platform
         [PersonalData]
@@ -45,14 +49,6 @@ namespace Project_Untitled.Models
         public string Mixer { get; set; }
         [PersonalData]
         public string Youtube { get; set; }
-        [PersonalData]
-        public string Periscope { get; set; }
-        [PersonalData]
-        public string Livestream { get; set; }
-        [PersonalData]
-        public string Spotify { get; set; }
-        [PersonalData]
-        public string Wordpress { get; set; }
 
         // Privacy
         public bool AllowMessages { get; set; }
