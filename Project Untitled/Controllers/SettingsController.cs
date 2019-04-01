@@ -121,5 +121,19 @@ namespace Project_Untitled.Controllers
 
             return View();
         }
+
+        public async Task<IActionResult> DeleteClip(int id)
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var clipDeleted = await clipsRepository.DeleteClip(id, user);
+
+            if(clipDeleted)
+            {
+                TempData["message"] = "Your clip has been deleted!";
+                return RedirectToAction("Index", "Settings");
+            }
+
+            return View();
+        }
     }
 }

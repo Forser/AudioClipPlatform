@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Project_Untitled.Models
 {
@@ -16,7 +17,7 @@ namespace Project_Untitled.Models
         public bool ChangeClipStatus(int Id, IdentityUser user, FileStatus status)
         {
             bool changedStatus = false;
-            var clip = Context.Clips.Where(s => s.Id == Id).FirstOrDefault();
+            var clip = Context.Clips.Where(s => s.Id == Id && s.OwnerId == user.Id).FirstOrDefault();
 
             if(clip != null)
             {
@@ -31,6 +32,25 @@ namespace Project_Untitled.Models
             }
 
             return changedStatus;
+        }
+
+        public async Task<bool> DeleteClip(int id, IdentityUser user)
+        {
+            bool clipDeleted = false;
+            var clip = Context.Clips.Where(s => s.Id == id && s.OwnerId == user.Id).FirstOrDefault();
+
+            if(clip != null)
+            {
+                Context.Clips.Remove(clip);
+                int x = await Context.SaveChangesAsync();
+
+                if(x > 0)
+                {
+                    clipDeleted = true;
+                }
+            }
+
+            return clipDeleted;
         }
 
         public List<Clips> GetClipsForUser(IdentityUser user)
