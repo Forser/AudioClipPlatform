@@ -72,25 +72,25 @@ namespace Project_Untitled.Models
             return context.UserSettings.Where(u => u.OwnerId == userName).Select(s => s.AllowMessages).First();
         }
 
-        public async Task<bool> ReplyMessage(GetMessageViewModel replyMessage, IdentityUser _sender)
+        public async Task<bool> ReplyMessage(GetMessageViewModel replyMessage, IdentityUser sender)
         {
             bool Succeeded = false;
 
-            var _recipent = context.Users.Where(c => c.Id == replyMessage.Message.SenderId).Select(s => new { s.Id, s.UserName }).FirstOrDefault();
+            var recipent = context.Users.Where(c => c.Id == replyMessage.Message.SenderId).Select(s => new { s.Id, s.UserName }).FirstOrDefault();
 
-            replyMessage.NewMessage.RecipentId = _recipent.Id;
-            replyMessage.NewMessage.RecipentUserName = _recipent.UserName;
+            replyMessage.NewMessage.RecipentId = recipent.Id;
+            replyMessage.NewMessage.RecipentUserName = recipent.UserName;
             replyMessage.NewMessage.CreatedAt = DateTime.Now;
-            replyMessage.NewMessage.SenderId = _sender.Id;
-            replyMessage.NewMessage.SenderUserName = _sender.UserName;
+            replyMessage.NewMessage.SenderId = sender.Id;
+            replyMessage.NewMessage.SenderUserName = sender.UserName;
             replyMessage.NewMessage.Title = "RE: " + replyMessage.Message.Title;
 
             context.Messages.Update(replyMessage.NewMessage);
             var result = await context.SaveChangesAsync();
 
-            var _message = context.Messages.FirstOrDefault(i => i.Id == replyMessage.Message.Id);
-            _message.RecipentStatus = MessageStatus.Replied;
-            context.Messages.Update(_message);
+            var message = context.Messages.FirstOrDefault(i => i.Id == replyMessage.Message.Id);
+            message.RecipentStatus = MessageStatus.Replied;
+            context.Messages.Update(message);
             await context.SaveChangesAsync();
 
             if(result != 0)

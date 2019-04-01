@@ -9,21 +9,21 @@ namespace Project_Untitled.ViewComponents
     [Authorize]
     public class UserNotificationsViewComponent : ViewComponent
     {
-        private readonly ISettingsRepository _repository;
-        private UserManager<IdentityUser> _userManager;
+        private readonly ISettingsRepository repository;
+        private UserManager<IdentityUser> userManager;
 
-        public UserNotificationsViewComponent(ISettingsRepository repository, UserManager<IdentityUser> userManager)
+        public UserNotificationsViewComponent(ISettingsRepository repo, UserManager<IdentityUser> usrManager)
         {
-            _repository = repository;
-            _userManager = userManager;
+            repository = repo;
+            userManager = usrManager;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var _user = await _userManager.GetUserAsync(HttpContext.User);
-            var _userNotificationsViewModel = _repository.GetUserNotifications(_user);
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var userNotificationsViewModel = repository.GetUserNotifications(user);
 
-            return View(_userNotificationsViewModel);
+            return View(userNotificationsViewModel);
         }
     }
 }

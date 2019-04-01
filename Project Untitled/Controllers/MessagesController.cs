@@ -28,14 +28,14 @@ namespace Project_Untitled.Controllers
 
         private async Task<MessagesViewModel> GetMessages()
         {
-            var _user = await userManager.GetUserAsync(HttpContext.User);
-            var _messages = messageRepository.GetMessages(_user);
-            var _newMessage = new Message { SenderId = _user.Id, SenderUserName = _user.UserName };
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var messages = messageRepository.GetMessages(user);
+            var newMessage = new Message { SenderId = user.Id, SenderUserName = user.UserName };
 
             var messageSource = new MessagesViewModel
             {
-                Messages = Mapper.Map<IEnumerable<MessageViewModel>>(_messages),
-                NewMessage = Mapper.Map<Message, NewMessageViewModel>(_newMessage)
+                Messages = Mapper.Map<IEnumerable<MessageViewModel>>(messages),
+                NewMessage = Mapper.Map<Message, NewMessageViewModel>(newMessage)
             };
 
             var messagesViewModel = Mapper.Map<MessagesViewModel>(messageSource);
@@ -44,16 +44,16 @@ namespace Project_Untitled.Controllers
 
         public async Task<IActionResult> GetMessage(int messageId)
         {
-            var _user = await userManager.GetUserAsync(HttpContext.User);
-            var _message = messageRepository.GetMessage(messageId, _user.Id);
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var message = messageRepository.GetMessage(messageId, user.Id);
 
-            return View(_message);
+            return View(message);
         }
 
         public async Task<IActionResult> DeleteMessage(int messageId)
         {
-            var _user = await userManager.GetUserAsync(HttpContext.User);
-            messageRepository.ChangeMessageStatus(messageId, _user.Id, MessageStatus.Deleted);
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            messageRepository.ChangeMessageStatus(messageId, user.Id, MessageStatus.Deleted);
 
             TempData["message"] = "Message deleted!";
             return RedirectToAction("Index");
@@ -104,8 +104,8 @@ namespace Project_Untitled.Controllers
         {
             if(ModelState.IsValid)
             {
-                var _sender = await userManager.GetUserAsync(HttpContext.User);
-                var Succeeded = await messageRepository.ReplyMessage(replyMessage, _sender);
+                var sender = await userManager.GetUserAsync(HttpContext.User);
+                var Succeeded = await messageRepository.ReplyMessage(replyMessage, sender);
 
                 if (Succeeded)
                 {

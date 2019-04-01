@@ -28,8 +28,7 @@ namespace Project_Untitled
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:ProjectUntitled:ConnectionString"])
-            .EnableSensitiveDataLogging());
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:ProjectUntitled:ConnectionString"]));
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 // Password Requirements

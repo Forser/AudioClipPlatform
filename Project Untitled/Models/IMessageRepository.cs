@@ -11,7 +11,7 @@ namespace Project_Untitled.Models
 
         Task<bool> SendMessage(Message message);
 
-        Task<bool> ReplyMessage(GetMessageViewModel message, IdentityUser _sender);
+        Task<bool> ReplyMessage(GetMessageViewModel message, IdentityUser sender);
 
         GetMessageViewModel GetMessage(int messageId, string userId);
 
