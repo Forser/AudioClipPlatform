@@ -11,12 +11,14 @@ namespace Project_Untitled.Controllers
     [Authorize]
     public class SettingsController : Controller
     {
-        private readonly ISettingsRepository repository;
+        private readonly ISettingsRepository settingsRepository;
+        private readonly IClipsRepository clipsRepository;
         private readonly UserManager<IdentityUser> userManager;
 
-        public SettingsController(ISettingsRepository repo, UserManager<IdentityUser> usrManager)
+        public SettingsController(ISettingsRepository settingsRepo, UserManager<IdentityUser> usrManager, IClipsRepository clipsRepo)
         {
-            repository = repo;
+            settingsRepository = settingsRepo;
+            clipsRepository = clipsRepo;
             userManager = usrManager;
         }
 
@@ -33,7 +35,7 @@ namespace Project_Untitled.Controllers
                 var userSettings = Mapper.Map<UserSettings>(userSettingsViewModel);
                 var currentUser = await userManager.GetUserAsync(HttpContext.User);
                 userSettings.OwnerId = currentUser.Id;
-                var Succeeded = await repository.UpdateSettings(userSettings);
+                var Succeeded = await settingsRepository.UpdateSettings(userSettings);
 
                 if (Succeeded)
                 {
@@ -54,7 +56,7 @@ namespace Project_Untitled.Controllers
                 var userNotifications = Mapper.Map<Notifications>(notificationsViewModel);
                 var currentUser = await userManager.GetUserAsync(HttpContext.User);
                 userNotifications.OwnerId = currentUser.Id;
-                var Succeeded = await repository.UpdateNotifications(userNotifications);
+                var Succeeded = await settingsRepository.UpdateNotifications(userNotifications);
 
                 if (Succeeded)
                 {
@@ -79,7 +81,7 @@ namespace Project_Untitled.Controllers
             if(ModelState.IsValid)
             {
                 var currentUser = await userManager.GetUserAsync(HttpContext.User);
-                var Succeeded = await repository.SaveFileInfo(fileUpload, currentUser);
+                var Succeeded = await settingsRepository.SaveFileInfo(fileUpload, currentUser);
 
                 if(Succeeded)
                 {
@@ -90,6 +92,34 @@ namespace Project_Untitled.Controllers
 
             ModelState.AddModelError("", "Error: Could not upload your clip!");
             return View("UploadAudio", fileUpload);
+        }
+
+        public async Task<IActionResult> PublishClip(int id)
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var changedStatus = clipsRepository.ChangeClipStatus(id, user, FileStatus.Listed);
+            
+            if(changedStatus)
+            {
+                TempData["message"] = "Your clip has been published!";
+                return RedirectToAction("Index", "Settings");
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> UnpublishClip(int id)
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var changedStatus = clipsRepository.ChangeClipStatus(id, user, FileStatus.Unlisted);
+
+            if (changedStatus)
+            {
+                TempData["message"] = "Your clip has been unpublished!";
+                return RedirectToAction("Index", "Settings");
+            }
+
+            return View();
         }
     }
 }

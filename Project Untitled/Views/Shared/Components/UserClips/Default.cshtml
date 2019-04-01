@@ -1,0 +1,15 @@
+﻿@model List<Clips>
+
+@foreach (var clip in Model)
+{
+    <p>Clip Name : @clip.Title </p>
+
+    @if (clip.FileStatus == FileStatus.Unlisted)
+    {
+        <a asp-controller="Settings" asp-action="PublishClip" asp-route-id="@clip.Id">Publish Clip</a>
+    }
+    else
+    {
+        <a asp-controller="Settings" asp-action="UnpublishClip" asp-route-id="@clip.Id">Unpublish Clip</a>
+    }
+}

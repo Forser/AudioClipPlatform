@@ -64,6 +64,7 @@ namespace Project_Untitled
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IMessageRepository, MessageRepository>();
             services.AddTransient<IProfileRepository, ProfileRepository>();
+            services.AddTransient<IClipsRepository, ClipsRepository>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddMemoryCache();

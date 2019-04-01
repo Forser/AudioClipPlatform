@@ -14,7 +14,10 @@
 <div class="text-danger" asp-validation-summary="All"></div>
 <ul class="nav nav-pills mb-3" id="user-tab" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="user-home-tab" data-toggle="tab" href="#user-home" role="tab" aria-controls="user-home" aria-selected="true">Settings</a>
+        <a class="nav-link active" id="user-clips-tab" data-toggle="tab" href="#user-clips" aria-controls="user-clips" aria-selected="true">Audio Clips</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="user-home-tab" data-toggle="tab" href="#user-home" role="tab" aria-controls="user-home" aria-selected="false">Settings</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" id="user-notify-tab" data-toggle="tab" href="#user-notify" role="tab" aria-controls="user-notify" aria-selected="false">Notifications</a>
@@ -24,7 +27,10 @@
     </li>
 </ul>
 <div class="tab-content" id="user-tabContent">
-    <div class="tab-pane fade show active" id="user-home" role="tabpanel" aria-labelledby="user-home-tab">
+    <div class="tab-pane fade show active" id="user-clips" role="tabpanel" aria-labelledby="user-clips-tab">
+        @await Component.InvokeAsync("UserClips", Model)
+    </div>
+    <div class="tab-pane fade" id="user-home" role="tabpanel" aria-labelledby="user-home-tab">
         @await Component.InvokeAsync("UserSettings", Model)
     </div>
     <div class="tab-pane fade" id="user-notify" role="tabpanel" aria-labelledby="user-notify-tab">
