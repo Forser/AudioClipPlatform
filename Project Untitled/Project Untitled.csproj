@@ -24,6 +24,7 @@
     <Folder Include="Components\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="TagHelpers\" />
+    <Folder Include="wwwroot\img\profileimg\" />
   </ItemGroup>
 
 </Project>

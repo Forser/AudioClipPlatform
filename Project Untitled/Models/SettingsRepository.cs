@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Project_Untitled.Models.ViewModels;
 
@@ -53,10 +54,15 @@ namespace Project_Untitled.Models
 
         public UserViewModel GetUser(IdentityUser user)
         {
-            var _user = Context.Users.Where(a => a.Id == user.Id).Select(d => new { d.UserName, d.Email }).FirstOrDefault();
-            if(_user != null)
+            var profileImg = Context.ProfileImage.Where(w => w.OwnerId == user.Id).Select(s => s.ProfileImg).FirstOrDefault();
+
+            var fetchedUser = Context.Users
+                .Where(a => a.Id == user.Id)
+                .Select(d => new { d.UserName, d.Email, ProfileImage = profileImg }).FirstOrDefault();
+
+            if (fetchedUser != null)
             {
-                User = Mapper.Map<UserViewModel>(_user);
+                User = Mapper.Map<UserViewModel>(fetchedUser);
             }
             else
             {
@@ -114,6 +120,39 @@ namespace Project_Untitled.Models
                 if(x > 0) { Succeeded = true; }
 
             }
+            return Succeeded;
+        }
+
+        public async Task<bool> SaveProfileImage(IFormFile fileUpload, IdentityUser user)
+        {
+            bool Succeeded = false;
+
+            var profileImage = Context.ProfileImage.Where(s => s.OwnerId == user.Id).FirstOrDefault();
+
+            var extension = Path.GetExtension(fileUpload.FileName);
+            var fileName = Guid.NewGuid() + extension;
+            var filePath = hostingEnviroment.WebRootPath + "\\img\\profileimg\\" + fileName;
+
+            if(fileName.EndsWith(extension))
+            {
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await fileUpload.CopyToAsync(stream);
+                }
+
+                if (profileImage == null)
+                {
+                    profileImage = new ProfileImage();
+                }
+
+                profileImage.OwnerId = user.Id;
+                profileImage.ProfileImg = fileName;
+
+                Context.ProfileImage.Update(profileImage);
+                int x = await Context.SaveChangesAsync();
+                if(x > 0) { Succeeded = true; }
+            }
+
             return Succeeded;
         }
     }

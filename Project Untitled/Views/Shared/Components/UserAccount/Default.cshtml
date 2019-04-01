@@ -13,9 +13,13 @@
     </div>
     <div class="row">
         <div class="col">
+            <p class="left text"><a asp-action="UploadProfileImage" asp-controller="Settings" class="btn btn-primary" role="button">Upload new Profile Image</a></p>
         </div>
         <div class="col">
-
+            @if(Model.ProfileImage != null)
+            {
+                <img src="~/img/profileimg/@Model.ProfileImage" />
+            }
         </div>
     </div>
     <div class="row">

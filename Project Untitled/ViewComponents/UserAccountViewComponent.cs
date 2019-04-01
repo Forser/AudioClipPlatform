@@ -9,21 +9,21 @@ namespace Project_Untitled.ViewComponents
     [Authorize]
     public class UserAccountViewComponent : ViewComponent
     {
-        private readonly ISettingsRepository _repository;
-        private UserManager<IdentityUser> _userManager;
+        private readonly ISettingsRepository repository;
+        private UserManager<IdentityUser> userManager;
 
-        public UserAccountViewComponent(ISettingsRepository repository, UserManager<IdentityUser> userManager)
+        public UserAccountViewComponent(ISettingsRepository repo, UserManager<IdentityUser> usrManager)
         {
-            _repository = repository;
-            _userManager = userManager;
+            repository = repo;
+            userManager = usrManager;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var _user = await _userManager.GetUserAsync(HttpContext.User);
-            var _userViewModel = _repository.GetUser(_user);
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var userViewModel = repository.GetUser(user);
             
-            return View(_userViewModel);
+            return View(userViewModel);
         }
     }
 }

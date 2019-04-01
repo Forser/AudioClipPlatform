@@ -22,9 +22,6 @@ namespace Project_Untitled.Models
         public string Location { get; set; }
         [PersonalData]
         public string Biography { get; set; }
-        [PersonalData]
-        public string ProfileImage { get; set; }
-        public string HeaderImage { get; set; }
 
         // Social Media
         [PersonalData]
@@ -66,5 +63,8 @@ namespace Project_Untitled.Models
 
         // Users Clips
         public IList<Clips> Clips { get; set; }
+
+        // Users Images
+        public virtual ProfileImage ProfileImages { get; set; }
     }
 }

@@ -1,0 +1,24 @@
+﻿@model FileUploadView
+@{
+    Layout = "_Layout";
+}
+
+<h1>Upload AudioClip</h1>
+<div class="row">
+    <section>
+        <form method="post" enctype="multipart/form-data"
+              asp-controller="Settings" asp-action="UploadProfileImage" acc>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p>Upload one file using this form:</p>
+                    <input type="file" name="fileUpload" accept="image/*" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="Upload" />
+                </div>
+            </div>
+        </form>
+    </section>
+</div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Project_Untitled.Models.ViewModels;
 using System.Threading.Tasks;
 
@@ -17,5 +18,7 @@ namespace Project_Untitled.Models
         NotificationsViewModel GetUserNotifications(IdentityUser user);
 
         Task<bool> SaveFileInfo(FileUploadView fileUpload, IdentityUser user);
+
+        Task<bool> SaveProfileImage(IFormFile fileUpload, IdentityUser user);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_Untitled.Models;
@@ -92,6 +93,31 @@ namespace Project_Untitled.Controllers
 
             ModelState.AddModelError("", "Error: Could not upload your clip!");
             return View("UploadAudio", fileUpload);
+        }
+
+        public IActionResult UploadProfileImage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadProfileImage([FromForm]IFormFile fileUpload)
+        {
+            if(ModelState.IsValid)
+            {
+                var currentUser = await userManager.GetUserAsync(HttpContext.User);
+                var Succeeded = await settingsRepository.SaveProfileImage(fileUpload, currentUser);
+
+                if(Succeeded)
+                {
+                    TempData["message"] = "Your profile image has been uploaded!";
+                    return RedirectToAction("Index", "Settings");
+                }
+            }
+
+            ModelState.AddModelError("", "Error: Could not upload your image");
+            return View("UploadProfileImage", fileUpload);
         }
 
         public async Task<IActionResult> PublishClip(int id)

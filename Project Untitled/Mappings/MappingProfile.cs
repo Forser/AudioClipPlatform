@@ -11,16 +11,23 @@ namespace Project_Untitled.Mappings
         {
             CreateMap<UserSettingsViewModel, UserSettings>();
             CreateMap<UserSettings, UserSettingsViewModel>();
-            CreateMap<UserSettings, UserProfileViewModel>().ForMember(dest => dest.UserName, opt => opt.Ignore())
-                                                        .ForMember(dest => dest.NumberOfFollowers, opt => opt.Ignore())
-                                                        .ForMember(dest => dest.NumberOfPublishedClips, opt => opt.Ignore())
-                                                        .ForMember(dest => dest.NumOfMembersYouFollow, opt => opt.Ignore());
+            CreateMap<UserSettings, UserProfileViewModel>()
+                .ForMember(dest => dest.UserName, opt => opt.Ignore())
+                .ForMember(dest => dest.NumberOfFollowers, opt => opt.Ignore())
+                .ForMember(dest => dest.NumberOfPublishedClips, opt => opt.Ignore())
+                .ForMember(dest => dest.NumOfMembersYouFollow, opt => opt.Ignore());
 
             CreateMap<NotificationsViewModel, Notifications>();
             CreateMap<Notifications, NotificationsViewModel>();
 
-            CreateMap<IdentityUser, UserViewModel>().ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email)).ForAllOtherMembers(opts => opts.Ignore());
+            CreateMap<IdentityUser, UserViewModel>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForAllOtherMembers(opts => opts.Ignore());
+
+            CreateMap<UserSettings, UserViewModel>()
+                .ForMember(dest => dest.ProfileImage, opt => opt.MapFrom(src => src.ProfileImages))
+                .ForAllOtherMembers(opts => opts.Ignore());
 
             CreateMap<FileUploadView, Clips>().ForMember(dest => dest.FileStatus, opt => opt.Ignore())
                                               .ForMember(dest => dest.Id, opt => opt.Ignore())

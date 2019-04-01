@@ -15,6 +15,7 @@ namespace Project_Untitled.Models
         public DbSet<Clips> Clips { get; set; }
         public DbSet<Liked> Likes { get; set; }
         public DbSet<Following> Followings { get; set; }
+        public DbSet<ProfileImage> ProfileImage { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -68,6 +69,12 @@ namespace Project_Untitled.Models
                 .HasOne<UserSettings>(a => a.UserSettings)
                 .WithOne(g => g.Notifications)
                 .HasForeignKey<Notifications>(k => k.OwnerId)
+                .HasPrincipalKey<UserSettings>(k => k.OwnerId);
+
+            builder.Entity<ProfileImage>()
+                .HasOne<UserSettings>(a => a.UserSettings)
+                .WithOne(g => g.ProfileImages)
+                .HasForeignKey<ProfileImage>(k => k.OwnerId)
                 .HasPrincipalKey<UserSettings>(k => k.OwnerId);
         }
     }

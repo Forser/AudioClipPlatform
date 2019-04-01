@@ -41,7 +41,8 @@ namespace Project_Untitled.Models
 
             if(clip != null)
             {
-                Context.Clips.Remove(clip);
+                clip.FileStatus = FileStatus.Deleted;
+                Context.Clips.Update(clip);
                 int x = await Context.SaveChangesAsync();
 
                 if(x > 0)
