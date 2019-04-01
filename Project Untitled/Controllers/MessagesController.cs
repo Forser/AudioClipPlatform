@@ -65,23 +65,28 @@ namespace Project_Untitled.Controllers
         {
             if(ModelState.IsValid)
             {
-                var _user = await userManager.FindByNameAsync(newMessage.RecipentUserName);
-                
-                if(_user != null)
+                var user = await userManager.FindByNameAsync(newMessage.RecipentUserName);
+
+                if (user != null)
                 {
-                    var _sender = await userManager.GetUserAsync(HttpContext.User);
+                    var allowsMessages = messageRepository.AllowMessages(user.Id);
 
-                    newMessage.RecipentId = _user.Id;
-                    newMessage.SenderId = _sender.Id;
-                    newMessage.SenderUserName = _sender.UserName;
-
-                    var _message = Mapper.Map<Message>(newMessage);
-                    var Succeeded = await messageRepository.SendMessage(_message);
-
-                    if (Succeeded)
+                    if (allowsMessages == true)
                     {
-                        TempData["message"] = "Your message has been sent!";
-                        return Redirect("Index");
+                        var sender = await userManager.GetUserAsync(HttpContext.User);
+
+                        newMessage.RecipentId = user.Id;
+                        newMessage.SenderId = sender.Id;
+                        newMessage.SenderUserName = sender.UserName;
+
+                        var message = Mapper.Map<Message>(newMessage);
+                        var Succeeded = await messageRepository.SendMessage(message);
+
+                        if (Succeeded)
+                        {
+                            TempData["message"] = "Your message has been sent!";
+                            return Redirect("Index");
+                        }
                     }
                 }
             }

@@ -16,5 +16,7 @@ namespace Project_Untitled.Models
         GetMessageViewModel GetMessage(int messageId, string userId);
 
         void ChangeMessageStatus(int messageId, string userId, MessageStatus status);
+
+        bool AllowMessages(string userName);
     }
 }

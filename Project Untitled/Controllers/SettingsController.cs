@@ -89,7 +89,7 @@ namespace Project_Untitled.Controllers
             }
 
             ModelState.AddModelError("", "Error: Could not upload your clip!");
-            return View("Index", fileUpload);
+            return View("UploadAudio", fileUpload);
         }
     }
 }

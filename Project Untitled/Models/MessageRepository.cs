@@ -67,6 +67,11 @@ namespace Project_Untitled.Models
             return Succeeded;
         }
 
+        public bool AllowMessages(string userName)
+        {
+            return context.UserSettings.Where(u => u.OwnerId == userName).Select(s => s.AllowMessages).First();
+        }
+
         public async Task<bool> ReplyMessage(GetMessageViewModel replyMessage, IdentityUser _sender)
         {
             bool Succeeded = false;
