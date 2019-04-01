@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Project_Untitled.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,6 +63,28 @@ namespace Project_Untitled.Models
             var UserClips = Context.Clips.Where(u => u.OwnerId == user.Id).ToList();
 
             return UserClips;
+        }
+
+        public Clips GetClipWithComments(int Id)
+        {
+            var clipWithComments = Context.Clips
+                .Include(s => s.Comments)
+                .Where(i => i.Id == Id && i.FileStatus == FileStatus.Listed)
+                .FirstOrDefault();
+            
+            return clipWithComments;
+        }
+
+        public async Task<bool> SendComment(Comment newComment)
+        {
+            bool Succeeded = false;
+            newComment.PostedAt = DateTime.Now;
+
+            Context.Comments.Update(newComment);
+            var result = await Context.SaveChangesAsync();
+            if (result > 0) { Succeeded = true; }
+
+            return Succeeded;
         }
     }
 }

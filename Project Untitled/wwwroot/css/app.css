@@ -33,7 +33,7 @@ div#list-screen div#list-screen-header img#up-arrow {
 div#list-screen div#list-screen-header span.list-active-song-name {
   color: #fff;
   line-height: 25px;
-  font-size: 16px;
+  font-size: 26px;
   font-family: "Lato", sans-serif;
   letter-spacing: 0.5px;
 }
@@ -79,7 +79,7 @@ div#list-screen div#list div.song div.song-meta-container {
 }
 div#list-screen div#list div.song div.song-meta-container span.song-name {
   font-family: "Lato", sans-serif;
-  font-size: 14px;
+  font-size: 26px;
   line-height: 16px;
   color: #55b560;
   letter-spacing: 0.47px;
@@ -87,8 +87,8 @@ div#list-screen div#list div.song div.song-meta-container span.song-name {
 }
 div#list-screen div#list div.song div.song-meta-container span.song-artist-album {
   font-family: "Lato", sans-serif;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 22px;
+  line-height: 26px;
   color: #fff;
   letter-spacing: 0.47px;
   display: block;
@@ -116,7 +116,7 @@ div#list-screen div#list-screen-footer div#list-screen-meta-container {
 }
 div#list-screen div#list-screen-footer div#list-screen-meta-container span.song-name {
   font-family: "Lato", sans-serif;
-  font-size: 16px;
+  font-size: 26px;
   color: #fff;
   letter-spacing: 0.5px;
   line-height: 24px;
@@ -124,10 +124,10 @@ div#list-screen div#list-screen-footer div#list-screen-meta-container span.song-
 div#list-screen div#list-screen-footer div#list-screen-meta-container div.song-artist-album {
   opacity: 0.5;
   font-family: "Lato", sans-serif;
-  font-size: 14px;
+  font-size: 22px;
   color: #fff;
   letter-spacing: 0.5px;
-  line-height: 16px;
+  line-height: 26px;
 }
 div#list-screen div#list-screen-footer div.list-controls {
   width: 90px;
@@ -281,7 +281,7 @@ div#player-middle div#time-container span.amplitude-current-time {
 }
 div#player-middle span.song-name {
   font-family: Lato, sans-serif;
-  font-size: 16px;
+  font-size: 26px;
   color: #fff;
   letter-spacing: 0.5px;
   line-height: 24px;
@@ -290,10 +290,10 @@ div#player-middle span.song-name {
 div#player-middle div.song-artist-album {
   opacity: 0.5;
   font-family: Lato, sans-serif;
-  font-size: 14px;
+  font-size: 22px;
   color: #fff;
   letter-spacing: 0.5px;
-  line-height: 16px;
+  line-height: 26px;
 }
 
 div#player-bottom {
@@ -350,9 +350,9 @@ div#player-bottom div#control-container div#prev-container div#previous:hover {
   background: url("../img/previous-hover.svg");
 }
 div#player-bottom div#control-container div#play-pause-container {
-  width: 20%;
-  float: left;
-  height: 60px;
+    width: 20%;
+    float: left;
+    height: 60px;
 }
 div#player-bottom div#control-container div#play-pause-container div#play-pause {
   width: 60px;

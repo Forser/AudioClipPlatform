@@ -18,14 +18,13 @@ namespace Project_Untitled.Models.ViewModels
         public string Instagram { get; set; }
         public string Tumblr { get; set; }
         public string Reddit { get; set; }
+        public string Spotify { get; set; }
+        public string Wordpress { get; set; }
 
         // Streaming Platform
         public string Twitch { get; set; }
         public string Mixer { get; set; }
         public string Youtube { get; set; }
-        public string Periscope { get; set; }
-        public string Livestream { get; set; }
-        public string Spotify { get; set; }
-        public string Wordpress { get; set; }
+
     }
 }

@@ -20,6 +20,12 @@ namespace Project_Untitled.Mappings
             CreateMap<NotificationsViewModel, Notifications>();
             CreateMap<Notifications, NotificationsViewModel>();
 
+            CreateMap<Comment, CommentViewModel>();
+            CreateMap<CommentViewModel, Comment>();
+
+            CreateMap<Clips, ClipWithCommentsViewModel>();
+            CreateMap<ClipWithCommentsViewModel, Clips>();
+
             CreateMap<IdentityUser, UserViewModel>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))

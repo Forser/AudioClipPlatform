@@ -27,6 +27,8 @@ namespace Project_Untitled.Models
 
         public IList<Liked> Likes { get; set; }
 
+        public IList<Comment> Comments { get; set; }
+
         public string OwnerId { get; set; }
         [ForeignKey("OwnerId")]
         public UserSettings UserSettings { get; set; }

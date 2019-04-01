@@ -16,6 +16,7 @@ namespace Project_Untitled.Models
         public DbSet<Liked> Likes { get; set; }
         public DbSet<Following> Followings { get; set; }
         public DbSet<ProfileImage> ProfileImage { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -76,6 +77,12 @@ namespace Project_Untitled.Models
                 .WithOne(g => g.ProfileImages)
                 .HasForeignKey<ProfileImage>(k => k.OwnerId)
                 .HasPrincipalKey<UserSettings>(k => k.OwnerId);
+
+            builder.Entity<Comment>()
+                .HasOne<Clips>(a => a.Clips)
+                .WithMany(g => g.Comments)
+                .HasForeignKey(k => k.ClipId)
+                .HasPrincipalKey(k => k.Id);
         }
     }
 }

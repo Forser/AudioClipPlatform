@@ -80,20 +80,16 @@ namespace Project_Untitled.Migrations
                     Gender = table.Column<string>(nullable: true),
                     Location = table.Column<string>(nullable: true),
                     Biography = table.Column<string>(nullable: true),
-                    ProfileImage = table.Column<string>(nullable: true),
-                    HeaderImage = table.Column<string>(nullable: true),
                     Twitter = table.Column<string>(nullable: true),
                     Facebook = table.Column<string>(nullable: true),
                     Instagram = table.Column<string>(nullable: true),
                     Tumblr = table.Column<string>(nullable: true),
                     Reddit = table.Column<string>(nullable: true),
+                    Wordpress = table.Column<string>(nullable: true),
+                    Spotify = table.Column<string>(nullable: true),
                     Twitch = table.Column<string>(nullable: true),
                     Mixer = table.Column<string>(nullable: true),
                     Youtube = table.Column<string>(nullable: true),
-                    Periscope = table.Column<string>(nullable: true),
-                    Livestream = table.Column<string>(nullable: true),
-                    Spotify = table.Column<string>(nullable: true),
-                    Wordpress = table.Column<string>(nullable: true),
                     AllowMessages = table.Column<bool>(nullable: false),
                     OwnerId = table.Column<string>(nullable: false)
                 },
@@ -216,8 +212,11 @@ namespace Project_Untitled.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FileName = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
                     UploadAt = table.Column<DateTime>(nullable: false),
                     FileStatus = table.Column<string>(nullable: false),
+                    ContentCreator = table.Column<string>(nullable: true),
+                    ContentPlatform = table.Column<int>(nullable: false),
                     OwnerId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -300,6 +299,47 @@ namespace Project_Untitled.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProfileImage",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProfileImg = table.Column<string>(nullable: true),
+                    OwnerId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProfileImage", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ProfileImage_UserSettings_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "UserSettings",
+                        principalColumn: "OwnerId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Message = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
+                    ClipId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Clips_ClipId",
+                        column: x => x.ClipId,
+                        principalTable: "Clips",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Likes",
                 columns: table => new
                 {
@@ -364,6 +404,11 @@ namespace Project_Untitled.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_ClipId",
+                table: "Comments",
+                column: "ClipId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Followings_TheyFollowingId",
                 table: "Followings",
                 column: "TheyFollowingId");
@@ -381,6 +426,13 @@ namespace Project_Untitled.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Notifications_OwnerId",
                 table: "Notifications",
+                column: "OwnerId",
+                unique: true,
+                filter: "[OwnerId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProfileImage_OwnerId",
+                table: "ProfileImage",
                 column: "OwnerId",
                 unique: true,
                 filter: "[OwnerId] IS NOT NULL");
@@ -404,6 +456,9 @@ namespace Project_Untitled.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Comments");
+
+            migrationBuilder.DropTable(
                 name: "Followings");
 
             migrationBuilder.DropTable(
@@ -414,6 +469,9 @@ namespace Project_Untitled.Migrations
 
             migrationBuilder.DropTable(
                 name: "Notifications");
+
+            migrationBuilder.DropTable(
+                name: "ProfileImage");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

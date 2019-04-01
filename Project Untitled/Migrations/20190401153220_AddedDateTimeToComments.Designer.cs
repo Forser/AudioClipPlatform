@@ -10,8 +10,8 @@ using Project_Untitled.Models;
 namespace Project_Untitled.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20190331125613_UpdatedClips")]
-    partial class UpdatedClips
+    [Migration("20190401153220_AddedDateTimeToComments")]
+    partial class AddedDateTimeToComments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,6 +210,27 @@ namespace Project_Untitled.Migrations
                     b.ToTable("Clips");
                 });
 
+            modelBuilder.Entity("Project_Untitled.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClipId");
+
+                    b.Property<string>("Message");
+
+                    b.Property<DateTime>("PostedAt");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClipId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("Project_Untitled.Models.Following", b =>
                 {
                     b.Property<int>("Id")
@@ -342,6 +363,25 @@ namespace Project_Untitled.Migrations
                     b.ToTable("Notifications");
                 });
 
+            modelBuilder.Entity("Project_Untitled.Models.ProfileImage", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("OwnerId");
+
+                    b.Property<string>("ProfileImg");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("OwnerId")
+                        .IsUnique()
+                        .HasFilter("[OwnerId] IS NOT NULL");
+
+                    b.ToTable("ProfileImage");
+                });
+
             modelBuilder.Entity("Project_Untitled.Models.UserSettings", b =>
                 {
                     b.Property<int>("Id")
@@ -358,8 +398,6 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("Gender");
 
-                    b.Property<string>("HeaderImage");
-
                     b.Property<string>("Instagram");
 
                     b.Property<string>("Location");
@@ -370,8 +408,6 @@ namespace Project_Untitled.Migrations
 
                     b.Property<string>("OwnerId")
                         .IsRequired();
-
-                    b.Property<string>("ProfileImage");
 
                     b.Property<string>("Reddit");
 
@@ -445,6 +481,14 @@ namespace Project_Untitled.Migrations
                         .HasPrincipalKey("OwnerId");
                 });
 
+            modelBuilder.Entity("Project_Untitled.Models.Comment", b =>
+                {
+                    b.HasOne("Project_Untitled.Models.Clips", "Clips")
+                        .WithMany("Comments")
+                        .HasForeignKey("ClipId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Project_Untitled.Models.Following", b =>
                 {
                     b.HasOne("Project_Untitled.Models.UserSettings", "TheyFollowing")
@@ -471,6 +515,14 @@ namespace Project_Untitled.Migrations
                     b.HasOne("Project_Untitled.Models.UserSettings", "UserSettings")
                         .WithOne("Notifications")
                         .HasForeignKey("Project_Untitled.Models.Notifications", "OwnerId")
+                        .HasPrincipalKey("Project_Untitled.Models.UserSettings", "OwnerId");
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.ProfileImage", b =>
+                {
+                    b.HasOne("Project_Untitled.Models.UserSettings", "UserSettings")
+                        .WithOne("ProfileImages")
+                        .HasForeignKey("Project_Untitled.Models.ProfileImage", "OwnerId")
                         .HasPrincipalKey("Project_Untitled.Models.UserSettings", "OwnerId");
                 });
 #pragma warning restore 612, 618

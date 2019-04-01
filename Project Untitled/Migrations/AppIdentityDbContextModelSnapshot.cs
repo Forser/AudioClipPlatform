@@ -208,6 +208,27 @@ namespace Project_Untitled.Migrations
                     b.ToTable("Clips");
                 });
 
+            modelBuilder.Entity("Project_Untitled.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClipId");
+
+                    b.Property<string>("Message");
+
+                    b.Property<DateTime>("PostedAt");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClipId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("Project_Untitled.Models.Following", b =>
                 {
                     b.Property<int>("Id")
@@ -456,6 +477,14 @@ namespace Project_Untitled.Migrations
                         .WithMany("Clips")
                         .HasForeignKey("OwnerId")
                         .HasPrincipalKey("OwnerId");
+                });
+
+            modelBuilder.Entity("Project_Untitled.Models.Comment", b =>
+                {
+                    b.HasOne("Project_Untitled.Models.Clips", "Clips")
+                        .WithMany("Comments")
+                        .HasForeignKey("ClipId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Project_Untitled.Models.Following", b =>
