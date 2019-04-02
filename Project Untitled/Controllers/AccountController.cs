@@ -182,10 +182,7 @@ namespace ProjectUntitled.Controllers
                 }
 
                 var code = await userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.Page("/Account/ResetPassword",
-                    pageHandler: null,
-                    values: new { code },
-                    protocol: Request.Scheme);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { code }, protocol: Request.Scheme);
 
                 await emailSender.SendEmailAsync(
                     passwordViewModel.Email,
@@ -230,7 +227,7 @@ namespace ProjectUntitled.Controllers
                         await context.SaveChangesAsync();
 
                         var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                        var callbackUrl = Url.Page("/Account/ConfirmEmail", pageHandler: null, values: new { userId = user.Id, code = code });
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme );
                         await emailSender.SendEmailAsync(registerViewModel.Email, "Confirm your email",
                             $"Please confirm your account by <a href='{callbackUrl}'>click here</a>");
 
