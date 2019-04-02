@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="Components\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="wwwroot\clips\" />
     <Folder Include="wwwroot\img\profileimg\" />
   </ItemGroup>
 
