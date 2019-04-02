@@ -15,7 +15,7 @@ namespace ProjectUntitled.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [PersonalData]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; } = DateTime.Now;
         [PersonalData]
         public string Gender { get; set; }
         [PersonalData]
@@ -48,7 +48,7 @@ namespace ProjectUntitled.Models
         public string Youtube { get; set; }
 
         // Privacy
-        public bool AllowMessages { get; set; }
+        public bool AllowMessages { get; set; } = true;
 
         // User Identity
         public string OwnerId { get; set; }

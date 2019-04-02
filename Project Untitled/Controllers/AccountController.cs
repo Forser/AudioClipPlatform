@@ -219,6 +219,16 @@ namespace ProjectUntitled.Controllers
 
                     if (result.Succeeded)
                     {
+                        var registerUser = new UserSettings
+                        {
+                            DateOfBirth = DateTime.Now,
+                            OwnerId = user.Id,
+                            AllowMessages = true
+                        };
+
+                        context.UserSettings.Update(registerUser);
+                        await context.SaveChangesAsync();
+
                         var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
                         var callbackUrl = Url.Page("/Account/ConfirmEmail", pageHandler: null, values: new { userId = user.Id, code = code });
                         await emailSender.SendEmailAsync(registerViewModel.Email, "Confirm your email",
