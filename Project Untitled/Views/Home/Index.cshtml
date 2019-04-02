@@ -10,10 +10,22 @@
     </div>
 }
 
-@foreach (var clip in Model.Clips)
-{
-    <p>@clip.Title</p>
-}
-
+<div>
+    @foreach (var clip in Model.Clips)
+    {
+        <h5>@clip.Title</h5>
+        <audio class="js-player" controls>
+            <source src="~/clips/@clip.FileName" type="audio/mp3" />
+        </audio>
+    }
+</div>
 <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
      page-class="btn" page-class-normal="btn-secondary" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
+
+<script src="https://cdn.plyr.io/3.5.2/plyr.js"></script>
+<script>
+    const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p,
+        {
+            'volume': '0.5'
+        }));
+</script>

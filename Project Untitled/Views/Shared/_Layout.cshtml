@@ -32,36 +32,30 @@
     </style>
     <link href="~/css/sticky-footer-navbar.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
-    <link rel="stylesheet" type="text/css" href="/css/app.css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/foundation.min.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <style type="text/css">
         .datepicker {
             font-size: 0.875em;
         }
     </style>
-    <script type="text/javascript" src="/lib/amplitudejs/amplitude.js"></script>
     <script src="/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
     <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.5.2/plyr.css" />
 </head>
 <body class="d-flex flex-column h-100">
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <a class="navbar-brand ml-2" href="/">Fixed navbar</a>
+                <span class="navbar-brand ml-2">Content Audio</span>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav mr-2">
+                <ul class="navbar-nav text-right mr-2">
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <li class="nav-item">
@@ -123,12 +117,11 @@
     </main>
     <!-- Begin footer content -->
     <footer class="footer mt-auto py-3">
-        <div class="container">
-            <span class="text-muted">Place sticky footer content here.</span>
+        <div class="container text-right">
+            <span class="text-muted">Developed by <a href="https://github.com/Forser">Marcus Eklund</a> © 2019 </span>
         </div>
     </footer>
     <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/js/foundation.min.js"></script>
     <script type="text/javascript">
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             e.target // newly activated tab

@@ -17,10 +17,6 @@
     {
       "library": "bootstrap-datepicker@1.8.0",
       "destination": "wwwroot/lib/bootstrap-datepicker/"
-    },
-    {
-      "library": "amplitudejs@4.1.0",
-      "destination": "wwwroot/lib/amplitudejs/"
     }
   ]
 }
