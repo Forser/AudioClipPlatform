@@ -2,18 +2,18 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
-using Project_Untitled.Models;
+using ProjectUntitled.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Project_Untitled.Service;
+using ProjectUntitled.Service;
 using AutoMapper;
-using Project_Untitled.Mappings;
+using ProjectUntitled.Mappings;
 
-namespace Project_Untitled
+namespace ProjectUntitled
 {
     public class Startup
     {
@@ -99,6 +99,11 @@ namespace Project_Untitled
             app.UseAuthentication();
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    "Pagination",
+                    "Clips/Page{clipPage:int}",
+                    new { controller = "Home", action = "Index", clipPage = 1 }
+                    );
                 routes.MapRoute(
                     "Profile",
                     "Profile/{profileName}",

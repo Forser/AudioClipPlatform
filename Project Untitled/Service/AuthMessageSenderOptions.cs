@@ -1,4 +1,4 @@
-﻿namespace Project_Untitled.Service
+﻿namespace ProjectUntitled.Service
 {
     public class AuthMessageSenderOptions
     {

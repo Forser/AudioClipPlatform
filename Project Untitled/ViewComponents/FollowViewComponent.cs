@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Project_Untitled.Models;
-using Project_Untitled.Models.ViewModels;
+using ProjectUntitled.Models;
+using ProjectUntitled.Models.ViewModels;
 using System.Linq;
 
-namespace Project_Untitled.ViewComponents
+namespace ProjectUntitled.ViewComponents
 {
     public class FollowViewComponent : ViewComponent
     {

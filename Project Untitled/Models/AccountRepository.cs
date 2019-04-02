@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Identity;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public class AccountRepository : IAccountRepository
     {

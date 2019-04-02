@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <RootNamespace>Project_Untitled</RootNamespace>
+    <RootNamespace>ProjectUntitled</RootNamespace>
     <UserSecretsId>29cad7a0-9aa3-4d7c-8997-9a181caec87d</UserSecretsId>
   </PropertyGroup>
 
@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Components\" />
     <Folder Include="Views\Admin\" />
-    <Folder Include="TagHelpers\" />
     <Folder Include="wwwroot\img\profileimg\" />
   </ItemGroup>
 

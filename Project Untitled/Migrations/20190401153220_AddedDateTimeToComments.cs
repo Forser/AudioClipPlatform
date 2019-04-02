@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Project_Untitled.Migrations
+namespace ProjectUntitled.Migrations
 {
     public partial class AddedDateTimeToComments : Migration
     {

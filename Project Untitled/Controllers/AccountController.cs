@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Project_Untitled.Models;
-using Project_Untitled.Models.ViewModels;
+using ProjectUntitled.Models;
+using ProjectUntitled.Models.ViewModels;
 using System;
 using System.Threading.Tasks;
 
-namespace Project_Untitled.Controllers
+namespace ProjectUntitled.Controllers
 {
     [Authorize]
     public class AccountController : Controller

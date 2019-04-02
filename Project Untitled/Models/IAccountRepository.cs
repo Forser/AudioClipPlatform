@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public interface IAccountRepository
     {

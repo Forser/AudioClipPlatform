@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Project_Untitled.Models;
+using ProjectUntitled.Models;
 using System.Threading.Tasks;
 
-namespace Project_Untitled.Controllers
+namespace ProjectUntitled.Controllers
 {
     [Authorize]
     public class ProfileController : Controller

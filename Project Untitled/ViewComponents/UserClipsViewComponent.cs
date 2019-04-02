@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Project_Untitled.Models;
+using ProjectUntitled.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace Project_Untitled.ViewComponents
+namespace ProjectUntitled.ViewComponents
 {
     [Authorize]
     public class UserClipsViewComponent : ViewComponent

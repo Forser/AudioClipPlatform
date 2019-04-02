@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public class Message
     {

@@ -6,9 +6,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Project_Untitled.Models.ViewModels;
+using ProjectUntitled.Models.ViewModels;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public class SettingsRepository : ISettingsRepository
     {

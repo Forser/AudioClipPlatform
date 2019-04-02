@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Project_Untitled.Models;
-using Project_Untitled.Models.ViewModels;
+using ProjectUntitled.Models;
+using ProjectUntitled.Models.ViewModels;
 
-namespace Project_Untitled.Mappings
+namespace ProjectUntitled.Mappings
 {
     public class MappingProfile : Profile
     {

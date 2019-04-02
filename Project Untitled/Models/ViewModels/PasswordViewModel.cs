@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public class PasswordViewModel
     {

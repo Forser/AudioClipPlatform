@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public class AppIdentityDbContext : IdentityDbContext<IdentityUser>
     {

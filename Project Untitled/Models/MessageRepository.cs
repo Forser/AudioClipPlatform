@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Project_Untitled.Models.ViewModels;
+using ProjectUntitled.Models.ViewModels;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public class MessageRepository : IMessageRepository
     {

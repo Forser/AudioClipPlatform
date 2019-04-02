@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public class UserSettings
     {

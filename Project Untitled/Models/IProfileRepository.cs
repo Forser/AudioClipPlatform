@@ -1,7 +1,7 @@
-﻿using Project_Untitled.Models.ViewModels;
+﻿using ProjectUntitled.Models.ViewModels;
 using System.Threading.Tasks;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public interface IProfileRepository
     {

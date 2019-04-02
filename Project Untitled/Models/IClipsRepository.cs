@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Project_Untitled.Models.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public interface IClipsRepository
     {
+        IQueryable<Clips> Clips { get; }
+
         List<Clips> GetClipsForUser(IdentityUser user);
 
         bool ChangeClipStatus(int Id, IdentityUser user, FileStatus status);
@@ -16,5 +18,7 @@ namespace Project_Untitled.Models
         Clips GetClipWithComments(int Id);
 
         Task<bool> SendComment(Comment newComment);
+
+        List<Clips> GetClips();
     }
 }

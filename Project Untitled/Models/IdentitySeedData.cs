@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public static class IdentitySeedData
     {

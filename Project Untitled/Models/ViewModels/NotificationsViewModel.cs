@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Project_Untitled.Models.ViewModels
+namespace ProjectUntitled.Models.ViewModels
 {
     public class NotificationsViewModel
     {

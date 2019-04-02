@@ -1,13 +1,11 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Project_Untitled.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Project_Untitled.Models
+namespace ProjectUntitled.Models
 {
     public class ClipsRepository : IClipsRepository
     {
@@ -17,6 +15,8 @@ namespace Project_Untitled.Models
         {
             Context = ctx;
         }
+
+        public IQueryable<Clips> Clips => Context.Clips;
 
         public bool ChangeClipStatus(int Id, IdentityUser user, FileStatus status)
         {
@@ -63,6 +63,13 @@ namespace Project_Untitled.Models
             var UserClips = Context.Clips.Where(u => u.OwnerId == user.Id).ToList();
 
             return UserClips;
+        }
+
+        public List<Clips> GetClips()
+        {
+            var Clips = Context.Clips.Where(u => u.FileStatus == FileStatus.Listed).ToList();
+
+            return Clips;
         }
 
         public Clips GetClipWithComments(int Id)

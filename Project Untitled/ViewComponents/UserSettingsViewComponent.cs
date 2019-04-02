@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Project_Untitled.Models;
+using ProjectUntitled.Models;
 using System.Threading.Tasks;
 
-namespace Project_Untitled.ViewComponents
+namespace ProjectUntitled.ViewComponents
 {
     [Authorize]
     public class UserSettingsViewComponent : ViewComponent

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Project_Untitled
+namespace ProjectUntitled
 {
     public class Program
     {

@@ -1,7 +1,7 @@
-﻿@using Project_Untitled.Models.ViewModels
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using ProjectUntitled.Models
+@using ProjectUntitled.Models.ViewModels
 @using Microsoft.AspNetCore.Identity
-@using Project_Untitled.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper ProjectUntitled.Infrastructure.*, ProjectUntitled
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-@addTagHelper *, Project_Untitled

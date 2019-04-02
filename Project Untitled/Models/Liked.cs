@@ -1,4 +1,4 @@
-﻿namespace Project_Untitled.Models
+﻿namespace ProjectUntitled.Models
 {
     public class Liked
     {

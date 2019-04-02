@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Project_Untitled.Models;
+using ProjectUntitled.Models;
 
-namespace Project_Untitled.Migrations
+namespace ProjectUntitled.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
     [Migration("20190401153220_AddedDateTimeToComments")]
@@ -182,7 +182,7 @@ namespace Project_Untitled.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Clips", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Clips", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -210,7 +210,7 @@ namespace Project_Untitled.Migrations
                     b.ToTable("Clips");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Comment", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -231,7 +231,7 @@ namespace Project_Untitled.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Following", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Following", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -250,7 +250,7 @@ namespace Project_Untitled.Migrations
                     b.ToTable("Followings");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Liked", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Liked", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -267,7 +267,7 @@ namespace Project_Untitled.Migrations
                     b.ToTable("Likes");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Message", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Message", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -300,7 +300,7 @@ namespace Project_Untitled.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Notifications", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Notifications", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -363,7 +363,7 @@ namespace Project_Untitled.Migrations
                     b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.ProfileImage", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.ProfileImage", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -382,7 +382,7 @@ namespace Project_Untitled.Migrations
                     b.ToTable("ProfileImage");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.UserSettings", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.UserSettings", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -473,57 +473,57 @@ namespace Project_Untitled.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Clips", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Clips", b =>
                 {
-                    b.HasOne("Project_Untitled.Models.UserSettings", "UserSettings")
+                    b.HasOne("ProjectUntitled.Models.UserSettings", "UserSettings")
                         .WithMany("Clips")
                         .HasForeignKey("OwnerId")
                         .HasPrincipalKey("OwnerId");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Comment", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Comment", b =>
                 {
-                    b.HasOne("Project_Untitled.Models.Clips", "Clips")
+                    b.HasOne("ProjectUntitled.Models.Clips", "Clips")
                         .WithMany("Comments")
                         .HasForeignKey("ClipId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Following", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Following", b =>
                 {
-                    b.HasOne("Project_Untitled.Models.UserSettings", "TheyFollowing")
+                    b.HasOne("ProjectUntitled.Models.UserSettings", "TheyFollowing")
                         .WithMany("TheyFollowing")
                         .HasForeignKey("TheyFollowingId")
                         .HasPrincipalKey("OwnerId");
 
-                    b.HasOne("Project_Untitled.Models.UserSettings", "YouFollow")
+                    b.HasOne("ProjectUntitled.Models.UserSettings", "YouFollow")
                         .WithMany("YouFollowing")
                         .HasForeignKey("YouFollowId")
                         .HasPrincipalKey("OwnerId");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Liked", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Liked", b =>
                 {
-                    b.HasOne("Project_Untitled.Models.Clips", "Clips")
+                    b.HasOne("ProjectUntitled.Models.Clips", "Clips")
                         .WithMany("Likes")
                         .HasForeignKey("ClipId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.Notifications", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.Notifications", b =>
                 {
-                    b.HasOne("Project_Untitled.Models.UserSettings", "UserSettings")
+                    b.HasOne("ProjectUntitled.Models.UserSettings", "UserSettings")
                         .WithOne("Notifications")
-                        .HasForeignKey("Project_Untitled.Models.Notifications", "OwnerId")
-                        .HasPrincipalKey("Project_Untitled.Models.UserSettings", "OwnerId");
+                        .HasForeignKey("ProjectUntitled.Models.Notifications", "OwnerId")
+                        .HasPrincipalKey("ProjectUntitled.Models.UserSettings", "OwnerId");
                 });
 
-            modelBuilder.Entity("Project_Untitled.Models.ProfileImage", b =>
+            modelBuilder.Entity("ProjectUntitled.Models.ProfileImage", b =>
                 {
-                    b.HasOne("Project_Untitled.Models.UserSettings", "UserSettings")
+                    b.HasOne("ProjectUntitled.Models.UserSettings", "UserSettings")
                         .WithOne("ProfileImages")
-                        .HasForeignKey("Project_Untitled.Models.ProfileImage", "OwnerId")
-                        .HasPrincipalKey("Project_Untitled.Models.UserSettings", "OwnerId");
+                        .HasForeignKey("ProjectUntitled.Models.ProfileImage", "OwnerId")
+                        .HasPrincipalKey("ProjectUntitled.Models.UserSettings", "OwnerId");
                 });
 #pragma warning restore 612, 618
         }
