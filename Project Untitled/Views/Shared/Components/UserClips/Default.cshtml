@@ -1,16 +1,40 @@
 ﻿@model List<Clips>
 
-@foreach (var clip in Model)
-{
-    <p>Clip Name : @clip.Title </p>
-
-    @if (clip.FileStatus == FileStatus.Unlisted)
-    {
-        <a asp-controller="Settings" asp-action="PublishClip" asp-route-id="@clip.Id">Publish Clip</a>
-    }
-    else
-    {
-        <a asp-controller="Settings" asp-action="UnpublishClip" asp-route-id="@clip.Id">Unpublish Clip</a>
-    }
-    <a asp-controller="Settings" asp-action="DeleteClip" asp-route-id="@clip.Id">Delete Clip</a>
-}
+<div class="tile is-ancestor">
+    <div class="tile is-vertical is-8">
+        <div class="tile">
+            <div class="tile is-parent is-vertical">
+                @foreach (var clip in Model)
+                {
+                    <article class="tile is-child box">
+                        <p class="title">@clip.Title</p>
+                        <p class="subtitle">From @clip.ContentCreator</p>
+                        <div class="content">
+                            <audio class="js-player" controls>
+                                <source src="~/clips/@clip.FileName" type="audio/mp3" />
+                            </audio>
+                            <div class="content has-text-right has-text-weight-bold">
+                                @if (clip.FileStatus == FileStatus.Unlisted)
+                                {
+                                    <a asp-controller="Settings" asp-action="PublishClip" asp-route-id="@clip.Id">Publish Clip</a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Settings" asp-action="UnpublishClip" asp-route-id="@clip.Id">Unpublish Clip</a>
+                                }
+                                    <a asp-controller="Settings" asp-action="DeleteClip" asp-route-id="@clip.Id">Delete Clip</a>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.plyr.io/3.5.2/plyr.js"></script>
+<script>
+    const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p,
+        {
+            'volume': '0.5'
+        }));
+</script>

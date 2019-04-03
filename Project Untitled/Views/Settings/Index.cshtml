@@ -1,42 +1,69 @@
-﻿@{
-    ViewData["Title"] = "ViewSettings";
-}
+﻿
+<div class="is-danger" asp-validation-summary="All"></div>
 
-@if (TempData["message"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>@TempData["message"]</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-}
-<div class="text-danger" asp-validation-summary="All"></div>
-<ul class="nav nav-pills mb-3" id="user-tab" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="user-clips-tab" data-toggle="tab" href="#user-clips" aria-controls="user-clips" aria-selected="true">Audio Clips</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="user-home-tab" data-toggle="tab" href="#user-home" role="tab" aria-controls="user-home" aria-selected="false">Settings</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="user-notify-tab" data-toggle="tab" href="#user-notify" role="tab" aria-controls="user-notify" aria-selected="false">Notifications</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="user-account-tab" data-toggle="tab" href="#user-account" role="tab" aria-controls="user-account" aria-selected="false">Account</a>
-    </li>
-</ul>
-<div class="tab-content" id="user-tabContent">
-    <div class="tab-pane fade show active" id="user-clips" role="tabpanel" aria-labelledby="user-clips-tab">
-        @await Component.InvokeAsync("UserClips", Model)
-    </div>
-    <div class="tab-pane fade" id="user-home" role="tabpanel" aria-labelledby="user-home-tab">
-        @await Component.InvokeAsync("UserSettings", Model)
-    </div>
-    <div class="tab-pane fade" id="user-notify" role="tabpanel" aria-labelledby="user-notify-tab">
-        @await Component.InvokeAsync("UserNotifications", Model)
-    </div>
-    <div class="tab-pane fade" id="user-account" role="tabpanel" aria-labelledby="user-account-tab">
-        @await Component.InvokeAsync("UserAccount", Model)
-    </div>
+<div class="tabs is-centered">
+    <ul>
+        <li class="is-active" id="user-clips-tab"><a onClick="switchToUserClips()" href="#user-clips" aria-controls="user-clips" aria-selected="true">Audio Clips</a></li>
+        <li id="user-settings-tab"><a onClick="switchToUserSettings()" href="#user-settings" aria-controls="user-home" aria-selected="false">Settings</a></li>
+        <li id="user-notify-tab"><a onClick="switchToUserNotify()" href="#user-notify" aria-controls="user-notify" aria-selected="false">Notifications</a></li>
+        <li id="user-account-tab"><a onClick="switchToUserAccount()" href="#user-account" aria-controls="user-account" aria-selected="false">Account</a></li>
+    </ul>
 </div>
+
+<div id="user-clips" aria-labelledby="user-clips-tab">
+    @await Component.InvokeAsync("UserClips", Model)
+</div>
+<div class="is-hidden" id="user-settings" aria-labelledby="user-settings-tab">
+    @await Component.InvokeAsync("UserSettings", Model)
+</div>
+<div class="is-hidden" id="user-notify" aria-labelledby="user-notify-tab">
+    @await Component.InvokeAsync("UserNotifications", Model)
+</div>
+<div class="is-hidden" id="user-account" role="tabpanel" aria-labelledby="user-account-tab">
+    @await Component.InvokeAsync("UserAccount", Model)
+</div>
+
+
+<script type="text/javascript">
+
+    function switchToUserClips() {
+        removeActive();
+        hideAll();
+        $("#user-clips-tab").addClass("is-active");
+        $("#user-clips").removeClass("is-hidden");
+    }
+
+    function switchToUserSettings() {
+        removeActive();
+        hideAll();
+        $("#user-settings-tab").addClass("is-active");
+        $("#user-settings").removeClass("is-hidden");
+    }
+
+    function switchToUserNotify() {
+        removeActive();
+        hideAll();
+        $("#user-notify-tab").addClass("is-active");
+        $("#user-notify").removeClass("is-hidden");
+    }
+
+    function switchToUserAccount() {
+        removeActive();
+        hideAll();
+        $("#user-account-tab").addClass("is-active");
+        $("#user-account").removeClass("is-hidden");
+    }
+
+    function removeActive() {
+        $("li").each(function () {
+            $(this).removeClass("is-active");
+        });
+    }
+
+    function hideAll() {
+        $("#user-clips").addClass("is-hidden");
+        $("#user-settings").addClass("is-hidden");
+        $("#user-notify").addClass("is-hidden");
+        $("#user-account").addClass("is-hidden");
+    }
+</script>

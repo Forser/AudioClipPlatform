@@ -4,12 +4,23 @@
     Layout = "_Layout";
 }
 
-
-<h1>@Model.Title</h1>
-
-<audio id="player" controls>
-    <source src="~/clips/@Model.FileName" type="audio/mp3" />
-</audio>
+<div class="tile is-ancestor">
+    <div class="tile is-vertical is-8">
+        <div class="tile">
+            <div class="tile is-parent is-vertical">
+                <article class="tile is-child box">
+                    <p class="title">@Model.Title</p>
+                    <p class="subtitle">From @Model.ContentCreator on @Model.ContentPlatform</p>
+                    <div class="content">
+                        <audio class="js-player" controls>
+                            <source src="~/clips/@Model.FileName" type="audio/mp3" />
+                        </audio>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -18,15 +29,25 @@
 
 @if (Model.Comments.Count() > 0)
 {
+
     @foreach (var comment in Model.Comments)
     {
-        <p>@comment.Message</p>
+        <article class="message">
+            <div class="message-header">
+                <p>@comment.UserName - @comment.PostedAt.ToShortDateString()</p>
+            </div>
+            <div class="message-body is-size-5">
+                @comment.Message
+            </div>
+        </article>
     }
+
 }
 
 <script src="https://cdn.plyr.io/3.5.2/plyr.js"></script>
 <script>
-    const player = new Plyr('#player', {
-        volume: '0.5'
-    });
+    const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p,
+        {
+            'volume': '0.5'
+        }));
 </script>

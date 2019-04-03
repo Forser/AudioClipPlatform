@@ -1,33 +1,29 @@
 ﻿@model UserViewModel
 
-<div class="text-danger" asp-validation-summary="All"></div>
+<div class="is-danger" asp-validation-summary="All"></div>
 @if (Model != null)
 {
-    <div class="row">
-        <div class="col">
-            <p class="text-left">Username : @Model.UserName</p>
-        </div>
-        <div class="col">
-            <p class="text-left">Email Address : @Model.Email</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <p class="left text"><a asp-action="UploadProfileImage" asp-controller="Settings" class="btn btn-primary" role="button">Upload new Profile Image</a></p>
-        </div>
-        <div class="col">
-            @if(Model.ProfileImage != null)
-            {
+<div class="card">
+    @if (Model.ProfileImage != null)
+    {
+        <div class="card-image">
+            <figure class="image is-16by9">
                 <img src="~/img/profileimg/@Model.ProfileImage" />
-            }
+            </figure>
+        </div>
+    }
+    <div class="card-content">
+        <div class="media-content">
+            <p class="title is-4">@Model.UserName</p>
+            <p class="subtitle is-6">@Model.Email</p>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <a asp-action="ChangePassword" asp-controller="Account" class="btn btn-primary" role="button">Change Password</a>
-        </div>
-        <div class="col">
-            <a asp-action="DeleteAccount" asp-controller="Account" class="btn btn-danger" role="button">Delete Your Account</a>
-        </div>
+    <div class="content">
     </div>
+    <footer class="card-footer">
+        <a asp-action="UploadProfileImage" asp-controller="Settings" class="card-footer-item" role="button">Upload Profile Image</a>
+        <a asp-action="ChangePassword" asp-controller="Account" class="card-footer-item" role="button">Change Password</a>
+        <a asp-action="DeleteAccount" asp-controller="Account" class="card-footer-item has-text-danger has-text-weight-bold" role="button">Delete Your Account</a>
+    </footer>
+</div>
 }

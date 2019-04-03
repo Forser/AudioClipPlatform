@@ -3,22 +3,40 @@
     Layout = "_Layout";
 }
 
-<h1>Upload AudioClip</h1>
-<div class="row">
-    <section>
-        <form method="post" enctype="multipart/form-data"
-              asp-controller="Settings" asp-action="UploadProfileImage" acc>
-            <div class="form-group">
-                <div class="col-md-10">
-                    <p>Upload one file using this form:</p>
-                    <input type="file" name="fileUpload" accept="image/jpeg,image/gif,image/png" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10">
-                    <input type="submit" value="Upload" />
-                </div>
-            </div>
-        </form>
-    </section>
+<form method="post" enctype="multipart/form-data"
+      asp-controller="Settings" asp-action="UploadProfileImage" acc>
+
+<div class="field">
+    <div class="file has-name">
+        <label class="file-label">
+            <input class="file-input" type="file" accept="image/jpeg,image/gif,image/png" id="file" name="fileUpload" />
+            <span class="file-cta">
+                <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                    Choose a image...
+                </span>
+            </span>
+            <span class="file-name" id="filename"></span>
+        </label>
+    </div>
 </div>
+<div class="field">
+    <div class="control">
+        <input type="submit" class="button is-link" value="Upload" />
+    </div>
+</div>
+
+    
+
+</form>
+<script type="text/javascript">
+    var file = document.getElementById("file");
+    file.onchange = function () {
+        if (file.files.length > 0)
+        {
+            document.getElementById('filename').innerHTML = file.files[0].name;
+        }
+    };
+</script>

@@ -3,14 +3,85 @@
     Layout = "_Layout";
 }
 
-<div class="d-flex p-2 bd-highlight">
-    <div class="p-2 bd-highlight">
-        <p>@Model.UserName</p>
-        <p>Number of members following you : @Model.NumberOfFollowers</p>
-        <p>Following : @Model.NumOfMembersYouFollow members</p>
-        <p>Number of published clips : @Model.NumberOfPublishedClips</p>
+<div class="columns">
+    <div class="column">
+        <figure class="image is-3by1">
+            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+        </figure>
+    </div>
+    <div class="column">
+        <div class="media">
+            <div class="media-left">
+                <figure class="image is-48x48">
+                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                </figure>
+            </div>
+            <div class="media-content">
+                <p class="title is-4">@Model.UserName</p>
+                <p class="subtitle is-6">@Model.DateOfBirth.ToShortDateString()</p>
+            </div>
+        </div>
     </div>
 </div>
+<div class="columns">
+    @if (Model.Twitch != null)
+    {
+        <div class="column">
+            <div class="media-content box">
+
+                <a href="https://www.twitch.tv/@Model.Twitch" class="card-footer-item">@Model.Twitch at Twitch</a>
+            </div>
+        </div>
+    }
+    @if (Model.Youtube != null)
+    {
+        <div class="column">
+            <div class="media-content box">
+                <a href="https://www.youtube/user/@Model.Youtube" class="card-footer-item">@Model.Youtube at Youtube</a>
+            </div>
+        </div>
+    }
+    @if (Model.Mixer != null)
+    {
+        <div class="column">
+            <div class="media-content box">
+                <a href="https://mixer.com/@Model.Mixer" class="card-footer-item">@Model.Mixer at Mixer</a>
+            </div>
+        </div>
+    }
+    @if (Model.Facebook != null)
+    {
+        <div class="column">
+            <div class="media-content box">
+                <a href="https://www.facebook.com/@Model.Facebook" class="card-footer-item">@Model.Facebook at Facebook</a>
+            </div>
+        </div>
+    }
+    @if (Model.Twitter != null)
+    {
+        <div class="column">
+            <div class="media-content box">
+                <a href="https://twitter.com/@Model.Twitter" class="card-footer-item">@Model.Twitter at Twitter</a>
+            </div>
+        </div>
+    }
+    @if (Model.Reddit != null)
+    {
+        <div class="column">
+            <div class="media-content box">
+                <a href="https://www.reddit.com/user/@Model.Reddit" class="card-footer-item">@Model.Reddit at Reddit</a>
+            </div>
+        </div>
+    }
+</div>
+<div class="columns">
+    <div class="column">
+        <div class="media-content">
+                @Model.Biography
+        </div>
+    </div>
+</div>
+
 @if (SignInManager.IsSignedIn(User))
 {
     @await Component.InvokeAsync("Follow", new { profileName = Model.UserName })
