@@ -5,6 +5,8 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>ProjectUntitled</RootNamespace>
     <UserSecretsId>29cad7a0-9aa3-4d7c-8997-9a181caec87d</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/cbd7c0f5-7c6e-4526-aa31-318e73c32fdb/resourcegroups/AudioClips/providers/microsoft.insights/components/AudioClips</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/cbd7c0f5-7c6e-4526-aa31-318e73c32fdb/resourcegroups/AudioClips/providers/microsoft.insights/components/AudioClips</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
@@ -29,10 +32,15 @@
 
   <ItemGroup>
     <Folder Include="Components\" />
+    <Folder Include="Connected Services\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="wwwroot\clips\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\img\profileimg\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
