@@ -123,7 +123,7 @@ namespace ProjectUntitled.Controllers
         public async Task<IActionResult> PublishClip(int id)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
-            var changedStatus = clipsRepository.ChangeClipStatus(id, user, FileStatus.Listed);
+            var changedStatus = await clipsRepository.ChangeClipStatus(id, user, FileStatus.Listed);
             
             if(changedStatus)
             {
@@ -137,7 +137,7 @@ namespace ProjectUntitled.Controllers
         public async Task<IActionResult> UnpublishClip(int id)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
-            var changedStatus = clipsRepository.ChangeClipStatus(id, user, FileStatus.Unlisted);
+            var changedStatus = await clipsRepository.ChangeClipStatus(id, user, FileStatus.Unlisted);
 
             if (changedStatus)
             {

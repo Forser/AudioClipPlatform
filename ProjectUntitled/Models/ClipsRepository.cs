@@ -18,7 +18,7 @@ namespace ProjectUntitled.Models
 
         public IQueryable<Clips> Clips => Context.Clips;
 
-        public bool ChangeClipStatus(int Id, IdentityUser user, FileStatus status)
+        public async Task<bool> ChangeClipStatus(int Id, IdentityUser user, FileStatus status)
         {
             bool changedStatus = false;
             var clip = Context.Clips.Where(s => s.Id == Id && s.OwnerId == user.Id).FirstOrDefault();
@@ -29,7 +29,7 @@ namespace ProjectUntitled.Models
                 {
                     clip.FileStatus = status;
                     Context.Clips.Update(clip);
-                    Context.SaveChangesAsync();
+                    await Context.SaveChangesAsync();
 
                     changedStatus = true;
                 }

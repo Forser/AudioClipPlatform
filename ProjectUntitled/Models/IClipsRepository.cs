@@ -11,7 +11,7 @@ namespace ProjectUntitled.Models
 
         List<Clips> GetClipsForUser(IdentityUser user);
 
-        bool ChangeClipStatus(int Id, IdentityUser user, FileStatus status);
+        Task<bool> ChangeClipStatus(int Id, IdentityUser user, FileStatus status);
 
         Task<bool> DeleteClip(int id, IdentityUser user);
 
