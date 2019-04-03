@@ -4,11 +4,11 @@
     switch (Model.FollowState)
     {
         case "Unfollow":
-            <a asp-controller="Profile" asp-action="UnFollowMember" asp-route-profileName="@Model.MemberName" type="button" class="btn btn-primary">Unfollow</a>
+            <a asp-controller="Profile" asp-action="UnFollowMember" asp-route-profileName="@Model.MemberName" type="button" class="button is-primary">Unfollow</a>
             break;
 
         case "Follow":
-            <a asp-controller="Profile" asp-action="FollowMember" asp-route-profileName="@Model.MemberName" type="button" class="btn btn-primary">Follow</a>
+            <a asp-controller="Profile" asp-action="FollowMember" asp-route-profileName="@Model.MemberName" type="button" class="button is-primary">Follow</a>
             break;
 
         default:

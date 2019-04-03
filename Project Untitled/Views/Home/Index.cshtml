@@ -1,31 +1,45 @@
 ﻿@model ClipsViewModel
 
-@if (TempData["message"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>@TempData["message"]</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+<div class="tile is-ancestor">
+    <div class="tile is-vertical is-8">
+        <div class="tile">
+            <div class="tile is-parent is-vertical">
+                @foreach (var clip in Model.Clips)
+                {
+                    <article class="tile is-child box">
+                        <p class="title">@clip.Title</p>
+                        <p class="subtitle">From @clip.ContentCreator</p>
+                        <div class="content">
+                            <audio class="js-player" controls>
+                                <source src="~/clips/@clip.FileName" type="audio/mp3" />
+                            </audio>
+                        </div>
+                    </article>
+                }
+            </div>
+        </div>
+
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            <ul class="pagination-list">
+                <li page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+                     page-class="pagination-link" page-class-normal="pagination-link" page-class-selected="pagination-link is-current"></li>
+            </ul>
+        </nav>
+        <script src="https://cdn.plyr.io/3.5.2/plyr.js"></script>
+        <script>
+            const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p,
+                {
+                    'volume': '0.5'
+                }));
+
+            document.addEventListener('DOMContentLoaded', () => {
+                (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                    $notification = $delete.parentNode;
+                    $delete.addEventListener('click', () => {
+                        $notification.parentNode.removeChild($notification);
+                    });
+                });
+            });
+        </script>
     </div>
-}
-
-<div>
-    @foreach (var clip in Model.Clips)
-    {
-        <h5>@clip.Title</h5>
-        <audio class="js-player" controls>
-            <source src="~/clips/@clip.FileName" type="audio/mp3" />
-        </audio>
-    }
 </div>
-<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
-     page-class="btn" page-class-normal="btn-secondary" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
-
-<script src="https://cdn.plyr.io/3.5.2/plyr.js"></script>
-<script>
-    const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p,
-        {
-            'volume': '0.5'
-        }));
-</script>

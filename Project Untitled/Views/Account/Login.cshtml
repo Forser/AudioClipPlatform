@@ -1,26 +1,41 @@
 ﻿@model LoginViewModel
 @{
-    ViewBag.Title = "Log In";
     Layout = "_Layout";
 }
 
-<div class="text-danger" asp-validation-summary="All"></div>
+<section class="section">
+    <div class="container">
+        <div class="is-danger" asp-validation-summary="All"></div>
 
-<form asp-action="Login" asp-controller="Account" method="post">
-    <input type="hidden" asp-for="ReturnUrl" />
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <div><span asp-validation-for="Name" class="text-danger"></span></div>
-        <input asp-for="Name" class="form-control" />
+        <form asp-action="Login" asp-controller="Account" method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input asp-for="Name" class="input" />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </div>
+                <p asp-validation-for="Name" class="is-danger"></p>
+            </div>
+            <div class="field">
+                <label class="label">Password</label>
+                <input asp-for="Password" class="input" />
+                <p asp-validation-for="Password" class="is-danger"></p>
+            </div>
+            <button class="button is-link" type="submit">Log In</button>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <div><span asp-validation-for="Password" class="text-danger"></span></div>
-        <input asp-for="Password" class="form-control" />
+</section>
+<section class="section">
+    <div class="container">
+        <p class="control is-pulled-right">
+            <a class="button is-light" id="forgot-password" asp-controller="Account" asp-action="ForgotPassword">Forgot password?</a>
+            <a class="button is-primary" asp-controller="Account" asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl">Register New Account</a>
+        </p>
     </div>
-    <button class="btn btn-primary" type="submit">Log In</button>
-    <div class="form-group">
-        <span><a id="forgot-password" asp-controller="Account" asp-action="ForgotPassword">Forgot your password?</a> / </span>
-        <span><a asp-controller="Account" asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a></span>
-    </div>
-</form>
+</section>

@@ -73,7 +73,7 @@ namespace ProjectUntitled.Controllers
                 {
                     var allowsMessages = messageRepository.AllowMessages(user.Id);
 
-                    if (allowsMessages == true)
+                    if (allowsMessages)
                     {
                         var sender = await userManager.GetUserAsync(HttpContext.User);
 

@@ -24,7 +24,9 @@
     <Folder Include="Components\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="wwwroot\clips\" />
+    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\img\profileimg\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>

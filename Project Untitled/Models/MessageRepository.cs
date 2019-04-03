@@ -69,7 +69,7 @@ namespace ProjectUntitled.Models
 
         public bool AllowMessages(string userName)
         {
-            return context.UserSettings.Where(u => u.OwnerId == userName).Select(s => s.AllowMessages).First();
+            return context.UserSettings.Where(u => u.OwnerId == userName).Select(s => s.AllowMessages).FirstOrDefault();
         }
 
         public async Task<bool> ReplyMessage(GetMessageViewModel replyMessage, IdentityUser sender)

@@ -3,37 +3,59 @@
     Layout = "_Layout";
 }
 
-<h1>Upload AudioClip</h1>
-<div class="row">
-    <section>
-        <form method="post" enctype="multipart/form-data"
-              asp-controller="Settings" asp-action="UploadAudio" acc>
-            <div class="form-group">
-                <div class="col-md-10">
-                    <p>Title of Audio Clip :</p>
-                    <div><span asp-validation-for="Title" class="text-danger"></span></div>
-                    <input asp-for="Title" class="form-control" />
+<section class="section">
+    <form method="post" enctype="multipart/form-data" asp-controller="Settings" asp-action="UploadAudio" acc>
+        <div class="content">
+            <div class="field">
+                <label class="label">Title of Audio Clip</label>
+                <input asp-for="Title" class="input" />
+                <span asp-validation-for="Title" class="is-danger"></span>
+            </div>
+            <div class="field">
+                <label class="label">Content Creator's Name</label>
+                <input asp-for="ContentCreator" class="input" />
+                <span asp-validation-for="ContentCreator" class="is-danger"></span>
+            </div>
+            <div class="field">
+                <label class="label">Content Platform</label>
+                <div class="control">
+                    <div class="select">
+                        <select asp-for="ContentPlatform" asp-items="Html.GetEnumSelectList<ContentPlatform>()"></select>
+                    </div>
                 </div>
-                <div class="col-md-10">
-                    <p>Content Creator's Name :</p>
-                    <div><span asp-validation-for="ContentCreator" class="text-danger"></span></div>
-                    <input asp-for="ContentCreator" class="form-control" />
-                </div>
-                <div class="col-md-10">
-                    <p>Select which Content Platform streamer is on :</p>
-                    <div><span asp-validation-for="ContentPlatform" class="text-danger"></span></div>
-                    <select asp-for="ContentPlatform" asp-items="Html.GetEnumSelectList<ContentPlatform>()" class="form-control"></select>
-                </div>
-                <div class="col-md-10">
-                    <p>Upload one file using this form:</p>
-                    <input type="file" name="formFile" accept="audio/mp3" />
+                <span asp-validation-for="ContentPlatform" class="is-danger"></span>
+            </div>
+            <div class="field">
+                <div class="file has-name">
+                    <label class="file-label">
+                        <input class="file-input" type="file" accept="audio/mp3" id="file" name="formFile" />
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Choose a file...
+                            </span>
+                        </span>
+                        <span class="file-name" id="filename"></span>
+                    </label>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-10">
-                    <input type="submit" value="Upload" />
-                </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <input class="button is-link" type="submit" value="Upload" />
             </div>
-        </form>
-    </section>
-</div>
+        </div>
+    </form>
+</section>
+
+<script type="text/javascript">
+    var file = document.getElementById("file");
+    file.onchange = function () {
+        if (file.files.length > 0)
+        {
+            document.getElementById('filename').innerHTML = file.files[0].name;
+        }
+    };
+</script>

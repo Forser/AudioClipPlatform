@@ -1,153 +1,183 @@
 ﻿@model UserSettingsViewModel
 
-<div class="text-danger" asp-validation-summary="All"></div>
+<div class="is-danger" asp-validation-summary="All"></div>
+
 <form asp-action="UpdateSettings" asp-controller="Settings" method="post">
     <input type="hidden" asp-for="Id" />
-    <div class="row mx-md-n5">
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Name"></label>
-                <div><span asp-validation-for="Name" class="text-danger"></span></div>
-                <input asp-for="Name" class="form-control" />
-            </div>
-        </div>
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Gender"></label>
-                <select class="form-control" id="Gender" asp-for="Gender">
-                    <option>-- Select Gender --</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="secret">Prefer not to say</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="row mx-md-n5">
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="messageSwitch" asp-for="@Model.AllowMessages" />
-                    <label class="custom-control-label" for="messageSwitch">Allow Private Messages</label>
+
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label">Name</label>
+                        <input asp-for="Name" class="input" />
+                        <span asp-validation-for="Name" class="is-danger"></span>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label">Gender</label>
+                        <div class="control">
+                            <div class="select">
+                                <select id="Gender" asp-for="Gender">
+                                    <option>-- Select Gender --</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="secret">Prefer not to say</option>
+                                </select>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </div>
         </div>
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                &nbsp;
-            </div>
-        </div>
     </div>
-    <div class="row mx-md-n5">
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label>Date of Birth</label>
-                <div class="input-group date">
-                    <input type="text" class="form-control" asp-for="DateOfBirth" data-date-format="yyyy-mm-dd" id="datepicker" />
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
-                    </div>
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label">
+                            <input type="checkbox" asp-for="@Model.AllowMessages" />
+                            Allow Private Messages
+                        </label>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label">Date of Birth</label>
+                        <input type="text" class="input" asp-for="DateOfBirth" data-date-format="yyyy-mm-dd" id="datepicker" />
+                    </article>
                 </div>
             </div>
         </div>
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Location"></label>
-                <div><span asp-validation-for="Location" class="text-danger"></span></div>
-                <input asp-for="Location" class="form-control" />
+    </div>
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label">Location</label>
+                        <input asp-for="Location" class="input" />
+                        <span asp-validation-for="Location" class="is-danger"></span>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label">Biography</label>
+                        <textarea asp-for="Biography" class="textarea" rows="10"></textarea>
+                        <span asp-validation-for="Biography" class="is-danger"></span>
+                    </article>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row mx-md-n5">
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Biography"></label>
-                <div><span asp-validation-for="Biography" class="text-danger"></span></div>
-                <textarea asp-for="Biography" class="form-control"></textarea>
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label"><i class="fab fa-twitter-square fa-2x"></i></label>
+                        <input asp-for="Twitter" class="input" />
+                        <span asp-validation-for="Twitter" class="is-danger"></span>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label"><i class="fab fa-facebook-square fa-2x"></i></label>
+                        <input asp-for="Facebook" class="input" />
+                        <span asp-validation-for="Facebook" class="is-danger"></span>
+                    </article>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row mx-md-n5">
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Twitter"><i class="fab fa-twitter-square fa-2x"></i></label>
-                <div><span asp-validation-for="Twitter" class="text-danger"></span></div>
-                <input asp-for="Twitter" class="form-control" />
-            </div>
-        </div>
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Facebook"><i class="fab fa-facebook-square fa-2x"></i></label>
-                <div><span asp-validation-for="Facebook" class="text-danger"></span></div>
-                <input asp-for="Facebook" class="form-control" />
-            </div>
-        </div>
-    </div>
-    <div class="row mx-md-n5">
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Instagram"><i class="fab fa-instagram fa-2x"></i></label>
-                <div><span asp-validation-for="Instagram" class="text-danger"></span></div>
-                <input asp-for="Instagram" class="form-control" />
-            </div>
-        </div>
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Tumblr"><i class="fab fa-tumblr fa-2x"></i></label>
-                <div><span asp-validation-for="Tumblr" class="text-danger"></span></div>
-                <input asp-for="Tumblr" class="form-control" />
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label"><i class="fab fa-instagram fa-2x"></i></label>
+                        <input asp-for="Instagram" class="input" />
+                        <span asp-validation-for="Instagram" class="is-danger"></span>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label"><i class="fab fa-tumblr fa-2x"></i></label>
+                        <input asp-for="Tumblr" class="input" />
+                        <span asp-validation-for="Tumblr" class="is-danger"></span>
+                    </article>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row mx-md-n5">
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Reddit"><i class="fab fa-reddit-square fa-2x"></i></label>
-                <div><span asp-validation-for="Reddit" class="text-danger"></span></div>
-                <input asp-for="Reddit" class="form-control" />
-            </div>
-        </div>
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Spotify"><i class="fab fa-spotify fa-2x"></i></label>
-                <div><span asp-validation-for="Spotify" class="text-danger"></span></div>
-                <input asp-for="Spotify" class="form-control" />
-            </div>
-        </div>
-    </div>
-    <div class="row mx-md-n5">
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Wordpress"><i class="fab fa-wordpress fa-2x"></i></label>
-                <div><span asp-validation-for="Wordpress" class="text-danger"></span></div>
-                <input asp-for="Wordpress" class="form-control" />
-            </div>
-        </div>
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Twitch"><i class="fab fa-twitch fa-2x"></i></label>
-                <div><span asp-validation-for="Twitch" class="text-danger"></span></div>
-                <input asp-for="Twitch" class="form-control" />
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label"><i class="fab fa-reddit-square fa-2x"></i></label>
+                        <input asp-for="Reddit" class="input" />
+                        <span asp-validation-for="Reddit" class="is-danger"></span>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label"><i class="fab fa-spotify fa-2x"></i></label>
+                        <input asp-for="Spotify" class="input" />
+                        <span asp-validation-for="Spotify" class="is-danger"></span>
+                    </article>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row mx-md-n5">
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Mixer"></label>
-                <div><span asp-validation-for="Mixer" class="text-danger"></span></div>
-                <input asp-for="Mixer" class="form-control" />
-            </div>
-        </div>
-        <div class="col px-md-5">
-            <div class="form-group p-3 border bg-light">
-                <label asp-for="Youtube"><i class="fab fa-youtube fa-2x"></i></label>
-                <div><span asp-validation-for="Youtube" class="text-danger"></span></div>
-                <input asp-for="Youtube" class="form-control" />
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label"><i class="fab fa-wordpress fa-2x"></i></label>
+                        <input asp-for="Wordpress" class="input" />
+                        <span asp-validation-for="Wordpress" class="is-danger"></span>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label"><i class="fab fa-twitch fa-2x"></i></label>
+                        <input asp-for="Twitch" class="input" />
+                        <span asp-validation-for="Twitch" class="is-danger"></span>
+                    </article>
+                </div>
             </div>
         </div>
     </div>
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit">Update Settings</button>
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label">Mixer</label>
+                        <input asp-for="Mixer" class="input" />
+                        <span asp-validation-for="Mixer" class="is-danger"></span>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <label class="label"><i class="fab fa-youtube fa-2x"></i></label>
+                        <input asp-for="Youtube" class="input" />
+                        <span asp-validation-for="Youtube" class="is-danger"></span>
+                    </article>
+                </div>
+            </div>
+        </div>
     </div>
+    <button class="button is-primary" type="submit">Update Settings</button>
 </form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datepicker').duDatepicker({format: 'yyyy-mm-dd', theme: 'purple'});
+    });
+</script>

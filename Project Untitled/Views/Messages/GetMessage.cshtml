@@ -2,70 +2,62 @@
 @{
     Layout = "_Layout";
 }
-@if (TempData["message"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>@TempData["message"]</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-}
-<div class="text-danger" asp-validation-summary="All"></div>
+
+<div class="is-danger" asp-validation-summary="All"></div>
 <form asp-action="ReplyMessage" asp-controller="Messages" method="post">
     <input type="hidden" asp-for="Message.Id" />
     <input type="hidden" asp-for="Message.SenderId" />
-    <div class="modal fade" id="newMessageCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterMessage" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ModalCenterMessage">New Message</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row mx-md-n5">
-                        <div class="col px-md-5">
-                            <div class="form-group p-3 border bg-light">
-                                <p>Reply to : <input type=text readonly class="form-control" id="staticRecipient" asp-for="@Model.Message.SenderUserName" /></p>
-                                <p>Topic : <input type=text readonly class="form-control" id="staticTitle" asp-for="@Model.Message.Title" /></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mx-md-n5">
-                        <div class="col px-md-5">
-                            <div class="form-group p-3 border bg-light">
-                                <label asp-for="NewMessage.Content"></label>
-                                <div><span asp-validation-for="NewMessage.Content" class="text-danger"></span></div>
-                                <textarea asp-for="NewMessage.Content" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Reply</button>
-                    </div>
-                </div>
-            </div>
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">New Message</p>
+            </header>
+            <section class="modal-card-body">
+                <span class="label">Reply To</span>
+                <input type="text" readonly class="input" id="staticRecipient" asp-for="@Model.Message.SenderUserName" />
+
+                <span class="label">Topic</span>
+                <input type="text" readonly class="input" id="staticRecipient" asp-for="@Model.Message.Title" />
+
+                <span class="label">Message</span>
+                <span asp-validation-for="NewMessage.Content" class="is-danger"></span>
+                <textarea asp-for="NewMessage.Content" class="textarea" rows="5"></textarea>
+            </section>
+            <footer class="modal-card-foot">
+                <button type="submit" class="button is-primary">Reply</button>
+                <button type="button" class="modal-close" aria-label="close">Close</button>
+            </footer>
         </div>
     </div>
 </form>
 
-<div class="d-flex p-2 bd-highlight">
-    <div class="d-flex flex-row bd-highlight mb-3">
-        <span>Title : @Model.Message.Title</span>
+<article class="message">
+    <div class="message-header">
+        Subject: @Model.Message.Title - From: @Model.Message.SenderUserName
     </div>
-    <div class="d-flex flex-row bd-highlight mb-3">
-        <span>From : @Model.Message.SenderUserName</span>
+    <div class="message-body">
+        @Model.Message.Content
     </div>
-    <div class="d-flex flex-row bd-highlight mb-3">
-        <span>@Model.Message.Content</span>
-    </div>
-    <div class="d-flex flex-row bd-highlight mb-3">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newMessageCenter">
-            Reply to Message
-        </button>
-        <a asp-action="DeleteMessage" asp-controller="Messages" asp-route-messageId="@Model.Message.Id" class="btn btn-danger" role="button">Delete Message</a>
-    </div>
+</article>
+
+<div class="content">
+    <button class="button is-primary modal-button" id="showModal">
+        Reply to Message
+    </button>
+    <a asp-action="DeleteMessage" asp-controller="Messages" asp-route-messageId="@Model.Message.Id" class="button is-danger" role="button">Delete Message</a>
 </div>
+
+<script type="text/javascript">
+    $("#showModal").click(function () {
+        $(".modal").addClass("is-active");
+    });
+
+    $(".modal-close").click(function () {
+        $(".modal").removeClass("is-active");
+    });
+
+    $(".modal-background").click(function () {
+        $(".modal").removeClass("is-active");
+    });
+</script>
