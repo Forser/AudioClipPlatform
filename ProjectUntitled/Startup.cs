@@ -76,6 +76,9 @@ namespace ProjectUntitled
 
             // End Registering and Initalizing AutoMapper
 
+            services.AddOptions();
+            services.Configure<AzureStorageConfig>(Configuration.GetSection("AzureStorageConfig"));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
