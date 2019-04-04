@@ -6,6 +6,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.WindowsAzure.Storage.Blob;
+using ProjectUntitled.Helpers;
 using ProjectUntitled.Models.ViewModels;
 
 namespace ProjectUntitled.Models
@@ -14,8 +17,14 @@ namespace ProjectUntitled.Models
     {
         private readonly AppIdentityDbContext Context;
         private readonly IHostingEnvironment hostingEnviroment;
+        private readonly AzureStorageConfig storageConfig = null;
 
-        public SettingsRepository(AppIdentityDbContext ctx, IHostingEnvironment hostingEnviro) { Context = ctx; hostingEnviroment = hostingEnviro; }
+        public SettingsRepository(AppIdentityDbContext ctx, IHostingEnvironment hostingEnviro, IOptions<AzureStorageConfig> config)
+        {
+            Context = ctx;
+            hostingEnviroment = hostingEnviro;
+            storageConfig = config.Value;
+        }
 
         public UserSettingsViewModel Settings { get; set; }
         public NotificationsViewModel Notifications { get; set; }
@@ -99,20 +108,23 @@ namespace ProjectUntitled.Models
         public async Task<bool> SaveFileInfo(FileUploadView fileUpload, IdentityUser user)
         {
             bool Succeeded = false;
+            CloudBlockBlob blockBlob = null;
 
             var fileName = Guid.NewGuid() + ".mp3";
-            var filePath = hostingEnviroment.WebRootPath + "\\clips\\" + fileName;
+            //var filePath = hostingEnviroment.WebRootPath + "\\clips\\" + fileName;
 
-            if(fileName.EndsWith(".mp3"))
+            if (fileName.EndsWith(".mp3"))
             {
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var stream = fileUpload.formFile.OpenReadStream())
                 {
-                    await fileUpload.formFile.CopyToAsync(stream);
+                    blockBlob = await StorageHelper.UploadFileToStorage(stream, fileName, storageConfig);
+                    Succeeded = true;
+                    //await fileUpload.formFile.CopyToAsync(stream);
                 }
 
                 var fileInfo = Mapper.Map<Clips>(fileUpload);
 
-                fileInfo.FileName = fileName;
+                fileInfo.FileName = blockBlob.Uri.AbsoluteUri;
                 fileInfo.OwnerId = user.Id;
 
                 Context.Clips.Update(fileInfo);
