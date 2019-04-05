@@ -3,7 +3,7 @@
     Layout = "_Layout";
 }
 
-<div class="is-danger" asp-validation-summary="None"></div>
+<div class="is-danger" asp-validation-summary="All"></div>
 <section class="section">
     <div class="container">
         <form asp-action="Register" asp-controller="Account" method="post">
@@ -11,22 +11,22 @@
             <div class="field">
                 <label class="label">Username</label>
                 <input asp-for="Name" class="input" />
-                <span asp-validation-for="Name" class="is-danger"></span>
+                <span asp-validation-for="Name" class="has-text-danger"></span>
             </div>
             <div class="field">
                 <label class="label">Password</label>
                 <input asp-for="Password" class="input" />
-                <span asp-validation-for="Password" class="is-danger"></span>
+                <span asp-validation-for="Password" class="has-text-danger"></span>
             </div>
             <div class="field">
                 <label class="label">Confirm Password</label>
                 <input asp-for="ConfirmPassword" class="input" />
-                <span asp-validation-for="ConfirmPassword" class="is-danger"></span>
+                <span asp-validation-for="ConfirmPassword" class="has-text-danger"></span>
             </div>
             <div class="field">
                 <label class="label">Email</label>
                 <input asp-for="Email" class="input" />
-                <span asp-validation-for="Email" class="is-danger"></span>
+                <span asp-validation-for="Email" class="has-text-danger"></span>
             </div>
             <button class="button is-primary" type="submit">Register</button>
         </form>

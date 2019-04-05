@@ -203,12 +203,30 @@ namespace ProjectUntitled.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        public async Task<JsonResult> IsUserNameAvailable(string Name)
+        {
+            var user = await userManager.FindByNameAsync(Name);
+
+            return Json(user == null);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<JsonResult> IsEmailAlreadyRegistered(string Email)
+        {
+            var email = await userManager.FindByEmailAsync(Email);
+
+            return Json(email == null);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
-                var userFound = await userManager.FindByEmailAsync(registerViewModel.Email);
+                var userFound = await userManager.FindByNameAsync(registerViewModel.Name);
                 if(userFound == null)
                 {
                     var user = new IdentityUser { UserName = registerViewModel.Name, Email = registerViewModel.Email };
@@ -232,12 +250,12 @@ namespace ProjectUntitled.Controllers
                             $"Please confirm your account by <a href='{callbackUrl}'>click here</a>");
 
                         await userManager.AddToRoleAsync(user, "Member");
-                        TempData["message"] = $"{user.UserName} has been registered!";
+                        TempData["message"] = $"{user.UserName} has been registered! Check your email to verify your account!";
                         return LocalRedirect("/");
                     }
-                    ModelState.AddModelError("Username", "Username already taken");
+                    ModelState.AddModelError("", "An error has occured, try again later!");
                 }
-                ModelState.AddModelError("Email", "An account with this email is already registered!");
+                ModelState.AddModelError("Username", "An account with this username is already registered!");
             }
 
             return View(registerViewModel);

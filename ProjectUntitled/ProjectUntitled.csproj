@@ -11,12 +11,16 @@
 
   <ItemGroup>
     <Compile Remove="Components\**" />
+    <Compile Remove="Views\Admin\**" />
     <Compile Remove="wwwroot\js\**" />
     <Content Remove="Components\**" />
+    <Content Remove="Views\Admin\**" />
     <Content Remove="wwwroot\js\**" />
     <EmbeddedResource Remove="Components\**" />
+    <EmbeddedResource Remove="Views\Admin\**" />
     <EmbeddedResource Remove="wwwroot\js\**" />
     <None Remove="Components\**" />
+    <None Remove="Views\Admin\**" />
     <None Remove="wwwroot\js\**" />
   </ItemGroup>
 
@@ -37,7 +41,6 @@
 
   <ItemGroup>
     <Folder Include="Connected Services\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="wwwroot\clips\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\img\profileimg\" />
