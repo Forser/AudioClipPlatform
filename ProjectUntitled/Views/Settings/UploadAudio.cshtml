@@ -59,17 +59,4 @@
             document.getElementById('filename').innerHTML = file.files[0].name;
         }
     };
-
-    jQuery.validator.setDefaults({
-      debug: false,
-      success: "valid"
-    });
-    $( "#myform" ).validate({
-      rules: {
-        field: {
-          required: true,
-          accept: "audio/*"
-        }
-      }
-});
 </script>
