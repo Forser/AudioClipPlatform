@@ -4,7 +4,7 @@
 }
 
 
-<div class="is-danger" asp-validation-summary="All"></div>
+<div class="has-text-danger" asp-validation-summary="All"></div>
 <div class="content">
     <button class="button is-primary modal-button" id="showModal">
         Send a Message
@@ -20,15 +20,15 @@
             </header>
             <section class="modal-card-body">
                 <span class="label">Recipent Username</span>
-                <span asp-validation-for="NewMessage.RecipentUserName" class="is-danger"></span>
+                <span asp-validation-for="NewMessage.RecipentUserName" class="has-text-danger"></span>
                 <input asp-for="NewMessage.RecipentUserName" class="input" />
 
                 <span class="label">Title</span>
-                <span asp-validation-for="NewMessage.Title" class="is-danger"></span>
+                <span asp-validation-for="NewMessage.Title" class="has-text-danger"></span>
                 <input asp-for="NewMessage.Title" class="input" />
 
                 <span class="label">Message</span>
-                <span asp-validation-for="NewMessage.Content" class="is-danger"></span>
+                <span asp-validation-for="NewMessage.Content" class="has-text-danger"></span>
                 <textarea asp-for="NewMessage.Content" class="textarea" rows="5"></textarea>
             </section>
             <footer class="modal-card-foot">

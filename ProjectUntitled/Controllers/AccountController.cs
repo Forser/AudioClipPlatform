@@ -211,6 +211,14 @@ namespace ProjectUntitled.Controllers
         }
 
         [HttpPost]
+        public async Task<JsonResult> IsUserRegistered(NewMessageViewModel NewMessage)
+        {
+            var user = await userManager.FindByNameAsync(NewMessage.RecipentUserName);
+
+            return Json(user);
+        }
+
+        [HttpPost]
         [AllowAnonymous]
         public async Task<JsonResult> IsEmailAlreadyRegistered(string Email)
         {

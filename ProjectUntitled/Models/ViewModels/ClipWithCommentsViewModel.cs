@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjectUntitled.Models.ViewModels
 {
@@ -23,6 +24,7 @@ namespace ProjectUntitled.Models.ViewModels
 
         public IEnumerable<Comment> Comments { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Don't forget to add a comment")]
         public CommentViewModel NewComment { get; set; }
 
         public string ReturnUrl { get; set; }

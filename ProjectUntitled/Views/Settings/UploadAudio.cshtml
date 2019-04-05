@@ -9,12 +9,12 @@
             <div class="field">
                 <label class="label">Title of Audio Clip</label>
                 <input asp-for="Title" class="input" />
-                <span asp-validation-for="Title" class="is-danger"></span>
+                <span asp-validation-for="Title" class="has-text-danger"></span>
             </div>
             <div class="field">
                 <label class="label">Content Creator's Name</label>
                 <input asp-for="ContentCreator" class="input" />
-                <span asp-validation-for="ContentCreator" class="is-danger"></span>
+                <span asp-validation-for="ContentCreator" class="has-text-danger"></span>
             </div>
             <div class="field">
                 <label class="label">Content Platform</label>
@@ -23,7 +23,7 @@
                         <select asp-for="ContentPlatform" asp-items="Html.GetEnumSelectList<ContentPlatform>()"></select>
                     </div>
                 </div>
-                <span asp-validation-for="ContentPlatform" class="is-danger"></span>
+                <span asp-validation-for="ContentPlatform" class="has-text-danger"></span>
             </div>
             <div class="field">
                 <div class="file has-name">
@@ -38,6 +38,7 @@
                             </span>
                         </span>
                         <span class="file-name" id="filename"></span>
+                        <span asp-validation-for="formFile" class="has-text-danger"></span>
                     </label>
                 </div>
             </div>

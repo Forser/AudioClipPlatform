@@ -102,12 +102,12 @@ namespace ProjectUntitled.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UploadProfileImage([FromForm]IFormFile fileUpload)
+        public async Task<IActionResult> UploadProfileImage([FromForm]IFormFile formFile)
         {
             if(ModelState.IsValid)
             {
                 var currentUser = await userManager.GetUserAsync(HttpContext.User);
-                var Succeeded = await settingsRepository.SaveProfileImage(fileUpload, currentUser);
+                var Succeeded = await settingsRepository.SaveProfileImage(formFile, currentUser);
 
                 if(Succeeded)
                 {
@@ -117,7 +117,7 @@ namespace ProjectUntitled.Controllers
             }
 
             ModelState.AddModelError("", "Error: Could not upload your image");
-            return View("UploadProfileImage", fileUpload);
+            return View("UploadProfileImage", formFile);
         }
 
         public async Task<IActionResult> PublishClip(int id)

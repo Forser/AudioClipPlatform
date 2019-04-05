@@ -1,6 +1,6 @@
 ﻿@model ClipWithCommentsViewModel
 
-<div class="is-danger" asp-validation-summary="All"></div>
+<div class="has-text-danger" asp-validation-summary="All"></div>
 <div class="content">
     <button class="button is-primary modal-button" id="showModal">
         Send a Comment
@@ -16,8 +16,8 @@
                 <p class="modal-card-title">New Comment</p>
             </header>
             <section class="modal-card-body">
+                <span asp-validation-for="NewComment.Message" class="has-text-danger"></span>
                 <textarea asp-for="NewComment.Message" class="textarea"></textarea>
-                <span asp-validation-for="NewComment.Message" class="is-danger"></span>
             </section>
             <footer class="modal-card-foot">
                 <button type="submit" class="button is-primary">Send Comment</button>
