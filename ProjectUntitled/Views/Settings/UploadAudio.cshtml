@@ -4,7 +4,7 @@
 }
 
 <section class="section">
-    <form method="post" enctype="multipart/form-data" asp-controller="Settings" asp-action="UploadAudio" acc>
+    <form method="post" enctype="multipart/form-data" asp-controller="Settings" asp-action="UploadAudio" id="myform" acc>
         <div class="content">
             <div class="field">
                 <label class="label">Title of Audio Clip</label>
@@ -59,4 +59,17 @@
             document.getElementById('filename').innerHTML = file.files[0].name;
         }
     };
+
+    jQuery.validator.setDefaults({
+      debug: false,
+      success: "valid"
+    });
+    $( "#myform" ).validate({
+      rules: {
+        field: {
+          required: true,
+          accept: "audio/*"
+        }
+      }
+});
 </script>
