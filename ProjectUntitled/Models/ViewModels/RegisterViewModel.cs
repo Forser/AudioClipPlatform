@@ -15,12 +15,12 @@ namespace ProjectUntitled.Models.ViewModels
         [Display(Name = "Password")]
         [UIHint("password")]
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$", ErrorMessage = "Password is required with at least 6 characters, 1 number and both lower and uppercase letters. ")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,30}$", ErrorMessage = "Password is required with at least 6 characters, 1 number and both lower and uppercase letters. ")]
         public string Password { get; set; }
 
         [Display(Name = "Confirm Password")]
         [Compare(otherProperty: "Password", ErrorMessage = "Password & Confirm Password does not match!")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$", ErrorMessage = "Password is required with at least 6 characters, 1 number and both lower and uppercase letters. ")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,30}$", ErrorMessage = "Password is required with at least 6 characters, 1 number and both lower and uppercase letters. ")]
         [UIHint("password")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
