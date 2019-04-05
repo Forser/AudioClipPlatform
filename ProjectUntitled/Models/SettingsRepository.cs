@@ -111,7 +111,6 @@ namespace ProjectUntitled.Models
             CloudBlockBlob blockBlob = null;
 
             var fileName = Guid.NewGuid() + ".mp3";
-            //var filePath = hostingEnviroment.WebRootPath + "\\clips\\" + fileName;
 
             if (fileName.EndsWith(".mp3"))
             {
@@ -119,13 +118,13 @@ namespace ProjectUntitled.Models
                 {
                     blockBlob = await StorageHelper.UploadFileToStorage(stream, fileName, storageConfig);
                     Succeeded = true;
-                    //await fileUpload.formFile.CopyToAsync(stream);
                 }
 
                 var fileInfo = Mapper.Map<Clips>(fileUpload);
 
                 fileInfo.FileName = blockBlob.Uri.AbsoluteUri;
                 fileInfo.OwnerId = user.Id;
+                fileInfo.UploadedBy = user.UserName;
 
                 Context.Clips.Update(fileInfo);
                 int x = await Context.SaveChangesAsync();

@@ -7,7 +7,7 @@ using ProjectUntitled.Models.ViewModels;
 
 namespace ProjectUntitled.Infrastructure
 {
-    [HtmlTargetElement("div", Attributes = "page-model")]
+    [HtmlTargetElement("li", Attributes = "page-model")]
     public class PageLinkTagHelper : TagHelper
     {
         private IUrlHelperFactory urlHelperFactory;
@@ -33,7 +33,7 @@ namespace ProjectUntitled.Infrastructure
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
-            TagBuilder result = new TagBuilder("div");
+            TagBuilder result = new TagBuilder("li");
             
             for(int i = 1; i <= PageModel.TotalPages; i++)
             {

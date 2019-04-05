@@ -6,15 +6,27 @@
             <div class="tile is-parent is-vertical">
                 @foreach (var clip in Model.Clips)
                 {
-                    <article class="tile is-child box">
-                        <p class="title">@clip.Title</p>
-                        <p class="subtitle">From @clip.ContentCreator</p>
-                        <div class="content">
-                            <audio class="js-player" controls>
-                                <source src="@clip.FileName" type="audio/mp3" />
-                            </audio>
-                        </div>
-                    </article>
+                <article class="tile is-child box">
+                    <p class="title"><a href="/clip/@clip.Id">@clip.Title</a></p>
+                    @if (clip.ContentPlatform == ContentPlatform.Twitch)
+                    {
+                        <p class="subtitle">From <a href="https://www.twitch.tv/@clip.ContentCreator">@clip.ContentCreator</a></p>
+                    }
+                    @if (clip.ContentPlatform == ContentPlatform.Mixer)
+                    {
+                        <p class="subtitle">From <a href="https://mixer.com/@clip.ContentCreator">@clip.ContentCreator</a></p>
+                    }
+                    @if (clip.ContentPlatform == ContentPlatform.Youtube)
+                    {
+                        <p class="subtitle">From <a href="https://www.youtube.com/user/@clip.ContentCreator">@clip.ContentCreator</a></p>
+                    }
+                    <div class="content">
+                        <audio class="js-player" controls>
+                            <source src="@clip.FileName" type="audio/mp3" />
+                        </audio>
+                        <p class="subtitle">Uploaded on @clip.UploadAt.ToShortDateString() by <a href="/Profile/@clip.UploadedBy">@clip.UploadedBy</a></p>
+                    </div>
+                </article>
                 }
             </div>
         </div>

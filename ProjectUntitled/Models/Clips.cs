@@ -10,6 +10,8 @@ namespace ProjectUntitled.Models
         [Key]
         public int Id { get; set; }
 
+        public string UploadedBy { get; set; }
+
         public string FileName { get; set; }
 
         [Display(Name = "Title for clip")]
