@@ -14,13 +14,15 @@ namespace ProjectUntitled.Models.ViewModels
 
         public int Id { get; set; }
 
+        public string UploadedBy { get; set; }
+
         public string FileName { get; set; }
         public string Title { get; set; }
         public DateTime UploadAt { get; set; }
 
         public string ContentCreator { get; set; }
 
-        public string ContentPlatform { get; set; }
+        public ContentPlatform ContentPlatform { get; set; }
 
         public IEnumerable<Comment> Comments { get; set; }
 

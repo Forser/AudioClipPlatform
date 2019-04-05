@@ -10,12 +10,25 @@
             <div class="tile is-parent is-vertical">
                 <article class="tile is-child box">
                     <p class="title">@Model.Title</p>
-                    <p class="subtitle">From @Model.ContentCreator on @Model.ContentPlatform</p>
+                    @if (Model.ContentPlatform == ContentPlatform.Twitch)
+                    {
+                        <p class="subtitle">From <a href="https://www.twitch.tv/@Model.ContentCreator">@Model.ContentCreator</a></p>
+                    }
+                    @if (Model.ContentPlatform == ContentPlatform.Mixer)
+                    {
+                        <p class="subtitle">From <a href="https://mixer.com/@Model.ContentCreator">@Model.ContentCreator</a></p>
+                    }
+                    @if (Model.ContentPlatform == ContentPlatform.Youtube)
+                    {
+                        <p class="subtitle">From <a href="https://www.youtube.com/user/@Model.ContentCreator">@Model.ContentCreator</a></p>
+                    }
                     <div class="content">
                         <audio class="js-player" controls>
                             <source src="@Model.FileName" type="audio/mp3" />
                         </audio>
                     </div>
+                    <p class="subtitle">Uploaded on @Model.UploadAt.ToShortDateString() by <a href="/Profile/@Model.UploadedBy">@Model.UploadedBy</a></p>
+
                 </article>
             </div>
         </div>
@@ -48,6 +61,25 @@
 <script>
     const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p,
         {
-            'volume': '0.5'
+            'volume': '0.5',
+            controls: [
+                    '', // The large play button in the center
+                    '', // Restart playback
+                    '', // Rewind by the seek time (default 10 seconds)
+                    'play', // Play/pause playback
+                    '', // Fast forward by the seek time (default 10 seconds)
+                    'progress', // The progress bar and scrubber for playback and buffering
+                    'current-time', // The current time of playback
+                    'duration', // The full duration of the media
+                    'mute', // Toggle mute
+                    'volume', // Volume control
+                    '', // Toggle captions
+                    'settings', // Settings menu
+                    '', // Picture-in-picture (currently Safari only)
+                    'airplay', // Airplay (currently Safari only)
+                    '', // Show a download button with a link to either the current source or a custom URL you specify in your options
+                    '', // Toggle fullscreen
+            ],
+            'speed': { selected: 1, options: [ 1, 1.5, 2] }
         }));
 </script>

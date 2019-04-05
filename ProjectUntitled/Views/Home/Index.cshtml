@@ -24,8 +24,8 @@
                         <audio class="js-player" controls>
                             <source src="@clip.FileName" type="audio/mp3" />
                         </audio>
-                        <p class="subtitle">Uploaded on @clip.UploadAt.ToShortDateString() by <a href="/Profile/@clip.UploadedBy">@clip.UploadedBy</a></p>
                     </div>
+                    <p class="subtitle">Uploaded on @clip.UploadAt.ToShortDateString() by <a href="/Profile/@clip.UploadedBy">@clip.UploadedBy</a></p>
                 </article>
                 }
             </div>
@@ -41,7 +41,26 @@
         <script>
             const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p,
                 {
-                    'volume': '0.5'
+                    'volume': '0.5',
+                    controls: [
+                            '', // The large play button in the center
+                            '', // Restart playback
+                            '', // Rewind by the seek time (default 10 seconds)
+                            'play', // Play/pause playback
+                            '', // Fast forward by the seek time (default 10 seconds)
+                            'progress', // The progress bar and scrubber for playback and buffering
+                            'current-time', // The current time of playback
+                            'duration', // The full duration of the media
+                            'mute', // Toggle mute
+                            'volume', // Volume control
+                            '', // Toggle captions
+                            'settings', // Settings menu
+                            '', // Picture-in-picture (currently Safari only)
+                            'airplay', // Airplay (currently Safari only)
+                            '', // Show a download button with a link to either the current source or a custom URL you specify in your options
+                            '', // Toggle fullscreen
+                        ],
+                    'speed': { selected: 1, options: [ 1, 1.5, 2] }
                 }));
 
             document.addEventListener('DOMContentLoaded', () => {
