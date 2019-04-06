@@ -52,6 +52,14 @@
 </section>
 
 <script type="text/javascript">
+    $( "#myform" ).validate({
+      rules: {
+        field: {
+          required: true,
+          accept: "audio/*"
+        }
+      }
+    });
     var file = document.getElementById("file");
     file.onchange = function () {
         if (file.files.length > 0)
