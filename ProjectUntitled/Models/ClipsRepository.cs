@@ -61,7 +61,7 @@ namespace ProjectUntitled.Models
 
         public List<Clips> GetClipsForUser(IdentityUser user)
         {
-            var UserClips = Context.Clips.Where(u => u.OwnerId == user.Id).ToList();
+            var UserClips = Context.Clips.Where(u => u.OwnerId == user.Id && u.FileStatus != FileStatus.Deleted).ToList();
 
             return UserClips;
         }
